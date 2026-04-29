@@ -30,7 +30,7 @@ const LiveClass = () => {
           </div>
           <div className="teacher-video-placeholder flex-center">
             <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=600&fit=crop" alt="Teacher" />
-            <div className="teacher-label">Dr. Sarah Drasner (Instructor)</div>
+            <div className="teacher-label">Dr. Sangeetha Pandian (PGT Biology)</div>
           </div>
           
           <div className="meeting-controls glass">
@@ -57,10 +57,10 @@ const LiveClass = () => {
         </div>
 
         <div className="participants-grid">
-          {[1, 2, 3, 4].map(i => (
+          {['Anbu', 'Kavitha', 'Rajesh', 'Priya'].map((name, i) => (
             <div key={i} className="participant-card card">
-              <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=Student${i}`} alt="Student" />
-              <div className="participant-name">Student {i}</div>
+              <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} alt="Student" />
+              <div className="participant-name">{name}</div>
               <div className="p-status"><MicOff size={12} /></div>
             </div>
           ))}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Book, Clock, Star, Zap, PlayCircle, Trophy, Bot } from 'lucide-react';
+import useAuthStore from '../../store/useAuthStore';
 import StatsCard from '../../components/StatsCard';
 import { 
   BarChart, 
@@ -34,12 +35,14 @@ const activityData = [
 ];
 
 const StudentDashboard = () => {
+  const { user } = useAuthStore();
+  
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="welcome-text">
-          <h1>Welcome back, <span className="gradient-text">Alex!</span> 👋</h1>
-          <p>You're on a 5-day learning streak. Keep it up!</p>
+          <h1>Vanakkam, <span className="gradient-text">{user.name.split(' ')[0]}!</span> 👋</h1>
+          <p>You're on a 5-day learning streak. Keep up the great work at {user.institution}!</p>
         </div>
         <button className="primary-btn ai-btn">
           <Zap size={18} />
@@ -49,7 +52,7 @@ const StudentDashboard = () => {
 
       <section className="stats-grid">
         <StatsCard 
-          title="Courses in Progress" 
+          title="Subjects in Progress" 
           value="4" 
           icon={Book} 
           trend="up" 
@@ -57,7 +60,7 @@ const StudentDashboard = () => {
           color="#6366f1" 
         />
         <StatsCard 
-          title="Hours Learned" 
+          title="Study Hours" 
           value="24.5" 
           icon={Clock} 
           trend="up" 
@@ -65,7 +68,7 @@ const StudentDashboard = () => {
           color="#0ea5e9" 
         />
         <StatsCard 
-          title="Avg. Quiz Score" 
+          title="Monthly Test Avg." 
           value="92%" 
           icon={Star} 
           trend="down" 
@@ -73,8 +76,8 @@ const StudentDashboard = () => {
           color="#f59e0b" 
         />
         <StatsCard 
-          title="Global Rank" 
-          value="#1,204" 
+          title="School Rank" 
+          value="#12" 
           icon={Trophy} 
           trend="up" 
           trendValue="45" 
@@ -86,7 +89,7 @@ const StudentDashboard = () => {
         <div className="main-content">
           <div className="chart-card card">
             <div className="card-header">
-              <h3>Learning Progress</h3>
+              <h3>Academic Progress</h3>
               <select className="period-select">
                 <option>Last 7 Days</option>
                 <option>Last Month</option>
@@ -114,13 +117,13 @@ const StudentDashboard = () => {
 
           <div className="courses-section">
             <div className="section-header">
-              <h3>Continue Learning</h3>
-              <button className="text-btn">View All</button>
+              <h3>Upcoming Lessons</h3>
+              <button className="text-btn">View Timetable</button>
             </div>
             <div className="course-list">
               {[
-                { title: 'Advanced React Patterns', instructor: 'Sarah Drasner', progress: 75, img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop' },
-                { title: 'AI & Machine Learning Basics', instructor: 'Dr. James Wu', progress: 40, img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=250&fit=crop' }
+                { title: 'Mathematics: Calculus', instructor: 'Thiru. Muthuvel P.', progress: 75, img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop' },
+                { title: 'Physics: Thermodynamics', instructor: 'Selvi. Kavitha R.', progress: 40, img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=250&fit=crop' }
               ].map((course, i) => (
                 <div key={i} className="course-item card">
                   <img src={course.img} alt={course.title} className="course-thumb" />
@@ -147,10 +150,10 @@ const StudentDashboard = () => {
           <div className="ai-insight card glass">
             <div className="insight-header">
               <Bot size={20} className="ai-icon" />
-              <h4>Aura AI Insights</h4>
+              <h4>Aura AI School Insights</h4>
             </div>
-            <p>You're performing 20% better in **React Hooks** this week. We recommend checking out the "Custom Hooks" masterclass next.</p>
-            <button className="ai-action-btn">View Recommendation</button>
+            <p>You're performing 20% better in **Calculus** this week. We recommend revising "Integrals" before your Friday test.</p>
+            <button className="ai-action-btn">View Study Plan</button>
           </div>
 
           <div className="upcoming-classes card">

@@ -31,7 +31,7 @@ const Navbar = ({ onMenuClick }) => {
         <div className="user-profile">
           <div className="user-info">
             <span className="user-name">{user.name}</span>
-            <span className="user-level">Lvl {user.level} • {user.xp} XP</span>
+            <span className="user-level">{user.role.toUpperCase()} • {user.institution.split(',')[0]}</span>
           </div>
           <img src={user.avatar} alt="User Avatar" className="user-avatar" />
         </div>

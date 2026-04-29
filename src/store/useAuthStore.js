@@ -3,23 +3,43 @@ import { create } from 'zustand';
 const useAuthStore = create((set) => ({
   user: {
     id: '1',
-    name: 'Alex Rivera',
-    email: 'alex@auraed.com',
+    name: 'Arun Kumar',
+    email: 'arun.k@auraed.in',
     role: 'student', // 'student', 'teacher', 'admin'
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex',
+    institution: 'Government Higher Secondary School, Madurai',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Arun',
     xp: 1250,
     level: 12,
-    badges: ['Early Bird', 'Quiz Master', 'Fast Learner']
+    badges: ['Top Scorer', 'Science Whiz', 'Punctual Learner']
   },
-  isAuthenticated: true,
+  isAuthenticated: false, // Start as logged out for login flow testing
   isLoading: false,
   
   login: (credentials) => {
     set({ isLoading: true });
-    // Simulate API call
+    // Simulate API call and role assignment
     setTimeout(() => {
-      set({ isAuthenticated: true, isLoading: false });
-    }, 1000);
+      let role = 'student';
+      let name = 'Arun Kumar';
+      if (credentials.email.includes('teacher')) {
+        role = 'teacher';
+        name = 'Sangeetha Pandian';
+      } else if (credentials.email.includes('admin')) {
+        role = 'admin';
+        name = 'Rajeshwaran S.';
+      }
+      
+      set({ 
+        isAuthenticated: true, 
+        isLoading: false,
+        user: {
+          ...useAuthStore.getState().user,
+          name,
+          role,
+          email: credentials.email
+        }
+      });
+    }, 1500);
   },
   
   logout: () => set({ user: null, isAuthenticated: false }),

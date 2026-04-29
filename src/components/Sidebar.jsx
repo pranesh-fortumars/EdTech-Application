@@ -17,13 +17,13 @@ import './Sidebar.css';
 const Sidebar = () => {
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-    { icon: BookOpen, label: 'My Courses', path: '/courses' },
+    { icon: BookOpen, label: 'My Subjects', path: '/courses' },
     { icon: Video, label: 'Live Classes', path: '/live' },
-    { icon: MessageSquare, label: 'Community', path: '/community' },
-    { icon: Bot, label: 'AI Tutor', path: '/ai-tutor' },
-    { icon: BarChart3, label: 'Analytics', path: '/analytics' },
-    { icon: Trophy, label: 'Achievements', path: '/achievements' },
-    { icon: Users, label: 'Group Study', path: '/collaboration' },
+    { icon: MessageSquare, label: 'School Forum', path: '/community' },
+    { icon: Bot, label: 'AI Mentor', path: '/ai-tutor' },
+    { icon: BarChart3, label: 'Academic Stats', path: '/analytics' },
+    { icon: Trophy, label: 'Hall of Fame', path: '/achievements' },
+    { icon: Users, label: 'Peer Learning', path: '/collaboration' },
   ];
 
   return (

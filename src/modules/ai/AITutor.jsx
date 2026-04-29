@@ -7,7 +7,7 @@ const AITutor = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'ai', content: 'Hi Alex! I\'m Aura, your AI tutor. How can I help you with your studies today?' }
+    { role: 'ai', content: 'Vanakkam Arun! I\'m Aura, your AI mentor. How can I help you with your subjects today?' }
   ]);
   const [input, setInput] = useState('');
   const chatEndRef = useRef(null);
@@ -31,7 +31,7 @@ const AITutor = () => {
     setTimeout(() => {
       const aiMsg = { 
         role: 'ai', 
-        content: `That's a great question about ${input.split(' ').slice(0, 2).join(' ')}! Based on your current progress in React, I'd suggest focusing on how state management affects performance here. Would you like a quick quiz on this?` 
+        content: `That's a great question about ${input.split(' ').slice(0, 2).join(' ')}! Based on your performance in Thiru. Muthuvel's Calculus class, I suggest reviewing the basics of derivatives. Would you like a practice test for the board exams?` 
       };
       setMessages(prev => [...prev, aiMsg]);
     }, 1000);
