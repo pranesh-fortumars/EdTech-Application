@@ -101,59 +101,58 @@ const TeacherDashboard = () => {
           </div>
 
           <div className="dual-grid">
-            <div className="chart-card card">
-              <h3>Class Grade Distribution</h3>
+            <div className="chart-card card border-teal">
+              <h3>Monthly Attendance Trend</h3>
               <div className="chart-container">
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={[
-                    { grade: 'A+', count: 12 },
-                    { grade: 'A', count: 25 },
-                    { grade: 'B', count: 18 },
-                    { grade: 'C', count: 5 },
+                    { day: 'Mon', count: 98 },
+                    { day: 'Tue', count: 95 },
+                    { day: 'Wed', count: 88 },
+                    { day: 'Thu', count: 92 },
+                    { day: 'Fri', count: 99 },
                   ]}>
-                    <XAxis dataKey="grade" axisLine={false} tickLine={false} />
-                    <YAxis hide />
+                    <XAxis dataKey="day" axisLine={false} tickLine={false} />
                     <Tooltip cursor={{fill: 'rgba(0,0,0,0.02)'}} />
-                    <Bar dataKey="count" fill="var(--primary)" radius={[4, 4, 0, 0]} barSize={40} />
+                    <Bar dataKey="count" fill="var(--accent-teal)" radius={[4, 4, 0, 0]} barSize={40} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
             
-            <div className="resources-card card">
-              <h3>Shared Resources</h3>
-              <div className="resource-list">
-                <div className="resource-item">
-                  <div className="file-icon pdf">PDF</div>
-                  <div className="file-info">
-                    <p>Calculus_Notes_W4.pdf</p>
-                    <span>Shared with 12-A • 2.4 MB</span>
-                  </div>
+            <div className="quiz-card card border-violet">
+              <h3>Quiz Builder Performance</h3>
+              <div className="quiz-stats">
+                <div className="quiz-stat-item">
+                  <span className="label">Active Quizzes</span>
+                  <span className="value text-violet">12</span>
                 </div>
-                <div className="resource-item">
-                  <div className="file-icon video">MP4</div>
-                  <div className="file-info">
-                    <p>Thermodynamics_Lecture_3.mp4</p>
-                    <span>Shared with 12-B • 45 MB</span>
-                  </div>
+                <div className="quiz-stat-item">
+                  <span className="label">Avg. Completion</span>
+                  <span className="value text-violet">84%</span>
+                </div>
+                <div className="quiz-stat-item">
+                  <span className="label">Top Score</span>
+                  <span className="value text-violet">100/100</span>
                 </div>
               </div>
+              <button className="btn-primary btn-sm full-width mt-1 bg-violet">Launch New Quiz</button>
             </div>
           </div>
         </div>
 
         <aside className="grid-sidebar">
-          <div className="lesson-planner card">
+          <div className="lesson-planner card border-amber">
             <h3>Lesson Planner</h3>
             <div className="planner-item">
-              <div className="day-circle">Mon</div>
+              <div className="day-circle border-amber">Mon</div>
               <div className="plan-info">
                 <p>Advanced Integration</p>
                 <span>Prep materials, Assignment #4</span>
               </div>
             </div>
-            <div className="planner-item active">
-              <div className="day-circle">Tue</div>
+            <div className="planner-item active bg-amber-light">
+              <div className="day-circle border-amber bg-amber text-white">Tue</div>
               <div className="plan-info">
                 <p>Organic Chemistry Lab</p>
                 <span>Safety equipment check required</span>
@@ -161,17 +160,17 @@ const TeacherDashboard = () => {
             </div>
           </div>
 
-          <div className="upcoming-events card">
+          <div className="upcoming-events card border-rose">
             <h3>Institutional Calendar</h3>
             <div className="event-item">
-              <div className="event-date">May 15</div>
+              <div className="event-date text-rose">May 15</div>
               <div className="event-info">
                 <p>Parent-Teacher Meeting</p>
                 <span>All Day • Main Hall</span>
               </div>
             </div>
             <div className="event-item">
-              <div className="event-date">May 22</div>
+              <div className="event-date text-rose">May 22</div>
               <div className="event-info">
                 <p>Annual Science Fair</p>
                 <span>10:00 AM • Lab Block</span>

@@ -101,29 +101,44 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="chart-card card">
-            <h3>Institutional Growth (Students & Revenue)</h3>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={enrollmentData}>
-                  <defs>
-                    <linearGradient id="colorAdmin" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                  <YAxis axisLine={false} tickLine={false} />
-                  <Tooltip />
-                  <Area type="monotone" dataKey="students" stroke="var(--primary)" fillOpacity={1} fill="url(#colorAdmin)" />
-                </AreaChart>
-              </ResponsiveContainer>
+          <div className="dual-grid">
+            <div className="chart-card card border-emerald">
+              <h3>Financial Overview (Revenue)</h3>
+              <div className="chart-container">
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={enrollmentData}>
+                    <XAxis dataKey="month" axisLine={false} tickLine={false} />
+                    <YAxis hide />
+                    <Tooltip />
+                    <Bar dataKey="revenue" fill="var(--accent-emerald)" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="inventory-card card border-amber">
+              <h3>Asset & Inventory</h3>
+              <div className="inventory-list">
+                <div className="inv-item">
+                  <span>Smart Boards</span>
+                  <div className="inv-status high">85% Operational</div>
+                </div>
+                <div className="inv-item">
+                  <span>Lab Equipment</span>
+                  <div className="inv-status low">12% Maintenance</div>
+                </div>
+                <div className="inv-item">
+                  <span>Library Books</span>
+                  <div className="inv-status mid">92% Cataloged</div>
+                </div>
+              </div>
+              <button className="btn-outline btn-sm full-width mt-1">Manage Assets</button>
             </div>
           </div>
         </div>
 
         <aside className="grid-sidebar">
-          <div className="system-health card">
+          <div className="system-health card border-blue">
             <h3>Infrastructure Health</h3>
             <div className="health-metrics">
               <div className="metric">
@@ -141,7 +156,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="admin-audit card">
+          <div className="admin-audit card border-indigo">
             <h3>Audit Log</h3>
             <div className="audit-list">
               <div className="audit-item">

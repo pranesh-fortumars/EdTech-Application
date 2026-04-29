@@ -117,63 +117,59 @@ const StudentDashboard = () => {
           </div>
 
           <div className="dual-grid">
-            <div className="chart-card card">
-              <h3>Learning Consistency</h3>
+            <div className="chart-card card border-indigo">
+              <h3>Academic Skill Progression</h3>
               <div className="chart-container">
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={activityData}>
                     <defs>
                       <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="var(--accent-indigo)" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="var(--accent-indigo)" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <XAxis dataKey="time" axisLine={false} tickLine={false} />
                     <Tooltip />
-                    <Area type="monotone" dataKey="score" stroke="var(--primary)" fillOpacity={1} fill="url(#colorScore)" />
+                    <Area type="monotone" dataKey="score" stroke="var(--accent-indigo)" fillOpacity={1} fill="url(#colorScore)" />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
             </div>
 
-            <div className="feedback-card card">
-              <h3>Tutor Feedback</h3>
-              <div className="feedback-list">
-                <div className="feedback-item">
-                  <div className="tutor-avatar">TP</div>
-                  <div className="feedback-content">
-                    <p><strong>Thiru. Muthuvel P.</strong> on Calculus Assignment</p>
-                    <span>"Excellent use of integration by parts. Try to simplify the final expressions more."</span>
-                  </div>
+            <div className="scholarship-card card border-emerald">
+              <h3>Scholarship Tracker</h3>
+              <div className="scholarship-status">
+                <div className="status-badge bg-emerald">Active</div>
+                <p className="scholarship-name">Tamil Nadu Merit Scholarship</p>
+                <div className="payout-info">
+                  <span>Next Payout:</span>
+                  <strong>₹2,500 (June 15)</strong>
                 </div>
-                <div className="feedback-item">
-                  <div className="tutor-avatar">SK</div>
-                  <div className="feedback-content">
-                    <p><strong>Selvi. Kavitha R.</strong> on Thermodynamics</p>
-                    <span>"Your understanding of entropy is deep. Great work on the lab report!"</span>
-                  </div>
-                </div>
+              </div>
+              <div className="compliance-check">
+                <span>Academic Compliance:</span>
+                <span className="text-emerald">92% (Required: 85%)</span>
               </div>
             </div>
           </div>
         </div>
 
         <aside className="grid-sidebar">
-          <div className="ai-insight-pro card glass">
+          <div className="ai-insight-pro card glass border-violet">
             <div className="insight-header">
-              <Bot size={20} className="ai-icon" />
-              <h4>Aura AI Mentor</h4>
+              <Bot size={20} className="ai-icon text-violet" />
+              <h4 className="text-violet">Aura AI Mentor</h4>
             </div>
             <p>I noticed you're spending less time on <strong>Chemistry</strong> this week. Your exam is in 12 days. Should we start a revision session?</p>
-            <button className="btn-primary btn-sm">Start Revision</button>
+            <button className="btn-primary btn-sm bg-violet">Start Revision</button>
           </div>
 
-          <div className="resource-hub card">
+          <div className="resource-hub card border-rose">
             <h3>Resources for You</h3>
             <div className="resource-links">
-              <button className="action-row"><Book size={14} /> Model Question Papers</button>
-              <button className="action-row"><Clock size={14} /> Revision Timetable</button>
-              <button className="action-row"><Star size={14} /> Subject Cheat Sheets</button>
+              <button className="action-row text-rose"><Book size={14} /> Model Question Papers</button>
+              <button className="action-row text-rose"><Clock size={14} /> Revision Timetable</button>
+              <button className="action-row text-rose"><Star size={14} /> Subject Cheat Sheets</button>
             </div>
           </div>
         </aside>
