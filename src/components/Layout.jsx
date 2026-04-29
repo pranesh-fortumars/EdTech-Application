@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import AITutor from '../modules/ai/AITutor';
+import ToastContainer from './ToastContainer';
 import './Layout.css';
 
 const Layout = ({ children }) => {
@@ -25,6 +26,7 @@ const Layout = ({ children }) => {
       {isSidebarOpen && (
         <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}></div>
       )}
+      <ToastContainer />
     </div>
   );
 };

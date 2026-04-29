@@ -1,7 +1,9 @@
 import React from 'react';
-import { Users, FileCheck, Calendar, MessageSquare, Plus, Video, Bell } from 'lucide-react';
+import { Users, FileCheck, Calendar, MessageSquare, Plus, Video, Bell, RefreshCw, BarChart2, BookOpen, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 import StatsCard from '../../components/StatsCard';
 import useAuthStore from '../../store/useAuthStore';
+import useNotificationStore from '../../store/useNotificationStore';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line 
 } from 'recharts';
@@ -16,6 +18,9 @@ const studentPerformance = [
 
 const TeacherDashboard = () => {
   const { user } = useAuthStore();
+  const { addNotification } = useNotificationStore();
+
+  const handleAction = (msg) => addNotification(msg, 'success');
 
   return (
     <div className="dashboard-container professional-theme">
@@ -27,37 +32,46 @@ const TeacherDashboard = () => {
             <p>Senior Educator at {user.institution}</p>
           </div>
           <div className="action-group">
-            <button className="btn-outline"><Calendar size={16} /> Schedule Class</button>
-            <button className="btn-primary"><Plus size={16} /> Create Assignment</button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-outline"
+              onClick={() => handleAction('Opening academic schedule...')}
+            >
+              <Calendar size={16} /> Schedule Class
+            </motion.button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary"
+              onClick={() => handleAction('Creating new assignment portal...')}
+            >
+              <Plus size={16} /> Create Assignment
+            </motion.button>
           </div>
         </div>
       </header>
 
       <div className="stats-row">
-        <div className="stat-item card">
-          <div className="stat-icon cyan"><Users size={20} /></div>
-          <div className="stat-content">
-            <span className="stat-label">Total Managed Students</span>
-            <span className="stat-value">142</span>
-            <span className="stat-trend positive">+4% from last month</span>
-          </div>
-        </div>
-        <div className="stat-item card">
-          <div className="stat-icon orange"><FileCheck size={20} /></div>
-          <div className="stat-content">
-            <span className="stat-label">Pending Submissions</span>
-            <span className="stat-value">28</span>
-            <span className="stat-trend negative">12 overdue</span>
-          </div>
-        </div>
-        <div className="stat-item card">
-          <div className="stat-icon green"><Calendar size={20} /></div>
-          <div className="stat-content">
-            <span className="stat-label">Term Attendance</span>
-            <span className="stat-value">94.2%</span>
-            <span className="stat-trend positive">Above school avg</span>
-          </div>
-        </div>
+        {[
+          { icon: Users, label: 'Total Managed Students', value: '142', trend: '+4% from last month', color: 'cyan' },
+          { icon: FileCheck, label: 'Pending Submissions', value: '28', trend: '12 overdue', color: 'orange', isNegative: true },
+          { icon: Calendar, label: 'Term Attendance', value: '94.2%', trend: 'Above school avg', color: 'green' }
+        ].map((stat, i) => (
+          <motion.div 
+            key={i}
+            whileHover={{ y: -5 }}
+            className="stat-item card clickable"
+            onClick={() => handleAction(`Accessing ${stat.label} report`)}
+          >
+            <div className={`stat-icon ${stat.color}`}><stat.icon size={20} /></div>
+            <div className="stat-content">
+              <span className="stat-label">{stat.label}</span>
+              <span className="stat-value">{stat.value}</span>
+              <span className={`stat-trend ${stat.isNegative ? 'negative' : 'positive'}`}>{stat.trend}</span>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       <div className="dashboard-layout-grid">
@@ -66,8 +80,8 @@ const TeacherDashboard = () => {
             <div className="section-header">
               <h3>Student Performance Overview</h3>
               <div className="table-actions">
-                <button className="btn-sm btn-outline">Filter</button>
-                <button className="btn-sm btn-primary">Export CSV</button>
+                <motion.button whileHover={{ scale: 1.05 }} onClick={() => handleAction('Filtering student data...')} className="btn-sm btn-outline">Filter</motion.button>
+                <motion.button whileHover={{ scale: 1.05 }} onClick={() => handleAction('Generating performance CSV...')} className="btn-sm btn-primary">Export CSV</motion.button>
               </div>
             </div>
             <div className="table-container">
@@ -92,7 +106,15 @@ const TeacherDashboard = () => {
                       <td>{student.attendance}</td>
                       <td><span className={`grade-badge ${student.avgGrade.startsWith('A') ? 'high' : 'mid'}`}>{student.avgGrade}</span></td>
                       <td><span className={`status-text ${student.status.toLowerCase().replace(' ', '-')}`}>{student.status}</span></td>
-                      <td><button className="btn-icon"><MessageSquare size={14} /></button></td>
+                      <td>
+                        <motion.button 
+                          whileHover={{ scale: 1.2, color: 'var(--primary)' }}
+                          onClick={() => handleAction(`Opening chat with ${student.name}`)}
+                          className="btn-icon"
+                        >
+                          <MessageSquare size={14} />
+                        </motion.button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -102,7 +124,12 @@ const TeacherDashboard = () => {
 
           <div className="dual-grid">
             <div className="chart-card card border-teal">
-              <h3>Monthly Attendance Trend</h3>
+              <div className="section-header">
+                <h3>Monthly Attendance Trend</h3>
+                <motion.button whileHover={{ rotate: 180 }} onClick={() => handleAction('Refreshing attendance data...')} className="btn-icon">
+                  <RefreshCw size={14} />
+                </motion.button>
+              </div>
               <div className="chart-container">
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={[
@@ -121,37 +148,48 @@ const TeacherDashboard = () => {
             </div>
             
             <div className="quiz-card card border-violet">
-              <h3>Quiz Builder Performance</h3>
-              <div className="quiz-stats">
-                <div className="quiz-stat-item">
-                  <span className="label">Active Quizzes</span>
-                  <span className="value text-violet">12</span>
-                </div>
-                <div className="quiz-stat-item">
-                  <span className="label">Avg. Completion</span>
-                  <span className="value text-violet">84%</span>
-                </div>
-                <div className="quiz-stat-item">
-                  <span className="label">Top Score</span>
-                  <span className="value text-violet">100/100</span>
-                </div>
+              <div className="section-header">
+                <h3>Quiz Builder Performance</h3>
+                <BarChart2 size={16} className="text-violet" />
               </div>
-              <button className="btn-primary btn-sm full-width mt-1 bg-violet">Launch New Quiz</button>
+              <div className="quiz-stats">
+                {[
+                  { label: 'Active Quizzes', value: '12' },
+                  { label: 'Avg. Completion', value: '84%' },
+                  { label: 'Top Score', value: '100/100' }
+                ].map((s, i) => (
+                  <div key={i} className="quiz-stat-item">
+                    <span className="label">{s.label}</span>
+                    <span className="value text-violet">{s.value}</span>
+                  </div>
+                ))}
+              </div>
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="btn-primary btn-sm full-width mt-1 bg-violet"
+                onClick={() => handleAction('Initializing new quiz builder...')}
+              >
+                Launch New Quiz
+              </motion.button>
             </div>
           </div>
         </div>
 
         <aside className="grid-sidebar">
           <div className="lesson-planner card border-amber">
-            <h3>Lesson Planner</h3>
-            <div className="planner-item">
+            <div className="section-header">
+              <h3>Lesson Planner</h3>
+              <BookOpen size={16} className="text-amber" />
+            </div>
+            <div className="planner-item clickable" onClick={() => handleAction('Viewing Monday lesson details...')}>
               <div className="day-circle border-amber">Mon</div>
               <div className="plan-info">
                 <p>Advanced Integration</p>
                 <span>Prep materials, Assignment #4</span>
               </div>
             </div>
-            <div className="planner-item active bg-amber-light">
+            <div className="planner-item active bg-amber-light clickable" onClick={() => handleAction('Viewing Tuesday lesson details...')}>
               <div className="day-circle border-amber bg-amber text-white">Tue</div>
               <div className="plan-info">
                 <p>Organic Chemistry Lab</p>
@@ -161,21 +199,22 @@ const TeacherDashboard = () => {
           </div>
 
           <div className="upcoming-events card border-rose">
-            <h3>Institutional Calendar</h3>
-            <div className="event-item">
-              <div className="event-date text-rose">May 15</div>
-              <div className="event-info">
-                <p>Parent-Teacher Meeting</p>
-                <span>All Day • Main Hall</span>
-              </div>
+            <div className="section-header">
+              <h3>Institutional Calendar</h3>
+              <Clock size={16} className="text-rose" />
             </div>
-            <div className="event-item">
-              <div className="event-date text-rose">May 22</div>
-              <div className="event-info">
-                <p>Annual Science Fair</p>
-                <span>10:00 AM • Lab Block</span>
+            {[
+              { date: 'May 15', title: 'Parent-Teacher Meeting', desc: 'All Day • Main Hall' },
+              { date: 'May 22', title: 'Annual Science Fair', desc: '10:00 AM • Lab Block' }
+            ].map((event, i) => (
+              <div key={i} className="event-item clickable" onClick={() => handleAction(`Viewing details for ${event.title}`)}>
+                <div className="event-date text-rose">{event.date}</div>
+                <div className="event-info">
+                  <p>{event.title}</p>
+                  <span>{event.desc}</span>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </aside>
       </div>

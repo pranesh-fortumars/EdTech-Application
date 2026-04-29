@@ -1,6 +1,8 @@
 import React from 'react';
-import { Book, Clock, Star, Zap, PlayCircle, Trophy, Bot, Calendar } from 'lucide-react';
+import { Book, Clock, Star, Zap, PlayCircle, Trophy, Bot, Calendar, RefreshCw, Award, Target, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import useAuthStore from '../../store/useAuthStore';
+import useNotificationStore from '../../store/useNotificationStore';
 import StatsCard from '../../components/StatsCard';
 import { 
   BarChart, 
@@ -15,16 +17,6 @@ import {
 } from 'recharts';
 import './Dashboard.css';
 
-const data = [
-  { name: 'Mon', study: 40, quiz: 24 },
-  { name: 'Tue', study: 30, quiz: 13 },
-  { name: 'Wed', study: 20, quiz: 98 },
-  { name: 'Thu', study: 27, quiz: 39 },
-  { name: 'Fri', study: 18, quiz: 48 },
-  { name: 'Sat', study: 23, quiz: 38 },
-  { name: 'Sun', study: 34, quiz: 43 },
-];
-
 const activityData = [
   { time: '9:00 AM', score: 65 },
   { time: '11:00 AM', score: 85 },
@@ -36,6 +28,9 @@ const activityData = [
 
 const StudentDashboard = () => {
   const { user } = useAuthStore();
+  const { addNotification } = useNotificationStore();
+
+  const handleAction = (msg) => addNotification(msg, 'success');
   
   return (
     <div className="dashboard-container professional-theme">
@@ -47,44 +42,54 @@ const StudentDashboard = () => {
             <p>Class 12-A • Academic Streak: 5 Days</p>
           </div>
           <div className="action-group">
-            <button className="btn-outline"><Calendar size={16} /> View Timetable</button>
-            <button className="btn-primary"><Zap size={16} /> Ask Aura AI</button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-outline"
+              onClick={() => handleAction('Opening full academic timetable...')}
+            >
+              <Calendar size={16} /> View Timetable
+            </motion.button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary"
+              onClick={() => handleAction('Initializing Aura AI personalized session...')}
+            >
+              <Zap size={16} /> Ask Aura AI
+            </motion.button>
           </div>
         </div>
       </header>
 
       <div className="stats-row">
-        <div className="stat-item card">
-          <div className="stat-icon cyan"><Book size={20} /></div>
-          <div className="stat-content">
-            <span className="stat-label">Active Subjects</span>
-            <span className="stat-value">6</span>
-            <span className="stat-trend positive">2 new modules this week</span>
-          </div>
-        </div>
-        <div className="stat-item card">
-          <div className="stat-icon orange"><Star size={20} /></div>
-          <div className="stat-content">
-            <span className="stat-label">Term GPA</span>
-            <span className="stat-value">9.2</span>
-            <span className="stat-trend positive">Top 5% of class</span>
-          </div>
-        </div>
-        <div className="stat-item card">
-          <div className="stat-icon green"><Trophy size={20} /></div>
-          <div className="stat-content">
-            <span className="stat-label">School Rank</span>
-            <span className="stat-value">#12</span>
-            <span className="stat-trend positive">+3 ranks gained</span>
-          </div>
-        </div>
+        {[
+          { icon: Book, label: 'Active Subjects', value: '6', trend: '2 new modules this week', color: 'cyan' },
+          { icon: Star, label: 'Term GPA', value: '9.2', trend: 'Top 5% of class', color: 'orange' },
+          { icon: Trophy, label: 'School Rank', value: '#12', trend: '+3 ranks gained', color: 'green' }
+        ].map((stat, i) => (
+          <motion.div 
+            key={i}
+            whileHover={{ y: -5 }}
+            className="stat-item card clickable"
+            onClick={() => handleAction(`Viewing details for ${stat.label}`)}
+          >
+            <div className={`stat-icon ${stat.color}`}><stat.icon size={20} /></div>
+            <div className="stat-content">
+              <span className="stat-label">{stat.label}</span>
+              <span className="stat-value">{stat.value}</span>
+              <span className="stat-trend positive">{stat.trend}</span>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       <div className="dashboard-layout-grid">
         <div className="grid-main">
-          <div className="table-section card">
+          <div className="table-section card border-blue">
             <div className="section-header">
               <h3>Upcoming Board Exams</h3>
+              <Target size={16} className="text-primary" />
             </div>
             <div className="table-container">
               <table className="pro-table">
@@ -103,7 +108,7 @@ const StudentDashboard = () => {
                     { sub: 'Physics', date: 'May 14, 2026', time: '10:00 AM', venue: 'Hall B', status: 'Scheduled' },
                     { sub: 'Chemistry', date: 'May 18, 2026', time: '10:00 AM', venue: 'Hall A', status: 'Scheduled' },
                   ].map((exam, i) => (
-                    <tr key={i}>
+                    <tr key={i} className="clickable" onClick={() => handleAction(`Opening exam prep module for ${exam.sub}`)}>
                       <td className="font-semibold">{exam.sub}</td>
                       <td>{exam.date}</td>
                       <td>{exam.time}</td>
@@ -118,7 +123,12 @@ const StudentDashboard = () => {
 
           <div className="dual-grid">
             <div className="chart-card card border-indigo">
-              <h3>Academic Skill Progression</h3>
+              <div className="section-header">
+                <h3>Academic Skill Progression</h3>
+                <motion.button whileHover={{ rotate: 180 }} onClick={() => handleAction('Syncing progress with latest test results...')} className="btn-icon">
+                  <RefreshCw size={14} />
+                </motion.button>
+              </div>
               <div className="chart-container">
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={activityData}>
@@ -137,7 +147,10 @@ const StudentDashboard = () => {
             </div>
 
             <div className="scholarship-card card border-emerald">
-              <h3>Scholarship Tracker</h3>
+              <div className="section-header">
+                <h3>Scholarship Tracker</h3>
+                <Award size={16} className="text-emerald" />
+              </div>
               <div className="scholarship-status">
                 <div className="status-badge bg-emerald">Active</div>
                 <p className="scholarship-name">Tamil Nadu Merit Scholarship</p>
@@ -150,6 +163,9 @@ const StudentDashboard = () => {
                 <span>Academic Compliance:</span>
                 <span className="text-emerald">92% (Required: 85%)</span>
               </div>
+              <motion.button whileHover={{ x: 5 }} onClick={() => handleAction('Opening scholarship portal...')} className="btn-text mt-1 text-emerald">
+                View Details <ChevronRight size={14} />
+              </motion.button>
             </div>
           </div>
         </div>
@@ -161,15 +177,33 @@ const StudentDashboard = () => {
               <h4 className="text-violet">Aura AI Mentor</h4>
             </div>
             <p>I noticed you're spending less time on <strong>Chemistry</strong> this week. Your exam is in 12 days. Should we start a revision session?</p>
-            <button className="btn-primary btn-sm bg-violet">Start Revision</button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary btn-sm bg-violet"
+              onClick={() => handleAction('Generating chemistry revision roadmap...')}
+            >
+              Start Revision
+            </motion.button>
           </div>
 
           <div className="resource-hub card border-rose">
             <h3>Resources for You</h3>
             <div className="resource-links">
-              <button className="action-row text-rose"><Book size={14} /> Model Question Papers</button>
-              <button className="action-row text-rose"><Clock size={14} /> Revision Timetable</button>
-              <button className="action-row text-rose"><Star size={14} /> Subject Cheat Sheets</button>
+              {[
+                { icon: Book, label: 'Model Question Papers' },
+                { icon: Clock, label: 'Revision Timetable' },
+                { icon: Star, label: 'Subject Cheat Sheets' }
+              ].map((res, i) => (
+                <motion.button 
+                  key={i}
+                  whileHover={{ x: 5 }}
+                  className="action-row text-rose"
+                  onClick={() => handleAction(`Downloading ${res.label}...`)}
+                >
+                  <res.icon size={14} /> {res.label}
+                </motion.button>
+              ))}
             </div>
           </div>
         </aside>

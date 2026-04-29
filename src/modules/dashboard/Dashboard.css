@@ -295,7 +295,66 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
+  width: 100%;
+  padding-left: 2rem;
 }
+
+.search-box {
+  position: relative;
+  width: 250px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+}
+
+.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-cell {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-icon {
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.btn-icon:hover {
+  background: var(--bg-secondary);
+  color: var(--primary);
+}
+
+.btn-text {
+  background: transparent;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.metric-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
 
 /* Border Diversity */
 .border-emerald { border-top: 4px solid var(--accent-emerald) !important; }
