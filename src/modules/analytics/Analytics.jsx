@@ -30,7 +30,7 @@ const subjectData = [
   { name: 'Design', value: 100 },
 ];
 
-const COLORS = ['#6366f1', '#a855f7', '#f59e0b', '#10b981'];
+const COLORS = ['#0891b2', '#06b6d4', '#f59e0b', '#10b981'];
 
 const Analytics = () => {
   return (
@@ -41,8 +41,8 @@ const Analytics = () => {
       </header>
 
       <div className="stats-grid">
-        <StatsCard title="Total Modules" value="18" icon={Book} trend="up" trendValue="5" color="#6366f1" />
-        <StatsCard title="Learning Velocity" value="2.4x" icon={Zap} trend="up" trendValue="15" color="#a855f7" />
+        <StatsCard title="Total Modules" value="18" icon={Book} trend="up" trendValue="5" color="#0891b2" />
+        <StatsCard title="Learning Velocity" value="2.4x" icon={Zap} trend="up" trendValue="15" color="#06b6d4" />
         <StatsCard title="Time Invested" value="156h" icon={Clock} trend="up" trendValue="10" color="#f59e0b" />
         <StatsCard title="Goal Completion" value="88%" icon={Target} trend="up" trendValue="2" color="#10b981" />
       </div>
@@ -58,8 +58,8 @@ const Analytics = () => {
                 <YAxis axisLine={false} tickLine={false} />
                 <Tooltip />
                 <Legend iconType="circle" />
-                <Line type="monotone" dataKey="react" stroke="#6366f1" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="node" stroke="#a855f7" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="react" stroke="#0891b2" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="node" stroke="#06b6d4" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
                 <Line type="monotone" dataKey="css" stroke="#10b981" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
               </LineChart>
             </ResponsiveContainer>

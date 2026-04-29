@@ -8,17 +8,17 @@
   --text-secondary: #475569;
   --text-tertiary: #94a3b8;
   
-  --primary: #6366f1;
-  --primary-light: #818cf8;
-  --primary-dark: #4f46e5;
-  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --primary: #0891b2;
+  --primary-light: #22d3ee;
+  --primary-dark: #0e7490;
+  --primary-gradient: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
   
   --success: #10b981;
   --success-light: #34d399;
   --warning: #f59e0b;
   --error: #ef4444;
   --accent-blue: #0ea5e9;
-  --accent-purple: #a855f7;
+  --accent-teal: #14b8a6;
   --accent-orange: #f97316;
   
   --border-color: #e2e8f0;

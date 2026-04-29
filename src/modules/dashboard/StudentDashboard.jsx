@@ -57,7 +57,7 @@ const StudentDashboard = () => {
           icon={Book} 
           trend="up" 
           trendValue="12" 
-          color="#6366f1" 
+          color="#0891b2" 
         />
         <StatsCard 
           title="Study Hours" 
@@ -100,8 +100,8 @@ const StudentDashboard = () => {
                 <AreaChart data={activityData}>
                   <defs>
                     <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#0891b2" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#0891b2" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
                   <XAxis dataKey="time" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
@@ -109,7 +109,7 @@ const StudentDashboard = () => {
                   <Tooltip 
                     contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
                   />
-                  <Area type="monotone" dataKey="score" stroke="#6366f1" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" />
+                  <Area type="monotone" dataKey="score" stroke="#0891b2" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
