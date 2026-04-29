@@ -6,6 +6,8 @@ import Login from './modules/auth/Login';
 
 // Lazy load modules for performance
 const StudentDashboard = lazy(() => import('./modules/dashboard/StudentDashboard'));
+const TeacherDashboard = lazy(() => import('./modules/dashboard/TeacherDashboard'));
+const AdminDashboard = lazy(() => import('./modules/dashboard/AdminDashboard'));
 const CourseViewer = lazy(() => import('./modules/course/CourseViewer'));
 const LiveClass = lazy(() => import('./modules/live/LiveClass'));
 const Analytics = lazy(() => import('./modules/analytics/Analytics'));
@@ -19,7 +21,7 @@ const Placeholder = ({ title }) => (
 );
 
 const App = () => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
 
   return (
     <Router>
@@ -35,7 +37,14 @@ const App = () => {
               isAuthenticated ? (
                 <Layout>
                   <Routes>
-                    <Route path="/" element={<StudentDashboard />} />
+                    <Route 
+                      path="/" 
+                      element={
+                        user?.role === 'admin' ? <AdminDashboard /> : 
+                        user?.role === 'teacher' ? <TeacherDashboard /> : 
+                        <StudentDashboard />
+                      } 
+                    />
                     <Route path="/courses" element={<CourseViewer />} />
                     <Route path="/live" element={<LiveClass />} />
                     <Route path="/community" element={<Community />} />

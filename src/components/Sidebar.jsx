@@ -9,22 +9,31 @@ import {
   Trophy, 
   Settings,
   LogOut,
-  Users
+  Users,
+  Shield
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+import useAuthStore from '../store/useAuthStore';
 import './Sidebar.css';
 
 const Sidebar = () => {
-  const menuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-    { icon: BookOpen, label: 'My Subjects', path: '/courses' },
-    { icon: Video, label: 'Live Classes', path: '/live' },
-    { icon: MessageSquare, label: 'School Forum', path: '/community' },
-    { icon: Bot, label: 'AI Mentor', path: '/ai-tutor' },
-    { icon: BarChart3, label: 'Academic Stats', path: '/analytics' },
-    { icon: Trophy, label: 'Hall of Fame', path: '/achievements' },
-    { icon: Users, label: 'Peer Learning', path: '/collaboration' },
+  const { user } = useAuthStore();
+  
+  const allMenuItems = [
+    { icon: LayoutDashboard, label: 'Dashboard', path: '/', roles: ['student', 'teacher', 'admin'] },
+    { icon: BookOpen, label: 'My Subjects', path: '/courses', roles: ['student', 'teacher'] },
+    { icon: Video, label: 'Live Classes', path: '/live', roles: ['student', 'teacher'] },
+    { icon: MessageSquare, label: 'School Forum', path: '/community', roles: ['student', 'teacher', 'admin'] },
+    { icon: Bot, label: 'AI Mentor', path: '/ai-tutor', roles: ['student', 'teacher'] },
+    { icon: BarChart3, label: 'Academic Stats', path: '/analytics', roles: ['student', 'teacher'] },
+    { icon: Trophy, label: 'Hall of Fame', path: '/achievements', roles: ['student'] },
+    { icon: Users, label: 'Peer Learning', path: '/collaboration', roles: ['student'] },
+    { icon: Users, label: 'Faculty Hub', path: '/faculty', roles: ['teacher'] },
+    { icon: Shield, label: 'System Admin', path: '/admin-config', roles: ['admin'] },
+    { icon: BarChart3, label: 'School Analytics', path: '/school-stats', roles: ['admin'] },
   ];
+
+  const menuItems = allMenuItems.filter(item => item.roles.includes(user?.role));
 
   return (
     <aside className="sidebar">
