@@ -1,16 +1,73 @@
-# React + Vite
+# AuraEd | Enterprise-Grade Institutional ERP 🎓
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AuraEd is a high-fidelity, professional EdTech platform designed for state-of-the-art institutional management. Built for scale and responsiveness, it transforms traditional educational workflows into an **Adaptive AI-First Ecosystem**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Key Features
 
-## React Compiler
+### 🏛️ Institutional Administration (Admin Portal)
+*   **Faculty Registration Engine**: Real-time management and registration of faculty members with automated status tracking.
+*   **Asset & Inventory Management**: Institutional tracking for smart boards, laboratory equipment, and library health.
+*   **Financial Intelligence**: Revenue overview and financial analytics powered by Recharts.
+*   **Predictive Analytics**: AI-driven modeling for grade progression and identifying "Students at Risk."
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🍎 Faculty Excellence (Teacher Portal)
+*   **Class & Assignment Scheduler**: High-fidelity tools for scheduling sessions and creating interactive assignments.
+*   **Performance Monitoring**: Comprehensive student grade distribution and attendance heatmaps.
+*   **Student Intervention**: Direct communication and engagement tracking for classroom management.
 
-## Expanding the ESLint configuration
+### 🎒 Student Success (Student Portal)
+*   **Aura AI Knowledge Graph**: A visual dependency map of subject mastery, identifying skill gaps and personalized learning paths.
+*   **Gamified Achievements**: XP progression, leveling, and verifiable digital badges to drive engagement.
+*   **Collaboration Hub**: Live focus rooms for peer-to-peer study sessions with shared institutional tools.
+*   **Scholarship Tracker**: Real-time monitoring of academic compliance and scholarship payout statuses.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🎨 Design System
+
+AuraEd uses a **Professional Enterprise Theme** characterized by:
+*   **Primary Palette**: Deep Sea Blue & Cyan for core navigation.
+*   **Functional Categories**: Category-based coloring (Emerald for Finance, Amber for Assets, Violet for AI, Rose for Calendars).
+*   **Micro-Animations**: Powered by `Framer Motion` for a premium, reactive user experience.
+*   **Global Interactivity**: Standardized notification system (Toasts) for all institutional actions.
+
+---
+
+## 💻 Technology Stack
+
+*   **Core**: React 19 + Vite
+*   **State Management**: Zustand (Auth, Data, Notifications)
+*   **Styling**: Vanilla CSS (Enterprise Tokens)
+*   **Animations**: Framer Motion
+*   **Visualization**: Recharts
+*   **Iconography**: Lucide React
+*   **Routing**: React Router 7
+
+---
+
+## 🛠️ Getting Started
+
+1.  **Clone the Repository**
+2.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
+3.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## 📅 Roadmap 2026
+- [x] Adaptive AI Knowledge Graph
+- [x] Institutional Gamification
+- [x] Predictive Risk Modeling
+- [ ] Blockchain-based Digital Certificates
+- [ ] Offline-first LMS Optimization
+
+---
+
+**AuraEd** — *Empowering Institutions with Intelligence.*
