@@ -162,3 +162,116 @@
     bottom: 1rem;
   }
 }
+
+/* Knowledge Graph Styles */
+.aitutor-container {
+  padding: 2rem;
+}
+
+.aitutor-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.graph-panel {
+  padding: 1.5rem;
+  min-height: 450px;
+}
+
+.graph-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.legend {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.mastered { background: var(--success); }
+.dot.progress { background: var(--accent-blue); }
+.dot.locked { background: var(--text-tertiary); }
+
+.svg-container {
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.node circle {
+  fill: white;
+  stroke: var(--text-tertiary);
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.node.mastered circle { stroke: var(--success); fill: #f0fdf4; }
+.node.progress circle { stroke: var(--accent-blue); fill: #eff6ff; }
+.node.locked circle { opacity: 0.5; }
+
+.ai-chat-sidebar {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-msg {
+  background: white;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent-violet);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.chat-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.action-chip {
+  padding: 0.6rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.action-chip:hover {
+  border-color: var(--accent-violet);
+  color: var(--accent-violet);
+}
+
+.learning-stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.learning-stat {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+

@@ -1,9 +1,10 @@
-import React from 'react';
-import { Shield, Users, School, Settings, Download, TrendingUp, AlertTriangle, Plus, Edit2, MoreVertical, Search, RefreshCw, Database, Server, Wifi } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { Shield, Users, School, Settings, Download, TrendingUp, AlertTriangle, Plus, Edit2, MoreVertical, Search, RefreshCw, Database, Server, Wifi, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import StatsCard from '../../components/StatsCard';
 import useAuthStore from '../../store/useAuthStore';
 import useNotificationStore from '../../store/useNotificationStore';
+import useDataStore from '../../store/useDataStore';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar 
 } from 'recharts';
@@ -19,8 +20,25 @@ const enrollmentData = [
 const AdminDashboard = () => {
   const { user } = useAuthStore();
   const { addNotification } = useNotificationStore();
+  const { faculty, addFaculty, removeFaculty, assets } = useDataStore();
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [formData, setFormData] = useState({ name: '', dept: '', classes: '' });
 
-  const handleAction = (msg) => addNotification(msg, 'success');
+  const handleRegister = (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.dept) return;
+    addFaculty(formData);
+    addNotification(`Successfully registered ${formData.name}`, 'success');
+    setFormData({ name: '', dept: '', classes: '' });
+    setIsModalOpen(false);
+  };
+
+  const filteredFaculty = faculty.filter(f => 
+    f.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    f.dept.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="dashboard-container professional-theme">
@@ -36,7 +54,7 @@ const AdminDashboard = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-outline" 
-              onClick={() => handleAction('Generating institutional reports...')}
+              onClick={() => addNotification('Generating institutional reports...', 'success')}
             >
               <Download size={16} /> Reports
             </motion.button>
@@ -44,7 +62,7 @@ const AdminDashboard = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-primary"
-              onClick={() => handleAction('Opening faculty registration portal...')}
+              onClick={() => setIsModalOpen(true)}
             >
               <Plus size={16} /> Register New Faculty
             </motion.button>
@@ -55,14 +73,14 @@ const AdminDashboard = () => {
       <div className="stats-row">
         {[
           { icon: Users, label: 'Total Student Base', value: '1,450', trend: '+12% YoY', color: 'cyan' },
-          { icon: School, label: 'Active Faculty', value: '48', trend: '3 new this term', color: 'green' },
+          { icon: School, label: 'Active Faculty', value: faculty.length, trend: 'Updated live', color: 'green' },
           { icon: Shield, label: 'System Security', value: 'Grade A', trend: 'No breaches', color: 'orange' }
         ].map((stat, i) => (
           <motion.div 
             key={i}
             whileHover={{ y: -5 }}
             className="stat-item card clickable"
-            onClick={() => handleAction(`Viewing detailed ${stat.label} analytics`)}
+            onClick={() => addNotification(`Viewing detailed ${stat.label} analytics`)}
           >
             <div className={`stat-icon ${stat.color}`}><stat.icon size={20} /></div>
             <div className="stat-content">
@@ -82,7 +100,13 @@ const AdminDashboard = () => {
               <div className="table-actions">
                 <div className="search-box">
                   <Search size={14} className="search-icon" />
-                  <input type="text" placeholder="Search faculty..." className="table-search" />
+                  <input 
+                    type="text" 
+                    placeholder="Search faculty..." 
+                    className="table-search" 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                 </div>
               </div>
             </div>
@@ -99,12 +123,8 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    { name: 'Dr. Sangeetha P.', dept: 'Biology', classes: 5, last: '2 mins ago', status: 'Online' },
-                    { name: 'Muthuvel P.', dept: 'Mathematics', classes: 4, last: '1 hour ago', status: 'Offline' },
-                    { name: 'Kavitha R.', dept: 'Physics', classes: 6, last: 'Just now', status: 'Online' },
-                  ].map((fac, i) => (
-                    <tr key={i}>
+                  {filteredFaculty.map((fac) => (
+                    <tr key={fac.id}>
                       <td className="font-semibold">{fac.name}</td>
                       <td>{fac.dept}</td>
                       <td>{fac.classes}</td>
@@ -112,8 +132,8 @@ const AdminDashboard = () => {
                       <td><span className={`status-dot ${fac.status.toLowerCase()}`}></span> {fac.status}</td>
                       <td>
                         <div className="action-cell">
-                          <motion.button whileHover={{ scale: 1.2 }} onClick={() => handleAction(`Editing ${fac.name}`)} className="btn-icon"><Edit2 size={14} /></motion.button>
-                          <motion.button whileHover={{ scale: 1.2 }} onClick={() => handleAction(`Opening menu for ${fac.name}`)} className="btn-icon"><MoreVertical size={14} /></motion.button>
+                          <motion.button whileHover={{ scale: 1.2 }} onClick={() => addNotification(`Editing ${fac.name}`)} className="btn-icon"><Edit2 size={14} /></motion.button>
+                          <motion.button whileHover={{ scale: 1.2, color: '#ef4444' }} onClick={() => { removeFaculty(fac.id); addNotification(`Removed ${fac.name}`, 'success'); }} className="btn-icon"><X size={14} /></motion.button>
                         </div>
                       </td>
                     </tr>
@@ -127,7 +147,7 @@ const AdminDashboard = () => {
             <div className="chart-card card border-emerald">
               <div className="section-header">
                 <h3>Financial Overview (Revenue)</h3>
-                <motion.button whileHover={{ rotate: 180 }} onClick={() => handleAction('Refreshing financial data...')} className="btn-icon">
+                <motion.button whileHover={{ rotate: 180 }} onClick={() => addNotification('Refreshing financial data...')} className="btn-icon">
                   <RefreshCw size={14} />
                 </motion.button>
               </div>
@@ -135,7 +155,6 @@ const AdminDashboard = () => {
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={enrollmentData}>
                     <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                    <YAxis hide />
                     <Tooltip />
                     <Bar dataKey="revenue" fill="var(--accent-emerald)" radius={[4, 4, 0, 0]} />
                   </BarChart>
@@ -146,21 +165,17 @@ const AdminDashboard = () => {
             <div className="inventory-card card border-amber">
               <h3>Asset & Inventory</h3>
               <div className="inventory-list">
-                {[
-                  { name: 'Smart Boards', status: '85% Operational', class: 'high' },
-                  { name: 'Lab Equipment', status: '12% Maintenance', class: 'low' },
-                  { name: 'Library Books', status: '92% Cataloged', class: 'mid' }
-                ].map((item, i) => (
-                  <div key={i} className="inv-item">
+                {assets.map((item) => (
+                  <div key={item.id} className="inv-item">
                     <span>{item.name}</span>
-                    <div className={`inv-status ${item.class}`}>{item.status}</div>
+                    <div className={`inv-status ${item.level}`}>{item.status}</div>
                   </div>
                 ))}
               </div>
               <motion.button 
                 whileHover={{ x: 5 }}
                 className="btn-outline btn-sm full-width mt-1"
-                onClick={() => handleAction('Navigating to Asset Manager...')}
+                onClick={() => addNotification('Navigating to Asset Manager...')}
               >
                 Manage Assets
               </motion.button>
@@ -203,10 +218,53 @@ const AdminDashboard = () => {
                 </div>
               ))}
             </div>
-            <button className="btn-text mt-1 text-indigo" onClick={() => handleAction('Loading full audit history...')}>View Full Audit</button>
+            <button className="btn-text mt-1 text-indigo" onClick={() => addNotification('Loading full audit history...')}>View Full Audit</button>
           </div>
         </aside>
       </div>
+
+      {/* Registration Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="modal-overlay flex-center">
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="modal-content card"
+            >
+              <div className="modal-header">
+                <h3>Register New Faculty</h3>
+                <button onClick={() => setIsModalOpen(false)} className="btn-icon"><X size={20} /></button>
+              </div>
+              <form onSubmit={handleRegister} className="modal-form">
+                <div className="form-group">
+                  <label>Full Name</label>
+                  <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="e.g. Dr. Ramesh Kumar" required />
+                </div>
+                <div className="form-group">
+                  <label>Department</label>
+                  <select value={formData.dept} onChange={(e) => setFormData({...formData, dept: e.target.value})} required>
+                    <option value="">Select Department</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Computer Science">Computer Science</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Initial Class Load</label>
+                  <input type="number" value={formData.classes} onChange={(e) => setFormData({...formData, classes: e.target.value})} placeholder="e.g. 4" />
+                </div>
+                <div className="form-actions">
+                  <button type="button" onClick={() => setIsModalOpen(false)} className="btn-outline">Cancel</button>
+                  <button type="submit" className="btn-primary">Register Faculty</button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

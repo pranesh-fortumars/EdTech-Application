@@ -42,3 +42,88 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Institutional Intelligence Styles */
+.analytics-container {
+  padding: 2rem;
+}
+
+.ai-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent-violet);
+  background: #f5f3ff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid #ddd6fe;
+}
+
+.secondary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pass-rate-panel {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.pie-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.legend-item .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.risk-panel {
+  padding: 1.5rem;
+}
+
+.risk-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.risk-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+}
+
+.risk-item .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.risk-item strong {
+  font-size: 0.9rem;
+}
+
+.risk-item span {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+

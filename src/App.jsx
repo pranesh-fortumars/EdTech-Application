@@ -12,6 +12,10 @@ const CourseViewer = lazy(() => import('./modules/course/CourseViewer'));
 const LiveClass = lazy(() => import('./modules/live/LiveClass'));
 const Analytics = lazy(() => import('./modules/analytics/Analytics'));
 const Community = lazy(() => import('./modules/collaboration/Community'));
+const Achievements = lazy(() => import('./modules/gamification/Achievements'));
+const AuraKnowledgeGraph = lazy(() => import('./modules/ai/AuraKnowledgeGraph'));
+const CollaborationHub = lazy(() => import('./modules/collaboration/CollaborationHub'));
+const SchoolAnalytics = lazy(() => import('./modules/analytics/SchoolAnalytics'));
 // Mock components for other routes
 const Placeholder = ({ title }) => (
   <div style={{ padding: '2rem', textAlign: 'center' }}>
@@ -48,14 +52,14 @@ const App = () => {
                     <Route path="/courses" element={<CourseViewer />} />
                     <Route path="/live" element={<LiveClass />} />
                     <Route path="/community" element={<Community />} />
-                    <Route path="/ai-tutor" element={<Placeholder title="Aura AI Tutor" />} />
+                    <Route path="/ai-tutor" element={<AuraKnowledgeGraph />} />
                     <Route path="/analytics" element={<Analytics />} />
-                    <Route path="/achievements" element={<Placeholder title="Your Achievements" />} />
-                    <Route path="/collaboration" element={<Placeholder title="Group Study" />} />
+                    <Route path="/achievements" element={<Achievements />} />
+                    <Route path="/collaboration" element={<CollaborationHub />} />
                     <Route path="/settings" element={<Placeholder title="Settings" />} />
                     <Route path="/faculty" element={<Placeholder title="Faculty Hub" />} />
                     <Route path="/admin-config" element={<Placeholder title="System Administration" />} />
-                    <Route path="/school-stats" element={<Placeholder title="School Performance Analytics" />} />
+                    <Route path="/school-stats" element={<SchoolAnalytics />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </Layout>
