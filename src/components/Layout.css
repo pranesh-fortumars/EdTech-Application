@@ -1,0 +1,38 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-secondary);
+}
+
+.main-wrapper {
+  flex: 1;
+  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+}
+
+.content-area {
+  margin-top: 70px;
+  padding: 0;
+  min-height: calc(100vh - 70px);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 95;
+}
+
+@media (max-width: 1024px) {
+  .main-wrapper {
+    margin-left: 0;
+  }
+  
+  .sidebar-overlay {
+    display: block;
+  }
+}

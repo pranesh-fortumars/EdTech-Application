@@ -1,0 +1,249 @@
+.course-viewer {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.viewer-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.video-container {
+  padding: 0;
+  overflow: hidden;
+}
+
+.video-placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: black;
+}
+
+.video-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.play-overlay {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: rgba(99, 102, 241, 0.9);
+  border-radius: 50%;
+  z-index: 10;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.play-overlay:hover {
+  transform: scale(1.1);
+}
+
+.video-controls {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+}
+
+.course-breadcrumb .current {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.video-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.secondary-btn {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.viewer-tabs {
+  padding: 0;
+}
+
+.tab-header {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 1.5rem;
+}
+
+.tab-header button {
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  position: relative;
+}
+
+.tab-header button.active {
+  color: var(--primary);
+}
+
+.tab-header button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary);
+}
+
+.tab-content {
+  padding: 2rem;
+}
+
+.lesson-description h3 {
+  margin-bottom: 1rem;
+}
+
+.lesson-description p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.resources h4 {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  letter-spacing: 1px;
+}
+
+.resources ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.resources li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.course-sidebar {
+  height: fit-content;
+  position: sticky;
+  top: 90px;
+}
+
+.sidebar-header {
+  margin-bottom: 2rem;
+}
+
+.progress-mini {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-mini .bar {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+}
+
+.progress-mini .fill {
+  height: 100%;
+  background: var(--success);
+  border-radius: 3px;
+}
+
+.progress-mini span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.curriculum {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.module-item h4 {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.module-item ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.module-item li {
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.module-item li:hover {
+  background: var(--bg-secondary);
+}
+
+.module-item li.current {
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.lesson-status {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+}
+
+.lesson-status.done {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+@media (max-width: 1024px) {
+  .course-viewer {
+    grid-template-columns: 1fr;
+  }
+}
