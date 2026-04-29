@@ -13,7 +13,6 @@ import {
   Smile,
   Send
 } from 'lucide-react';
-import './LiveClass.jsx'; // This is actually the component, I'll write CSS separately
 import './LiveClass.css';
 
 const LiveClass = () => {

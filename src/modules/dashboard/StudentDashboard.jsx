@@ -1,5 +1,5 @@
 import React from 'react';
-import { Book, Clock, Star, Zap, PlayCircle } from 'lucide-react';
+import { Book, Clock, Star, Zap, PlayCircle, Trophy, Bot } from 'lucide-react';
 import StatsCard from '../../components/StatsCard';
 import { 
   BarChart, 
