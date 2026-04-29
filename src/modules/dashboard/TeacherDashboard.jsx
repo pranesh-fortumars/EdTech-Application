@@ -8,104 +8,173 @@ import {
 import '../dashboard/Dashboard.css';
 
 const studentPerformance = [
-  { name: 'Class 10-A', avg: 85, attendance: 92 },
-  { name: 'Class 10-B', avg: 78, attendance: 88 },
-  { name: 'Class 12-A', avg: 92, attendance: 95 },
-  { name: 'Class 12-B', avg: 81, attendance: 90 },
+  { id: 'STU001', name: 'Arun Kumar', class: '12-A', attendance: '98%', avgGrade: 'A+', status: 'Excellent' },
+  { id: 'STU002', name: 'Kavitha R.', class: '12-A', attendance: '95%', avgGrade: 'A', status: 'Good' },
+  { id: 'STU003', name: 'Rajesh S.', class: '12-B', attendance: '82%', avgGrade: 'B', status: 'Needs Focus' },
+  { id: 'STU004', name: 'Priya M.', class: '10-A', attendance: '99%', avgGrade: 'A+', status: 'Excellent' },
 ];
 
 const TeacherDashboard = () => {
   const { user } = useAuthStore();
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container professional-theme">
       <header className="dashboard-header">
-        <div className="welcome-text">
-          <h1>Vanakkam, <span className="gradient-text">{user.name}</span> 🎓</h1>
-          <p>You have 3 classes scheduled for today at {user.institution}.</p>
-        </div>
-        <div className="action-btns">
-          <button className="secondary-btn"><Plus size={18} /> New Assignment</button>
-          <button className="primary-btn"><Video size={18} /> Start Live Class</button>
+        <div className="header-main">
+          <div className="welcome-text">
+            <span className="breadcrumb">Academic Year 2026-27 • Term 1</span>
+            <h1>Faculty Portal: <span className="text-primary">{user.name}</span></h1>
+            <p>Senior Educator at {user.institution}</p>
+          </div>
+          <div className="action-group">
+            <button className="btn-outline"><Calendar size={16} /> Schedule Class</button>
+            <button className="btn-primary"><Plus size={16} /> Create Assignment</button>
+          </div>
         </div>
       </header>
 
-      <section className="stats-grid">
-        <StatsCard title="Total Students" value="142" icon={Users} trend="up" trendValue="4" color="#0891b2" />
-        <StatsCard title="Assignments Pending" value="28" icon={FileCheck} trend="down" trendValue="12" color="#f59e0b" />
-        <StatsCard title="Avg. Attendance" value="94%" icon={Calendar} trend="up" trendValue="2" color="#10b981" />
-        <StatsCard title="Student Queries" value="15" icon={MessageSquare} trend="up" trendValue="8" color="#a855f7" />
-      </section>
+      <div className="stats-row">
+        <div className="stat-item card">
+          <div className="stat-icon cyan"><Users size={20} /></div>
+          <div className="stat-content">
+            <span className="stat-label">Total Managed Students</span>
+            <span className="stat-value">142</span>
+            <span className="stat-trend positive">+4% from last month</span>
+          </div>
+        </div>
+        <div className="stat-item card">
+          <div className="stat-icon orange"><FileCheck size={20} /></div>
+          <div className="stat-content">
+            <span className="stat-label">Pending Submissions</span>
+            <span className="stat-value">28</span>
+            <span className="stat-trend negative">12 overdue</span>
+          </div>
+        </div>
+        <div className="stat-item card">
+          <div className="stat-icon green"><Calendar size={20} /></div>
+          <div className="stat-content">
+            <span className="stat-label">Term Attendance</span>
+            <span className="stat-value">94.2%</span>
+            <span className="stat-trend positive">Above school avg</span>
+          </div>
+        </div>
+      </div>
 
-      <div className="dashboard-grid">
-        <div className="main-content">
-          <div className="chart-card card">
-            <div className="card-header">
-              <h3>Class Performance Comparison</h3>
+      <div className="dashboard-layout-grid">
+        <div className="grid-main">
+          <div className="table-section card">
+            <div className="section-header">
+              <h3>Student Performance Overview</h3>
+              <div className="table-actions">
+                <button className="btn-sm btn-outline">Filter</button>
+                <button className="btn-sm btn-primary">Export CSV</button>
+              </div>
             </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={studentPerformance}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                  <YAxis axisLine={false} tickLine={false} />
-                  <Tooltip cursor={{fill: 'rgba(0,0,0,0.02)'}} />
-                  <Bar dataKey="avg" fill="#0891b2" radius={[4, 4, 0, 0]} barSize={40} />
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="table-container">
+              <table className="pro-table">
+                <thead>
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Attendance</th>
+                    <th>Avg. Grade</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {studentPerformance.map(student => (
+                    <tr key={student.id}>
+                      <td className="text-mono">{student.id}</td>
+                      <td className="font-semibold">{student.name}</td>
+                      <td>{student.class}</td>
+                      <td>{student.attendance}</td>
+                      <td><span className={`grade-badge ${student.avgGrade.startsWith('A') ? 'high' : 'mid'}`}>{student.avgGrade}</span></td>
+                      <td><span className={`status-text ${student.status.toLowerCase().replace(' ', '-')}`}>{student.status}</span></td>
+                      <td><button className="btn-icon"><MessageSquare size={14} /></button></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 
-          <div className="active-classes card">
-            <h3>Current Assignments</h3>
-            <div className="assignment-list">
-              {[
-                { title: 'Biology: Cell Structure Quiz', class: '10-A', status: 'Grading', due: 'Today' },
-                { title: 'Environmental Science Project', class: '12-B', status: 'Ongoing', due: 'Tomorrow' }
-              ].map((item, i) => (
-                <div key={i} className="assignment-item card">
-                  <div className="item-info">
-                    <h4>{item.title}</h4>
-                    <span>{item.class} • Due {item.due}</span>
+          <div className="dual-grid">
+            <div className="chart-card card">
+              <h3>Class Grade Distribution</h3>
+              <div className="chart-container">
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={[
+                    { grade: 'A+', count: 12 },
+                    { grade: 'A', count: 25 },
+                    { grade: 'B', count: 18 },
+                    { grade: 'C', count: 5 },
+                  ]}>
+                    <XAxis dataKey="grade" axisLine={false} tickLine={false} />
+                    <YAxis hide />
+                    <Tooltip cursor={{fill: 'rgba(0,0,0,0.02)'}} />
+                    <Bar dataKey="count" fill="var(--primary)" radius={[4, 4, 0, 0]} barSize={40} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            
+            <div className="resources-card card">
+              <h3>Shared Resources</h3>
+              <div className="resource-list">
+                <div className="resource-item">
+                  <div className="file-icon pdf">PDF</div>
+                  <div className="file-info">
+                    <p>Calculus_Notes_W4.pdf</p>
+                    <span>Shared with 12-A • 2.4 MB</span>
                   </div>
-                  <div className={`status-pill ${item.status.toLowerCase()}`}>{item.status}</div>
                 </div>
-              ))}
+                <div className="resource-item">
+                  <div className="file-icon video">MP4</div>
+                  <div className="file-info">
+                    <p>Thermodynamics_Lecture_3.mp4</p>
+                    <span>Shared with 12-B • 45 MB</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <aside className="right-panel">
-          <div className="notification-center card">
-            <h3>Recent Alerts</h3>
-            <div className="alert-list">
-              <div className="alert-item">
-                <Bell size={16} color="#f59e0b" />
-                <p>Arun Kumar submitted Mathematics assignment.</p>
+        <aside className="grid-sidebar">
+          <div className="lesson-planner card">
+            <h3>Lesson Planner</h3>
+            <div className="planner-item">
+              <div className="day-circle">Mon</div>
+              <div className="plan-info">
+                <p>Advanced Integration</p>
+                <span>Prep materials, Assignment #4</span>
               </div>
-              <div className="alert-item">
-                <Bell size={16} color="#0891b2" />
-                <p>New query from Class 12-A regarding board exams.</p>
+            </div>
+            <div className="planner-item active">
+              <div className="day-circle">Tue</div>
+              <div className="plan-info">
+                <p>Organic Chemistry Lab</p>
+                <span>Safety equipment check required</span>
               </div>
             </div>
           </div>
 
-          <div className="schedule card">
-            <h3>Today's Schedule</h3>
-            <div className="schedule-list">
-              <div className="schedule-item">
-                <div className="time">10:00 AM</div>
-                <div className="details">
-                  <p>Biology - Class 10-A</p>
-                  <span>Room 204</span>
-                </div>
+          <div className="upcoming-events card">
+            <h3>Institutional Calendar</h3>
+            <div className="event-item">
+              <div className="event-date">May 15</div>
+              <div className="event-info">
+                <p>Parent-Teacher Meeting</p>
+                <span>All Day • Main Hall</span>
               </div>
-              <div className="schedule-item live">
-                <div className="time">02:00 PM</div>
-                <div className="details">
-                  <p>Genetics - Class 12-A</p>
-                  <span>Live Streaming</span>
-                </div>
+            </div>
+            <div className="event-item">
+              <div className="event-date">May 22</div>
+              <div className="event-info">
+                <p>Annual Science Fair</p>
+                <span>10:00 AM • Lab Block</span>
               </div>
             </div>
           </div>

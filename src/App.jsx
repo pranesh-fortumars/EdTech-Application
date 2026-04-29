@@ -53,6 +53,9 @@ const App = () => {
                     <Route path="/achievements" element={<Placeholder title="Your Achievements" />} />
                     <Route path="/collaboration" element={<Placeholder title="Group Study" />} />
                     <Route path="/settings" element={<Placeholder title="Settings" />} />
+                    <Route path="/faculty" element={<Placeholder title="Faculty Hub" />} />
+                    <Route path="/admin-config" element={<Placeholder title="System Administration" />} />
+                    <Route path="/school-stats" element={<Placeholder title="School Performance Analytics" />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </Layout>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Book, Clock, Star, Zap, PlayCircle, Trophy, Bot } from 'lucide-react';
+import { Book, Clock, Star, Zap, PlayCircle, Trophy, Bot, Calendar } from 'lucide-react';
 import useAuthStore from '../../store/useAuthStore';
 import StatsCard from '../../components/StatsCard';
 import { 
@@ -38,139 +38,142 @@ const StudentDashboard = () => {
   const { user } = useAuthStore();
   
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container professional-theme">
       <header className="dashboard-header">
-        <div className="welcome-text">
-          <h1>Vanakkam, <span className="gradient-text">{user.name.split(' ')[0]}!</span> 👋</h1>
-          <p>You're on a 5-day learning streak. Keep up the great work at {user.institution}!</p>
+        <div className="header-main">
+          <div className="welcome-text">
+            <span className="breadcrumb">Student Portal • {user.institution.split(',')[0]}</span>
+            <h1>Vanakkam, <span className="text-primary">{user.name.split(' ')[0]}!</span> 👋</h1>
+            <p>Class 12-A • Academic Streak: 5 Days</p>
+          </div>
+          <div className="action-group">
+            <button className="btn-outline"><Calendar size={16} /> View Timetable</button>
+            <button className="btn-primary"><Zap size={16} /> Ask Aura AI</button>
+          </div>
         </div>
-        <button className="primary-btn ai-btn">
-          <Zap size={18} />
-          <span>Ask Aura AI</span>
-        </button>
       </header>
 
-      <section className="stats-grid">
-        <StatsCard 
-          title="Subjects in Progress" 
-          value="4" 
-          icon={Book} 
-          trend="up" 
-          trendValue="12" 
-          color="#0891b2" 
-        />
-        <StatsCard 
-          title="Study Hours" 
-          value="24.5" 
-          icon={Clock} 
-          trend="up" 
-          trendValue="8" 
-          color="#0ea5e9" 
-        />
-        <StatsCard 
-          title="Monthly Test Avg." 
-          value="92%" 
-          icon={Star} 
-          trend="down" 
-          trendValue="2" 
-          color="#f59e0b" 
-        />
-        <StatsCard 
-          title="School Rank" 
-          value="#12" 
-          icon={Trophy} 
-          trend="up" 
-          trendValue="45" 
-          color="#10b981" 
-        />
-      </section>
+      <div className="stats-row">
+        <div className="stat-item card">
+          <div className="stat-icon cyan"><Book size={20} /></div>
+          <div className="stat-content">
+            <span className="stat-label">Active Subjects</span>
+            <span className="stat-value">6</span>
+            <span className="stat-trend positive">2 new modules this week</span>
+          </div>
+        </div>
+        <div className="stat-item card">
+          <div className="stat-icon orange"><Star size={20} /></div>
+          <div className="stat-content">
+            <span className="stat-label">Term GPA</span>
+            <span className="stat-value">9.2</span>
+            <span className="stat-trend positive">Top 5% of class</span>
+          </div>
+        </div>
+        <div className="stat-item card">
+          <div className="stat-icon green"><Trophy size={20} /></div>
+          <div className="stat-content">
+            <span className="stat-label">School Rank</span>
+            <span className="stat-value">#12</span>
+            <span className="stat-trend positive">+3 ranks gained</span>
+          </div>
+        </div>
+      </div>
 
-      <div className="dashboard-grid">
-        <div className="main-content">
-          <div className="chart-card card">
-            <div className="card-header">
-              <h3>Academic Progress</h3>
-              <select className="period-select">
-                <option>Last 7 Days</option>
-                <option>Last Month</option>
-              </select>
+      <div className="dashboard-layout-grid">
+        <div className="grid-main">
+          <div className="table-section card">
+            <div className="section-header">
+              <h3>Upcoming Board Exams</h3>
             </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={activityData}>
-                  <defs>
-                    <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0891b2" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#0891b2" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="time" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-                  <YAxis hide />
-                  <Tooltip 
-                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                  />
-                  <Area type="monotone" dataKey="score" stroke="#0891b2" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" />
-                </AreaChart>
-              </ResponsiveContainer>
+            <div className="table-container">
+              <table className="pro-table">
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Venue</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { sub: 'Mathematics', date: 'May 10, 2026', time: '10:00 AM', venue: 'Hall A', status: 'Prepare' },
+                    { sub: 'Physics', date: 'May 14, 2026', time: '10:00 AM', venue: 'Hall B', status: 'Scheduled' },
+                    { sub: 'Chemistry', date: 'May 18, 2026', time: '10:00 AM', venue: 'Hall A', status: 'Scheduled' },
+                  ].map((exam, i) => (
+                    <tr key={i}>
+                      <td className="font-semibold">{exam.sub}</td>
+                      <td>{exam.date}</td>
+                      <td>{exam.time}</td>
+                      <td>{exam.venue}</td>
+                      <td><span className={`grade-badge ${exam.status === 'Prepare' ? 'high' : 'mid'}`}>{exam.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 
-          <div className="courses-section">
-            <div className="section-header">
-              <h3>Upcoming Lessons</h3>
-              <button className="text-btn">View Timetable</button>
+          <div className="dual-grid">
+            <div className="chart-card card">
+              <h3>Learning Consistency</h3>
+              <div className="chart-container">
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart data={activityData}>
+                    <defs>
+                      <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="time" axisLine={false} tickLine={false} />
+                    <Tooltip />
+                    <Area type="monotone" dataKey="score" stroke="var(--primary)" fillOpacity={1} fill="url(#colorScore)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
             </div>
-            <div className="course-list">
-              {[
-                { title: 'Mathematics: Calculus', instructor: 'Thiru. Muthuvel P.', progress: 75, img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop' },
-                { title: 'Physics: Thermodynamics', instructor: 'Selvi. Kavitha R.', progress: 40, img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=250&fit=crop' }
-              ].map((course, i) => (
-                <div key={i} className="course-item card">
-                  <img src={course.img} alt={course.title} className="course-thumb" />
-                  <div className="course-info">
-                    <h4>{course.title}</h4>
-                    <p>{course.instructor}</p>
-                    <div className="progress-wrapper">
-                      <div className="progress-bar">
-                        <div className="progress-fill" style={{ width: `${course.progress}%` }}></div>
-                      </div>
-                      <span>{course.progress}%</span>
-                    </div>
+
+            <div className="feedback-card card">
+              <h3>Tutor Feedback</h3>
+              <div className="feedback-list">
+                <div className="feedback-item">
+                  <div className="tutor-avatar">TP</div>
+                  <div className="feedback-content">
+                    <p><strong>Thiru. Muthuvel P.</strong> on Calculus Assignment</p>
+                    <span>"Excellent use of integration by parts. Try to simplify the final expressions more."</span>
                   </div>
-                  <button className="play-btn">
-                    <PlayCircle size={32} />
-                  </button>
                 </div>
-              ))}
+                <div className="feedback-item">
+                  <div className="tutor-avatar">SK</div>
+                  <div className="feedback-content">
+                    <p><strong>Selvi. Kavitha R.</strong> on Thermodynamics</p>
+                    <span>"Your understanding of entropy is deep. Great work on the lab report!"</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <aside className="right-panel">
-          <div className="ai-insight card glass">
+        <aside className="grid-sidebar">
+          <div className="ai-insight-pro card glass">
             <div className="insight-header">
               <Bot size={20} className="ai-icon" />
-              <h4>Aura AI School Insights</h4>
+              <h4>Aura AI Mentor</h4>
             </div>
-            <p>You're performing 20% better in **Calculus** this week. We recommend revising "Integrals" before your Friday test.</p>
-            <button className="ai-action-btn">View Study Plan</button>
+            <p>I noticed you're spending less time on <strong>Chemistry</strong> this week. Your exam is in 12 days. Should we start a revision session?</p>
+            <button className="btn-primary btn-sm">Start Revision</button>
           </div>
 
-          <div className="upcoming-classes card">
-            <h3>Upcoming Sessions</h3>
-            <div className="session-list">
-              {[
-                { title: 'Live Q&A: Frontend Arch', time: 'Today, 4:00 PM', status: 'live' },
-                { title: 'Group Project: Web 3.0', time: 'Tomorrow, 10:00 AM', status: 'scheduled' }
-              ].map((session, i) => (
-                <div key={i} className="session-item">
-                  <div className={`status-indicator ${session.status}`}></div>
-                  <div className="session-details">
-                    <p className="session-title">{session.title}</p>
-                    <p className="session-time">{session.time}</p>
-                  </div>
-                </div>
-              ))}
+          <div className="resource-hub card">
+            <h3>Resources for You</h3>
+            <div className="resource-links">
+              <button className="action-row"><Book size={14} /> Model Question Papers</button>
+              <button className="action-row"><Clock size={14} /> Revision Timetable</button>
+              <button className="action-row"><Star size={14} /> Subject Cheat Sheets</button>
             </div>
           </div>
         </aside>
