@@ -38,9 +38,9 @@ const Sidebar = () => {
     { icon: Shield, label: 'Admin Hub', path: '/admin-config', roles: ['admin'] },
     { icon: Users, label: 'User Control', path: '/users', roles: ['admin'] },
     { icon: BarChart3, label: 'School Pulse', path: '/school-stats', roles: ['admin'] },
-    { icon: CreditCard, label: 'Fee Portal', path: '/fees', roles: ['student', 'admin'] },
+    { icon: CreditCard, label: 'Fee Portal', path: '/fees', roles: ['parent', 'admin'] },
     { icon: Target, label: 'Mastery Quiz', path: '/ai-quiz', roles: ['student'] },
-    { icon: Baby, label: 'Parent Portal', path: '/parent', roles: ['student', 'admin'] },
+    { icon: Baby, label: 'Parent Portal', path: '/parent', roles: ['parent', 'admin'] },
     { icon: Database, label: 'Asset Tracking', path: '/assets', roles: ['admin'] },
   ];
 

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { 
   CreditCard, ShieldCheck, Receipt, Download, 
   ChevronRight, AlertCircle, CheckCircle2, IndianRupee,
-  Calendar, Building, History
+  Calendar, Building, History, Award
 } from 'lucide-react';
 import useNotificationStore from '../../store/useNotificationStore';
 import './FeeGateway.css';

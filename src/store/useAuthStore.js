@@ -27,6 +27,9 @@ const useAuthStore = create((set) => ({
       } else if (credentials.email.includes('admin')) {
         role = 'admin';
         name = 'Rajeshwaran S.';
+      } else if (credentials.email.includes('parent')) {
+        role = 'parent';
+        name = 'Muthu Selvan (Parent)';
       }
       
       set({ 

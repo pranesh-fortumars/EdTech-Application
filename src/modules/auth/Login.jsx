@@ -64,6 +64,7 @@ const Login = () => {
               <button type="button" onClick={() => setEmail('student@school.in')}>Student</button>
               <button type="button" onClick={() => setEmail('teacher@school.in')}>Teacher</button>
               <button type="button" onClick={() => setEmail('admin@school.in')}>Admin</button>
+              <button type="button" onClick={() => setEmail('parent@school.in')}>Parent</button>
             </div>
           </div>
 
