@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { Shield, Users, School, Settings, Download, TrendingUp, AlertTriangle, Plus, Edit2, MoreVertical, Search, RefreshCw, Database, Server, Wifi, X } from 'lucide-react';
+import { Shield, Users, School, Download, Plus, Edit2, Search, RefreshCw, Database, Server, Wifi, X, TrendingUp, Activity, ArrowUpRight, ArrowDownRight, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import StatsCard from '../../components/StatsCard';
 import useAuthStore from '../../store/useAuthStore';
 import useNotificationStore from '../../store/useNotificationStore';
 import useDataStore from '../../store/useDataStore';
 import { 
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar 
+  AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, CartesianGrid 
 } from 'recharts';
 import '../dashboard/Dashboard.css';
 
 const enrollmentData = [
-  { month: 'Jan', students: 1200, revenue: 45000 },
-  { month: 'Feb', students: 1250, revenue: 48000 },
-  { month: 'Mar', students: 1320, revenue: 52000 },
-  { month: 'Apr', students: 1450, revenue: 60000 },
+  { month: 'Jan', students: 1200, revenue: 45000, efficiency: 88 },
+  { month: 'Feb', students: 1250, revenue: 48000, efficiency: 92 },
+  { month: 'Mar', students: 1320, revenue: 52000, efficiency: 85 },
+  { month: 'Apr', students: 1450, revenue: 60000, efficiency: 95 },
 ];
 
 const AdminDashboard = () => {
@@ -41,224 +40,323 @@ const AdminDashboard = () => {
   );
 
   return (
-    <div className="dashboard-container professional-theme">
-      <header className="dashboard-header">
-        <div className="header-main">
-          <div className="welcome-text">
-            <span className="breadcrumb">Institutional Control Center</span>
-            <h1>{user.institution} | <span className="text-primary">Admin Console</span></h1>
-            <p>System Status: <span className="status-dot online"></span> All nodes operational</p>
-          </div>
-          <div className="action-group">
+    <div className="dashboard-container advanced-theme">
+      {/* Background Glows */}
+      <div className="bg-glow blue"></div>
+      <div className="bg-glow purple"></div>
+
+      <header className="dashboard-header-premium">
+        <div className="header-content">
+          <motion.div 
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            className="welcome-section"
+          >
+            <div className="status-badge-premium">
+              <Zap size={14} className="text-amber animate-pulse" />
+              <span>Real-time System Active</span>
+            </div>
+            <h1>{user.institution} <span className="text-gradient">Hub</span></h1>
+            <p className="subtitle">Institutional Command Center • {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+          </motion.div>
+          
+          <div className="header-actions-premium">
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-outline" 
-              onClick={() => addNotification('Generating institutional reports...', 'success')}
+              className="btn-glass" 
+              onClick={() => addNotification('Preparing institutional audit reports...', 'success')}
             >
-              <Download size={16} /> Reports
+              <Download size={18} />
+              <span>Export Audit</span>
             </motion.button>
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-primary"
+              className="btn-premium-action"
               onClick={() => setIsModalOpen(true)}
             >
-              <Plus size={16} /> Register New Faculty
+              <Plus size={18} />
+              <span>Register Faculty</span>
             </motion.button>
           </div>
         </div>
       </header>
 
-      <div className="stats-row">
+      <div className="stats-grid-premium">
         {[
-          { icon: Users, label: 'Total Student Base', value: '1,450', trend: '+12% YoY', color: 'cyan' },
-          { icon: School, label: 'Active Faculty', value: faculty.length, trend: 'Updated live', color: 'green' },
-          { icon: Shield, label: 'System Security', value: 'Grade A', trend: 'No breaches', color: 'orange' }
+          { icon: Users, label: 'Student Population', value: '1,450', trend: '+12.5%', color: 'cyan', iconColor: 'var(--accent-cyan)' },
+          { icon: School, label: 'Faculty strength', value: faculty.length, trend: 'Optimal', color: 'emerald', iconColor: 'var(--accent-emerald)' },
+          { icon: Shield, label: 'Security Protocols', value: 'High', trend: 'Secure', color: 'violet', iconColor: 'var(--accent-violet)' },
+          { icon: TrendingUp, label: 'Institutional Growth', value: '24%', trend: 'v/s Last Term', color: 'amber', iconColor: 'var(--accent-amber)' }
         ].map((stat, i) => (
           <motion.div 
             key={i}
-            whileHover={{ y: -5 }}
-            className="stat-item card clickable"
-            onClick={() => addNotification(`Viewing detailed ${stat.label} analytics`)}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: i * 0.1 }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            className="stat-card-premium glass"
+            onClick={() => addNotification(`Analyzing ${stat.label} trends...`)}
           >
-            <div className={`stat-icon ${stat.color}`}><stat.icon size={20} /></div>
-            <div className="stat-content">
-              <span className="stat-label">{stat.label}</span>
-              <span className="stat-value">{stat.value}</span>
-              <span className="stat-trend positive">{stat.trend}</span>
+            <div className={`stat-icon-wrap ${stat.color}`} style={{ backgroundColor: `${stat.iconColor}15` }}>
+              <stat.icon size={24} style={{ color: stat.iconColor }} />
             </div>
+            <div className="stat-info">
+              <span className="label">{stat.label}</span>
+              <div className="value-row">
+                <span className="value">{stat.value}</span>
+                <span className="trend positive">
+                  <ArrowUpRight size={14} /> {stat.trend}
+                </span>
+              </div>
+            </div>
+            <div className="stat-glow" style={{ background: stat.iconColor }}></div>
           </motion.div>
         ))}
       </div>
 
-      <div className="dashboard-layout-grid">
-        <div className="grid-main">
-          <div className="table-section card border-blue">
+      <div className="main-layout-grid">
+        <div className="content-prime">
+          <section className="visual-analytics card-premium">
             <div className="section-header">
-              <h3>Faculty Management</h3>
-              <div className="table-actions">
-                <div className="search-box">
-                  <Search size={14} className="search-icon" />
-                  <input 
-                    type="text" 
-                    placeholder="Search faculty..." 
-                    className="table-search" 
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
+              <div className="title-group">
+                <h3>Financial Performance Matrix</h3>
+                <p>Institutional revenue and operational efficiency</p>
+              </div>
+              <div className="chart-legend-premium">
+                <span className="legend-item"><span className="dot primary"></span> Revenue</span>
+                <span className="legend-item"><span className="dot secondary"></span> Efficiency</span>
               </div>
             </div>
-            <div className="table-container">
-              <table className="pro-table">
+            <div className="chart-wrap">
+              <ResponsiveContainer width="100%" height={320}>
+                <AreaChart data={enrollmentData}>
+                  <defs>
+                    <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                  <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: 'var(--text-tertiary)', fontSize: 12}} />
+                  <YAxis hide />
+                  <Tooltip 
+                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}
+                  />
+                  <Area type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={3} fillOpacity={1} fill="url(#colorRev)" />
+                  <Area type="monotone" dataKey="efficiency" stroke="var(--accent-violet)" strokeWidth={2} strokeDasharray="5 5" fill="none" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </section>
+
+          <section className="faculty-hub-premium card-premium mt-2">
+            <div className="section-header">
+              <div className="title-group">
+                <h3>Faculty Excellence Directory</h3>
+                <p>Manage and monitor academic staff performance</p>
+              </div>
+              <div className="search-premium">
+                <Search size={18} className="search-icon" />
+                <input 
+                  type="text" 
+                  placeholder="Search by name, department..." 
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="table-responsive">
+              <table className="premium-table">
                 <thead>
                   <tr>
-                    <th>Faculty Name</th>
+                    <th>Faculty Member</th>
                     <th>Department</th>
-                    <th>Classes</th>
-                    <th>Last Active</th>
+                    <th>Load</th>
+                    <th>Activity</th>
                     <th>Status</th>
-                    <th>Manage</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredFaculty.map((fac) => (
-                    <tr key={fac.id}>
-                      <td className="font-semibold">{fac.name}</td>
-                      <td>{fac.dept}</td>
-                      <td>{fac.classes}</td>
-                      <td>{fac.last}</td>
-                      <td><span className={`status-dot ${fac.status.toLowerCase()}`}></span> {fac.status}</td>
-                      <td>
-                        <div className="action-cell">
-                          <motion.button whileHover={{ scale: 1.2 }} onClick={() => addNotification(`Editing ${fac.name}`)} className="btn-icon"><Edit2 size={14} /></motion.button>
-                          <motion.button whileHover={{ scale: 1.2, color: '#ef4444' }} onClick={() => { removeFaculty(fac.id); addNotification(`Removed ${fac.name}`, 'success'); }} className="btn-icon"><X size={14} /></motion.button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                  <AnimatePresence>
+                    {filteredFaculty.map((fac, i) => (
+                      <motion.tr 
+                        key={fac.id}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        transition={{ delay: i * 0.05 }}
+                      >
+                        <td>
+                          <div className="faculty-info-cell">
+                            <div className="avatar-mini">{fac.name.charAt(0)}</div>
+                            <span className="name">{fac.name}</span>
+                          </div>
+                        </td>
+                        <td><span className="dept-badge">{fac.dept}</span></td>
+                        <td>{fac.classes} Classes</td>
+                        <td className="text-tertiary">{fac.last}</td>
+                        <td>
+                          <div className={`status-pill ${fac.status.toLowerCase()}`}>
+                            <span className="dot"></span>
+                            {fac.status}
+                          </div>
+                        </td>
+                        <td>
+                          <div className="action-row">
+                            <button className="btn-icon-premium" title="Edit Profile"><Edit2 size={16} /></button>
+                            <button className="btn-icon-premium delete" onClick={() => removeFaculty(fac.id)} title="Remove Access"><X size={16} /></button>
+                          </div>
+                        </td>
+                      </motion.tr>
+                    ))}
+                  </AnimatePresence>
                 </tbody>
               </table>
             </div>
-          </div>
-
-          <div className="dual-grid">
-            <div className="chart-card card border-emerald">
-              <div className="section-header">
-                <h3>Financial Overview (Revenue)</h3>
-                <motion.button whileHover={{ rotate: 180 }} onClick={() => addNotification('Refreshing financial data...')} className="btn-icon">
-                  <RefreshCw size={14} />
-                </motion.button>
-              </div>
-              <div className="chart-container">
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={enrollmentData}>
-                    <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                    <Tooltip />
-                    <Bar dataKey="revenue" fill="var(--accent-emerald)" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-
-            <div className="inventory-card card border-amber">
-              <h3>Asset & Inventory</h3>
-              <div className="inventory-list">
-                {assets.map((item) => (
-                  <div key={item.id} className="inv-item">
-                    <span>{item.name}</span>
-                    <div className={`inv-status ${item.level}`}>{item.status}</div>
-                  </div>
-                ))}
-              </div>
-              <motion.button 
-                whileHover={{ x: 5 }}
-                className="btn-outline btn-sm full-width mt-1"
-                onClick={() => addNotification('Navigating to Asset Manager...')}
-              >
-                Manage Assets
-              </motion.button>
-            </div>
-          </div>
+          </section>
         </div>
 
-        <aside className="grid-sidebar">
-          <div className="system-health card border-blue">
+        <aside className="content-sidebar">
+          <section className="infrastructure-card card-premium">
             <div className="section-header">
-              <h3>Infrastructure Health</h3>
-              <Database size={16} className="text-primary" />
+              <h3>Core Infrastructure</h3>
+              <Activity size={20} className="text-primary animate-pulse" />
             </div>
-            <div className="health-metrics">
-              <div className="metric">
-                <div className="metric-info"><Server size={12} /> Server Load</div>
-                <div className="progress-bar-sm"><div className="fill" style={{width: '45%'}}></div></div>
-              </div>
-              <div className="metric">
-                <div className="metric-info"><Database size={12} /> Storage (LMS)</div>
-                <div className="progress-bar-sm"><div className="fill" style={{width: '78%'}}></div></div>
-              </div>
-              <div className="metric">
-                <div className="metric-info"><Wifi size={12} /> Network Latency</div>
-                <div className="progress-bar-sm"><div className="fill green" style={{width: '12%'}}></div></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="admin-audit card border-indigo">
-            <h3>Audit Log</h3>
-            <div className="audit-list">
+            <div className="health-metrics-premium">
               {[
-                { time: '10:42', text: 'modified student permissions in Class 12-A.', actor: 'Admin' },
-                { time: '09:15', text: 'auto-backed up institutional database.', actor: 'System' }
-              ].map((log, i) => (
-                <div key={i} className="audit-item">
-                  <span className="time">{log.time}</span>
-                  <p><strong>{log.actor}</strong> {log.text}</p>
+                { label: 'Cloud Clusters', value: '45%', icon: Server, color: 'blue' },
+                { id: 'LMS', label: 'LMS Database', value: '78%', icon: Database, color: 'purple' },
+                { label: 'Campus Mesh', value: '12ms', icon: Wifi, color: 'emerald' }
+              ].map((metric, i) => (
+                <div key={i} className="metric-item-premium">
+                  <div className="metric-top">
+                    <div className="label-group">
+                      <metric.icon size={14} className={`text-${metric.color}`} />
+                      <span>{metric.label}</span>
+                    </div>
+                    <span className="val">{metric.value}</span>
+                  </div>
+                  <div className="progress-premium">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: metric.value }}
+                      transition={{ duration: 1.5, delay: 0.5 }}
+                      className={`fill ${metric.color}`}
+                    ></motion.div>
+                  </div>
                 </div>
               ))}
             </div>
-            <button className="btn-text mt-1 text-indigo" onClick={() => addNotification('Loading full audit history...')}>View Full Audit</button>
-          </div>
+          </section>
+
+          <section className="asset-inventory card-premium mt-2">
+            <h3>Strategic Assets</h3>
+            <div className="asset-list-premium">
+              {assets.map((asset, i) => (
+                <div key={i} className="asset-item-premium">
+                  <div className="info">
+                    <strong>{asset.name}</strong>
+                    <span>{asset.status}</span>
+                  </div>
+                  <div className={`level-indicator ${asset.level}`}></div>
+                </div>
+              ))}
+            </div>
+            <button className="btn-text-premium mt-1" onClick={() => addNotification('Opening deep asset analytics...')}>
+              Detailed Inventory <ArrowUpRight size={14} />
+            </button>
+          </section>
+
+          <section className="audit-premium card-premium mt-2">
+            <div className="section-header">
+              <h3>Activity Ledger</h3>
+              <RefreshCw size={16} className="text-tertiary" />
+            </div>
+            <div className="audit-timeline">
+              {[
+                { time: '10:42 AM', action: 'Policy Override', actor: 'SuperAdmin' },
+                { time: '09:15 AM', action: 'Auto Backup', actor: 'System' },
+                { time: '08:30 AM', action: 'Auth Token Refresh', actor: 'Security' }
+              ].map((log, i) => (
+                <div key={i} className="timeline-item">
+                  <span className="time">{log.time}</span>
+                  <div className="log-dot"></div>
+                  <div className="log-content">
+                    <p>{log.action}</p>
+                    <span>by {log.actor}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </aside>
       </div>
 
-      {/* Registration Modal */}
+      {/* Advanced Modal */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="modal-overlay flex-center">
+          <div className="modal-root">
             <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="modal-content card"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="modal-overlay-premium"
+            ></motion.div>
+            <motion.div 
+              initial={{ y: 50, scale: 0.9, opacity: 0 }}
+              animate={{ y: 0, scale: 1, opacity: 1 }}
+              exit={{ y: 50, scale: 0.9, opacity: 0 }}
+              className="modal-window-premium card-premium"
             >
               <div className="modal-header">
-                <h3>Register New Faculty</h3>
-                <button onClick={() => setIsModalOpen(false)} className="btn-icon"><X size={20} /></button>
+                <div className="title-group">
+                  <h3>Onboard Faculty</h3>
+                  <p>Adding new academic staff to the ecosystem</p>
+                </div>
+                <button onClick={() => setIsModalOpen(false)} className="close-btn"><X size={24} /></button>
               </div>
-              <form onSubmit={handleRegister} className="modal-form">
-                <div className="form-group">
-                  <label>Full Name</label>
-                  <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="e.g. Dr. Ramesh Kumar" required />
+              
+              <form onSubmit={handleRegister} className="premium-form">
+                <div className="input-group">
+                  <label>Faculty Identity</label>
+                  <input 
+                    type="text" 
+                    value={formData.name} 
+                    onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                    placeholder="Full Legal Name" 
+                    required 
+                  />
                 </div>
-                <div className="form-group">
-                  <label>Department</label>
-                  <select value={formData.dept} onChange={(e) => setFormData({...formData, dept: e.target.value})} required>
-                    <option value="">Select Department</option>
-                    <option value="Mathematics">Mathematics</option>
-                    <option value="Physics">Physics</option>
-                    <option value="Biology">Biology</option>
-                    <option value="Computer Science">Computer Science</option>
-                  </select>
+                
+                <div className="form-row">
+                  <div className="input-group">
+                    <label>Department</label>
+                    <select value={formData.dept} onChange={(e) => setFormData({...formData, dept: e.target.value})} required>
+                      <option value="">Select Domain</option>
+                      <option value="Mathematics">Mathematics</option>
+                      <option value="Physics">Physics</option>
+                      <option value="Biology">Biology</option>
+                      <option value="Computer Science">Computer Science</option>
+                    </select>
+                  </div>
+                  <div className="input-group">
+                    <label>Weekly Load</label>
+                    <input 
+                      type="number" 
+                      value={formData.classes} 
+                      onChange={(e) => setFormData({...formData, classes: e.target.value})} 
+                      placeholder="Hours" 
+                    />
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Initial Class Load</label>
-                  <input type="number" value={formData.classes} onChange={(e) => setFormData({...formData, classes: e.target.value})} placeholder="e.g. 4" />
-                </div>
-                <div className="form-actions">
-                  <button type="button" onClick={() => setIsModalOpen(false)} className="btn-outline">Cancel</button>
-                  <button type="submit" className="btn-primary">Register Faculty</button>
+
+                <div className="form-footer">
+                  <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">Abort</button>
+                  <button type="submit" className="btn-confirm">Initialize Onboarding</button>
                 </div>
               </form>
             </motion.div>

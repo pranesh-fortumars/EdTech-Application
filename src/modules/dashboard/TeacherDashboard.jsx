@@ -1,221 +1,252 @@
 import React from 'react';
-import { Users, FileCheck, Calendar, MessageSquare, Plus, Video, Bell, RefreshCw, BarChart2, BookOpen, Clock } from 'lucide-react';
-import { motion } from 'framer-motion';
-import StatsCard from '../../components/StatsCard';
+import { motion as m } from 'framer-motion';
+import { 
+  Users, BookOpen, Clock, CheckCircle, TrendingUp, Calendar, Video, FileText, Plus, Bell, ChevronRight, HelpCircle, Activity, Layout
+} from 'lucide-react';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell, AreaChart, Area } from 'recharts';
 import useAuthStore from '../../store/useAuthStore';
 import useNotificationStore from '../../store/useNotificationStore';
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line 
-} from 'recharts';
 import '../dashboard/Dashboard.css';
 
-const studentPerformance = [
-  { id: 'STU001', name: 'Arun Kumar', class: '12-A', attendance: '98%', avgGrade: 'A+', status: 'Excellent' },
-  { id: 'STU002', name: 'Kavitha R.', class: '12-A', attendance: '95%', avgGrade: 'A', status: 'Good' },
-  { id: 'STU003', name: 'Rajesh S.', class: '12-B', attendance: '82%', avgGrade: 'B', status: 'Needs Focus' },
-  { id: 'STU004', name: 'Priya M.', class: '10-A', attendance: '99%', avgGrade: 'A+', status: 'Excellent' },
+const attendanceData = [
+  { day: 'Mon', present: 92 },
+  { day: 'Tue', present: 88 },
+  { day: 'Wed', present: 95 },
+  { day: 'Thu', present: 91 },
+  { day: 'Fri', present: 89 },
+];
+
+const quizPerformance = [
+  { topic: 'Photosynthesis', avg: 82 },
+  { topic: 'Genetics', avg: 75 },
+  { topic: 'Ecology', avg: 90 },
+  { topic: 'Cell Bio', avg: 85 },
 ];
 
 const TeacherDashboard = () => {
   const { user } = useAuthStore();
   const { addNotification } = useNotificationStore();
 
-  const handleAction = (msg) => addNotification(msg, 'success');
+  const getTimeGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 17) return 'Good Afternoon';
+    return 'Good Evening';
+  };
 
   return (
-    <div className="dashboard-container professional-theme">
-      <header className="dashboard-header">
-        <div className="header-main">
-          <div className="welcome-text">
-            <span className="breadcrumb">Academic Year 2026-27 • Term 1</span>
-            <h1>Faculty Portal: <span className="text-primary">{user.name}</span></h1>
-            <p>Senior Educator at {user.institution}</p>
-          </div>
-          <div className="action-group">
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-outline"
-              onClick={() => handleAction('Opening academic schedule...')}
-            >
-              <Calendar size={16} /> Schedule Class
-            </motion.button>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary"
-              onClick={() => handleAction('Creating new assignment portal...')}
-            >
-              <Plus size={16} /> Create Assignment
-            </motion.button>
+    <div className="dashboard-container advanced-theme">
+      {/* Background Decor */}
+      <div className="bg-glow emerald"></div>
+      <div className="bg-glow blue"></div>
+
+      <header className="dashboard-header-premium">
+        <div className="header-content">
+          <m.div 
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            className="welcome-section"
+          >
+            <div className="status-badge-premium">
+              <Activity size={14} className="text-emerald animate-pulse" />
+              <span>Classes Live in 2 Units</span>
+            </div>
+            <h1>{getTimeGreeting()}, <span className="text-gradient">Prof. {user.name.split(' ')[0]}</span></h1>
+            <p className="subtitle">Department of {user.department || 'Science'} • Teaching Dashboard</p>
+          </m.div>
+
+          <div className="header-actions-premium">
+            <m.button whileHover={{ scale: 1.05 }} className="btn-glass" onClick={() => addNotification('Opening institutional calendar...')}>
+              <Calendar size={18} />
+              <span>Academic Planner</span>
+            </m.button>
+            <m.button whileHover={{ scale: 1.05 }} className="btn-premium-action" onClick={() => addNotification('Initializing live virtual classroom...')}>
+              <Video size={18} />
+              <span>Launch Live Class</span>
+            </m.button>
           </div>
         </div>
       </header>
 
-      <div className="stats-row">
+      <div className="stats-grid-premium">
         {[
-          { icon: Users, label: 'Total Managed Students', value: '142', trend: '+4% from last month', color: 'cyan' },
-          { icon: FileCheck, label: 'Pending Submissions', value: '28', trend: '12 overdue', color: 'orange', isNegative: true },
-          { icon: Calendar, label: 'Term Attendance', value: '94.2%', trend: 'Above school avg', color: 'green' }
+          { icon: Users, label: 'Total Students', value: '185', trend: 'Active', color: 'blue', iconColor: 'var(--primary)' },
+          { icon: BookOpen, label: 'Course Progress', value: '72%', trend: 'On Schedule', color: 'emerald', iconColor: 'var(--accent-emerald)' },
+          { icon: Clock, label: 'Teaching Hours', value: '24h', trend: 'This Week', color: 'violet', iconColor: 'var(--accent-violet)' },
+          { icon: CheckCircle, label: 'Submissions', value: '12', trend: 'Pending Review', color: 'amber', iconColor: 'var(--accent-amber)' }
         ].map((stat, i) => (
-          <motion.div 
+          <m.div 
             key={i}
-            whileHover={{ y: -5 }}
-            className="stat-item card clickable"
-            onClick={() => handleAction(`Accessing ${stat.label} report`)}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: i * 0.1 }}
+            className="stat-card-premium glass"
           >
-            <div className={`stat-icon ${stat.color}`}><stat.icon size={20} /></div>
-            <div className="stat-content">
-              <span className="stat-label">{stat.label}</span>
-              <span className="stat-value">{stat.value}</span>
-              <span className={`stat-trend ${stat.isNegative ? 'negative' : 'positive'}`}>{stat.trend}</span>
+            <div className="stat-icon-wrap" style={{ backgroundColor: `${stat.iconColor}15` }}>
+              <stat.icon size={24} style={{ color: stat.iconColor }} />
             </div>
-          </motion.div>
+            <div className="stat-info">
+              <span className="label">{stat.label}</span>
+              <div className="value-row">
+                <span className="value">{stat.value}</span>
+                <span className={`trend ${stat.color}`}>{stat.trend}</span>
+              </div>
+            </div>
+            <div className="stat-glow" style={{ background: stat.iconColor }}></div>
+          </m.div>
         ))}
       </div>
 
-      <div className="dashboard-layout-grid">
-        <div className="grid-main">
-          <div className="table-section card">
-            <div className="section-header">
-              <h3>Student Performance Overview</h3>
-              <div className="table-actions">
-                <motion.button whileHover={{ scale: 1.05 }} onClick={() => handleAction('Filtering student data...')} className="btn-sm btn-outline">Filter</motion.button>
-                <motion.button whileHover={{ scale: 1.05 }} onClick={() => handleAction('Generating performance CSV...')} className="btn-sm btn-primary">Export CSV</motion.button>
-              </div>
-            </div>
-            <div className="table-container">
-              <table className="pro-table">
-                <thead>
-                  <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Class</th>
-                    <th>Attendance</th>
-                    <th>Avg. Grade</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {studentPerformance.map(student => (
-                    <tr key={student.id}>
-                      <td className="text-mono">{student.id}</td>
-                      <td className="font-semibold">{student.name}</td>
-                      <td>{student.class}</td>
-                      <td>{student.attendance}</td>
-                      <td><span className={`grade-badge ${student.avgGrade.startsWith('A') ? 'high' : 'mid'}`}>{student.avgGrade}</span></td>
-                      <td><span className={`status-text ${student.status.toLowerCase().replace(' ', '-')}`}>{student.status}</span></td>
-                      <td>
-                        <motion.button 
-                          whileHover={{ scale: 1.2, color: 'var(--primary)' }}
-                          onClick={() => handleAction(`Opening chat with ${student.name}`)}
-                          className="btn-icon"
-                        >
-                          <MessageSquare size={14} />
-                        </motion.button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="dual-grid">
-            <div className="chart-card card border-teal">
+      <div className="main-layout-grid">
+        <div className="content-prime">
+          <div className="dual-section-grid">
+            <section className="attendance-heatmap card-premium">
               <div className="section-header">
-                <h3>Monthly Attendance Trend</h3>
-                <motion.button whileHover={{ rotate: 180 }} onClick={() => handleAction('Refreshing attendance data...')} className="btn-icon">
-                  <RefreshCw size={14} />
-                </motion.button>
+                <div className="title-group">
+                  <h3>Attendance Engagement</h3>
+                  <p>Weekly average participation across all batches</p>
+                </div>
+                <div className="stats-mini">
+                  <strong>91.4%</strong>
+                  <span>Global Avg</span>
+                </div>
               </div>
-              <div className="chart-container">
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={[
-                    { day: 'Mon', count: 98 },
-                    { day: 'Tue', count: 95 },
-                    { day: 'Wed', count: 88 },
-                    { day: 'Thu', count: 92 },
-                    { day: 'Fri', count: 99 },
-                  ]}>
+              <div className="chart-wrap">
+                <ResponsiveContainer width="100%" height={240}>
+                  <AreaChart data={attendanceData}>
+                    <defs>
+                      <linearGradient id="colorAtt" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="var(--accent-emerald)" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="var(--accent-emerald)" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
                     <XAxis dataKey="day" axisLine={false} tickLine={false} />
+                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none' }} />
+                    <Area type="monotone" dataKey="present" stroke="var(--accent-emerald)" strokeWidth={3} fill="url(#colorAtt)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </section>
+
+            <section className="quiz-analytics card-premium">
+              <div className="section-header">
+                <div className="title-group">
+                  <h3>Subject Mastery</h3>
+                  <p>Recent quiz performance distribution</p>
+                </div>
+                <TrendingUp size={20} className="text-violet" />
+              </div>
+              <div className="chart-wrap">
+                <ResponsiveContainer width="100%" height={240}>
+                  <BarChart data={quizPerformance}>
+                    <XAxis dataKey="topic" axisLine={false} tickLine={false} tick={{fontSize: 10}} />
                     <Tooltip cursor={{fill: 'rgba(0,0,0,0.02)'}} />
-                    <Bar dataKey="count" fill="var(--accent-teal)" radius={[4, 4, 0, 0]} barSize={40} />
+                    <Bar dataKey="avg" radius={[4, 4, 0, 0]}>
+                      {quizPerformance.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={index % 2 === 0 ? 'var(--primary)' : 'var(--accent-violet)'} />
+                      ))}
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-            </div>
-            
-            <div className="quiz-card card border-violet">
-              <div className="section-header">
-                <h3>Quiz Builder Performance</h3>
-                <BarChart2 size={16} className="text-violet" />
-              </div>
-              <div className="quiz-stats">
-                {[
-                  { label: 'Active Quizzes', value: '12' },
-                  { label: 'Avg. Completion', value: '84%' },
-                  { label: 'Top Score', value: '100/100' }
-                ].map((s, i) => (
-                  <div key={i} className="quiz-stat-item">
-                    <span className="label">{s.label}</span>
-                    <span className="value text-violet">{s.value}</span>
-                  </div>
-                ))}
-              </div>
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="btn-primary btn-sm full-width mt-1 bg-violet"
-                onClick={() => handleAction('Initializing new quiz builder...')}
-              >
-                Launch New Quiz
-              </motion.button>
-            </div>
+            </section>
           </div>
+
+          <section className="upcoming-schedule card-premium mt-2">
+            <div className="section-header">
+              <div className="title-group">
+                <h3>Session Orchestration</h3>
+                <p>Manage your upcoming teaching slots</p>
+              </div>
+              <button className="btn-text-premium" onClick={() => addNotification('Opening full schedule management...')}>
+                View Full Month
+              </button>
+            </div>
+            <div className="schedule-list-advanced">
+              {[
+                { time: '09:00 AM', subject: 'Advanced Biology', class: 'Grade 12-A', type: 'Lecture', status: 'Upcoming' },
+                { time: '11:30 AM', subject: 'Laboratory Session', class: 'Grade 11-B', type: 'Practical', status: 'Preparation' },
+              ].map((slot, i) => (
+                <m.div 
+                  key={i} 
+                  whileHover={{ x: 10 }}
+                  className="schedule-row-premium"
+                >
+                  <div className="time-slot">
+                    <Clock size={16} />
+                    <span>{slot.time}</span>
+                  </div>
+                  <div className="session-info">
+                    <strong>{slot.subject}</strong>
+                    <span>{slot.class} • {slot.type}</span>
+                  </div>
+                  <div className="status-indicator">
+                    <span className={`pill ${slot.status.toLowerCase()}`}>{slot.status}</span>
+                    <button className="btn-icon-premium" onClick={() => addNotification(`Starting ${slot.subject}...`)}>
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
+                </m.div>
+              ))}
+            </div>
+          </section>
         </div>
 
-        <aside className="grid-sidebar">
-          <div className="lesson-planner card border-amber">
-            <div className="section-header">
-              <h3>Lesson Planner</h3>
-              <BookOpen size={16} className="text-amber" />
+        <aside className="content-sidebar">
+          <section className="teacher-actions-grid card-premium">
+            <h3>Quick Actions</h3>
+            <div className="action-buttons-premium">
+              <button className="action-btn-p" onClick={() => addNotification('Opening assignment creator...')}>
+                <div className="icon-p"><FileText size={20} /></div>
+                <span>Create Task</span>
+              </button>
+              <button className="action-btn-p" onClick={() => addNotification('Opening content uploader...')}>
+                <div className="icon-p"><Plus size={20} /></div>
+                <span>Upload Resource</span>
+              </button>
+              <button className="action-btn-p" onClick={() => addNotification('Opening student directory...')}>
+                <div className="icon-p"><Users size={20} /></div>
+                <span>Directory</span>
+              </button>
+              <button className="action-btn-p" onClick={() => addNotification('Opening layout settings...')}>
+                <div className="icon-p"><Layout size={20} /></div>
+                <span>Customize</span>
+              </button>
             </div>
-            <div className="planner-item clickable" onClick={() => handleAction('Viewing Monday lesson details...')}>
-              <div className="day-circle border-amber">Mon</div>
-              <div className="plan-info">
-                <p>Advanced Integration</p>
-                <span>Prep materials, Assignment #4</span>
-              </div>
-            </div>
-            <div className="planner-item active bg-amber-light clickable" onClick={() => handleAction('Viewing Tuesday lesson details...')}>
-              <div className="day-circle border-amber bg-amber text-white">Tue</div>
-              <div className="plan-info">
-                <p>Organic Chemistry Lab</p>
-                <span>Safety equipment check required</span>
-              </div>
-            </div>
-          </div>
+          </section>
 
-          <div className="upcoming-events card border-rose">
+          <section className="notifications-advanced card-premium mt-2">
             <div className="section-header">
-              <h3>Institutional Calendar</h3>
-              <Clock size={16} className="text-rose" />
+              <h3>Action Required</h3>
+              <Bell size={18} className="text-amber" />
             </div>
-            {[
-              { date: 'May 15', title: 'Parent-Teacher Meeting', desc: 'All Day • Main Hall' },
-              { date: 'May 22', title: 'Annual Science Fair', desc: '10:00 AM • Lab Block' }
-            ].map((event, i) => (
-              <div key={i} className="event-item clickable" onClick={() => handleAction(`Viewing details for ${event.title}`)}>
-                <div className="event-date text-rose">{event.date}</div>
-                <div className="event-info">
-                  <p>{event.title}</p>
-                  <span>{event.desc}</span>
+            <div className="alert-list-premium">
+              {[
+                { title: 'Grade Pending', desc: '12-A Biology assignments need review', urgency: 'high' },
+                { title: 'New Message', desc: 'Arun Kumar sent a doubt regarding Cell Bio', urgency: 'mid' }
+              ].map((alert, i) => (
+                <div key={i} className={`alert-item-p ${alert.urgency}`}>
+                  <div className="alert-content">
+                    <strong>{alert.title}</strong>
+                    <p>{alert.desc}</p>
+                  </div>
+                  <HelpCircle size={14} className="text-tertiary" />
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </section>
+
+          <m.div 
+            whileHover={{ scale: 1.02 }}
+            className="premium-promo-card card-premium mt-2"
+          >
+            <div className="promo-content">
+              <TrendingUp size={32} className="text-violet" />
+              <h4>AI Course Architect</h4>
+              <p>Generate a full curriculum using Aura AI and save 5 hours weekly.</p>
+              <button className="btn-primary full-width mt-1">Try Architect</button>
+            </div>
+          </m.div>
         </aside>
       </div>
     </div>
