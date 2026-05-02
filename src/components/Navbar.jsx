@@ -1,39 +1,71 @@
 import React from 'react';
-import { Search, Bell, Menu, Sun, Moon } from 'lucide-react';
+import { Search, Bell, Menu, Sun, Moon, Globe, Command } from 'lucide-react';
+import { motion } from 'framer-motion';
 import useAuthStore from '../store/useAuthStore';
+import useNotificationStore from '../store/useNotificationStore';
 import './Navbar.css';
 
 const Navbar = ({ onMenuClick }) => {
   const { user } = useAuthStore();
+  const { addNotification } = useNotificationStore();
 
   return (
-    <nav className="navbar glass">
+    <nav className="navbar professional-theme">
       <div className="navbar-left">
         <button className="mobile-menu-btn" onClick={onMenuClick}>
-          <Menu size={24} />
+          <Menu size={20} />
         </button>
-        <div className="search-bar">
-          <Search size={18} className="search-icon" />
-          <input type="text" placeholder="Search for courses, lessons, or AI help..." />
+        <div className="search-wrapper card glass">
+          <Search size={16} className="search-icon" />
+          <input type="text" placeholder="Global search..." />
+          <div className="search-shortcut">
+            <Command size={12} /> K
+          </div>
         </div>
       </div>
 
       <div className="navbar-right">
-        <button className="icon-btn theme-toggle">
-          <Sun size={20} />
-        </button>
-        <div className="notification-wrapper">
-          <button className="icon-btn">
-            <Bell size={20} />
-            <span className="notification-badge"></span>
-          </button>
-        </div>
-        <div className="user-profile">
-          <div className="user-info">
-            <span className="user-name">{user.name}</span>
-            <span className="user-level">{user.role.toUpperCase()} • {user.institution.split(',')[0]}</span>
+        <div className="nav-actions">
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            className="icon-btn"
+            onClick={() => addNotification('Regional settings updated to Tamil Nadu (IN)', 'success')}
+          >
+            <Globe size={18} />
+          </motion.button>
+          
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            className="icon-btn"
+          >
+            <Sun size={18} />
+          </motion.button>
+
+          <div className="notification-center">
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              className="icon-btn"
+              onClick={() => addNotification('You have 3 new institutional alerts', 'success')}
+            >
+              <Bell size={18} />
+              <span className="badge-pulse"></span>
+            </motion.button>
           </div>
-          <img src={user.avatar} alt="User Avatar" className="user-avatar" />
+        </div>
+
+        <div className="header-divider"></div>
+
+        <div className="nav-profile">
+          <div className="profile-text">
+            <span className="name">{user?.name}</span>
+            <span className="inst">{user?.institution.split(',')[0]}</span>
+          </div>
+          <motion.img 
+            whileHover={{ scale: 1.1 }}
+            src={user?.avatar} 
+            alt="User Avatar" 
+            className="nav-avatar" 
+          />
         </div>
       </div>
     </nav>
