@@ -1,0 +1,201 @@
+.fee-gateway-container {
+  padding: 2rem;
+}
+
+.mini-stat {
+  text-align: right;
+}
+
+.mini-stat span {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.mini-stat strong {
+  font-size: 1.5rem;
+  color: var(--accent-rose);
+}
+
+.gateway-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.billing-section {
+  padding: 1.5rem;
+}
+
+.bill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+
+.bill-item:hover:not(.paid) {
+  border-color: var(--primary);
+  background: #f8fafc;
+}
+
+.bill-item.selected {
+  border-color: var(--primary);
+  background: #eff6ff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+}
+
+.bill-item.paid {
+  opacity: 0.8;
+  background: #f9fafb;
+}
+
+.bill-info h4 {
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+.bill-info .id {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-tertiary);
+}
+
+.bill-info .meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.bill-amount {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.bill-amount .price {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.status-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.status-tag.pending { background: #fff7ed; color: #ea580c; }
+.status-tag.paid { background: #f0fdf4; color: #16a34a; }
+
+.payment-methods {
+  padding: 1.5rem;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.method {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.method.active {
+  border-color: var(--primary);
+  background: #eff6ff;
+  color: var(--primary);
+}
+
+.order-summary {
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.security-note {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-align: center;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.scholarship-alert {
+  padding: 1.25rem;
+}
+
+.alert-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.alert-header h4 { margin: 0; }
+
+.scholarship-alert p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

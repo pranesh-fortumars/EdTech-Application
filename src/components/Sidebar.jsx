@@ -33,7 +33,10 @@ const Sidebar = () => {
     { icon: Trophy, label: 'Achievements', path: '/achievements', roles: ['student'] },
     { icon: Users, label: 'Collaborate', path: '/collaboration', roles: ['student'] },
     { icon: Shield, label: 'Admin Hub', path: '/admin-config', roles: ['admin'] },
+    { icon: Users, label: 'User Control', path: '/users', roles: ['admin'] },
     { icon: BarChart3, label: 'School Pulse', path: '/school-stats', roles: ['admin'] },
+    { icon: CreditCard, label: 'Fee Portal', path: '/fees', roles: ['student', 'admin'] },
+    { icon: Target, label: 'Mastery Quiz', path: '/ai-quiz', roles: ['student'] },
   ];
 
   const menuItems = allMenuItems.filter(item => item.roles.includes(user?.role));

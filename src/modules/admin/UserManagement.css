@@ -1,0 +1,105 @@
+.user-management-container {
+  padding: 2rem;
+}
+
+.management-tools {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.25rem !important;
+  margin-bottom: 2rem;
+}
+
+.search-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filter-group select {
+  background: white;
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.user-identity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-identity .avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.user-identity .details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-identity .details strong { font-size: 0.95rem; }
+.user-identity .details span { font-size: 0.75rem; color: var(--text-tertiary); }
+
+.role-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.role-pill.admin { background: #fef2f2; color: #dc2626; }
+.role-pill.teacher { background: #f0fdf4; color: #16a34a; }
+.role-pill.student { background: #eff6ff; color: #2563eb; }
+
+.status-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.status-badge.active { background: #dcfce7; color: #166534; }
+.status-badge.pending { background: #fef9c3; color: #854d0e; }
+
+.action-row {
+  display: flex;
+  gap: 0.5rem;
+}

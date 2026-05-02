@@ -16,6 +16,9 @@ const Achievements = lazy(() => import('./modules/gamification/Achievements'));
 const AuraKnowledgeGraph = lazy(() => import('./modules/ai/AuraKnowledgeGraph'));
 const CollaborationHub = lazy(() => import('./modules/collaboration/CollaborationHub'));
 const SchoolAnalytics = lazy(() => import('./modules/analytics/SchoolAnalytics'));
+const FeeGateway = lazy(() => import('./modules/finance/FeeGateway'));
+const AIQuizEngine = lazy(() => import('./modules/ai/AIQuizEngine'));
+const UserManagement = lazy(() => import('./modules/admin/UserManagement'));
 // Mock components for other routes
 const Placeholder = ({ title }) => (
   <div style={{ padding: '2rem', textAlign: 'center' }}>
@@ -60,6 +63,9 @@ const App = () => {
                     <Route path="/faculty" element={<Placeholder title="Faculty Hub" />} />
                     <Route path="/admin-config" element={<Placeholder title="System Administration" />} />
                     <Route path="/school-stats" element={<SchoolAnalytics />} />
+                    <Route path="/fees" element={<FeeGateway />} />
+                    <Route path="/ai-quiz" element={<AIQuizEngine />} />
+                    <Route path="/users" element={<UserManagement />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </Layout>
