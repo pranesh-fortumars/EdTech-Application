@@ -74,3 +74,36 @@
 
 .toast-close:hover { color: var(--text-primary); }
 
+.offline-sync-status {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 280px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1rem;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 99px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  z-index: 90;
+  transition: left 0.3s ease;
+}
+
+.sync-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--success);
+}
+
+@media (max-width: 1024px) {
+  .offline-sync-status {
+    left: 1.5rem;
+  }
+}
+

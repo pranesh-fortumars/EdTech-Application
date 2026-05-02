@@ -19,6 +19,8 @@ const SchoolAnalytics = lazy(() => import('./modules/analytics/SchoolAnalytics')
 const FeeGateway = lazy(() => import('./modules/finance/FeeGateway'));
 const AIQuizEngine = lazy(() => import('./modules/ai/AIQuizEngine'));
 const UserManagement = lazy(() => import('./modules/admin/UserManagement'));
+const ParentDashboard = lazy(() => import('./modules/parent/ParentDashboard'));
+const SmartAssetTracker = lazy(() => import('./modules/admin/SmartAssetTracker'));
 // Mock components for other routes
 const Placeholder = ({ title }) => (
   <div style={{ padding: '2rem', textAlign: 'center' }}>
@@ -66,6 +68,8 @@ const App = () => {
                     <Route path="/fees" element={<FeeGateway />} />
                     <Route path="/ai-quiz" element={<AIQuizEngine />} />
                     <Route path="/users" element={<UserManagement />} />
+                    <Route path="/parent" element={<ParentDashboard />} />
+                    <Route path="/assets" element={<SmartAssetTracker />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </Layout>

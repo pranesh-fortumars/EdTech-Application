@@ -13,7 +13,8 @@ import {
   Shield,
   CreditCard,
   HelpCircle,
-  ChevronRight
+  ChevronRight,
+  Target
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -37,6 +38,8 @@ const Sidebar = () => {
     { icon: BarChart3, label: 'School Pulse', path: '/school-stats', roles: ['admin'] },
     { icon: CreditCard, label: 'Fee Portal', path: '/fees', roles: ['student', 'admin'] },
     { icon: Target, label: 'Mastery Quiz', path: '/ai-quiz', roles: ['student'] },
+    { icon: Baby, label: 'Parent Portal', path: '/parent', roles: ['student', 'admin'] },
+    { icon: Database, label: 'Asset Tracking', path: '/assets', roles: ['admin'] },
   ];
 
   const menuItems = allMenuItems.filter(item => item.roles.includes(user?.role));
