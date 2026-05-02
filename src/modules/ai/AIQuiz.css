@@ -197,3 +197,39 @@
 }
 
 .result-actions button { flex: 1; }
+
+.gap-analysis {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  text-align: left;
+}
+
+.gap-analysis h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.gap-analysis p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.recommendation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+}
+
+.recommendation span { font-size: 0.75rem; font-weight: 700; color: var(--text-tertiary); }
+.recommendation strong { font-size: 0.9rem; color: var(--primary); }
+

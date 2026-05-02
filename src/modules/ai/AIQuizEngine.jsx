@@ -160,7 +160,17 @@ const AIQuizEngine = () => {
               <span>Skill Graph Updated: +15 Mastery Points</span>
             </div>
 
-            <div className="result-actions">
+            <div className="gap-analysis card border-amber">
+              <h3><BrainCircuit size={18} /> AI Gap Analysis</h3>
+              <p>You missed **1 question** regarding **Server Architecture**. We recommend focusing on **Edge Computing** nodes.</p>
+              <div className="recommendation">
+                <span>Recommended Next:</span>
+                <strong>V8 Engine Optimization</strong>
+                <ChevronRight size={14} />
+              </div>
+            </div>
+
+            <div className="result-actions mt-2">
               <button className="btn-outline" onClick={() => setCurrentStep('config')}>Back to Dashboard</button>
               <button className="btn-primary" onClick={() => addNotification('Certificate generated and added to profile!', 'success')}>Claim Badge</button>
             </div>

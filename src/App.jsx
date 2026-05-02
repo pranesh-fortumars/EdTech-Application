@@ -13,7 +13,7 @@ const LiveClass = lazy(() => import('./modules/live/LiveClass'));
 const Analytics = lazy(() => import('./modules/analytics/Analytics'));
 const Community = lazy(() => import('./modules/collaboration/Community'));
 const Achievements = lazy(() => import('./modules/gamification/Achievements'));
-const AuraKnowledgeGraph = lazy(() => import('./modules/ai/AuraKnowledgeGraph'));
+const AuraKnowledgeGraph = lazy(() => import('./modules/ai/HolographicGraph'));
 const CollaborationHub = lazy(() => import('./modules/collaboration/CollaborationHub'));
 const SchoolAnalytics = lazy(() => import('./modules/analytics/SchoolAnalytics'));
 const FeeGateway = lazy(() => import('./modules/finance/FeeGateway'));

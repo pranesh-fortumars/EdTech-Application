@@ -69,7 +69,13 @@ const AITutor = () => {
                 </div>
                 <div>
                   <h4>Aura AI</h4>
-                  <span className="status">Online • Personal Tutor</span>
+                  <div className="status-row">
+                    <span className="status">Online</span>
+                    <div className="emotion-indicator" title="Emotional Resonance: Focused">
+                      <div className="dot pulse-emerald"></div>
+                      <span>Empathetic Mode</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="header-actions">

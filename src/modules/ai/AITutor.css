@@ -75,8 +75,45 @@
 
 .header-info .status {
   font-size: 0.7rem;
-  opacity: 0.8;
+  opacity: 0.9;
+  font-weight: 700;
 }
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.emotion-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.1rem 0.5rem;
+  border-radius: 99px;
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.emotion-indicator .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.pulse-emerald {
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse-simple 2s infinite;
+}
+
+@keyframes pulse-simple {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
 
 .header-actions {
   display: flex;
