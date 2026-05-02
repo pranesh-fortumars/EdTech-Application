@@ -14,7 +14,9 @@ import {
   CreditCard,
   HelpCircle,
   ChevronRight,
-  Target
+  Target,
+  Baby,
+  Database
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
