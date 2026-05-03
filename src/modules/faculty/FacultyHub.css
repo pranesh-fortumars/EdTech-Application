@@ -1,0 +1,145 @@
+.faculty-hub-container {
+  padding: 2rem;
+}
+
+.faculty-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.class-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.class-mini-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.class-mini-card h4 { margin: 0; font-size: 1.15rem; }
+.student-count { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 700; color: var(--text-tertiary); }
+
+.attendance-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.assignment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.assignment-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.assignment-row:hover {
+  background: var(--bg-secondary);
+  transform: translateX(5px);
+}
+
+.assignment-row .icon-box {
+  width: 44px;
+  height: 44px;
+  background: #eff6ff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assignment-row .info { flex: 1; }
+.assignment-row h4 { margin: 0; font-size: 1rem; }
+.assignment-row span { font-size: 0.8rem; color: var(--text-tertiary); font-weight: 600; }
+
+.assignment-row .progress {
+  width: 150px;
+  text-align: right;
+}
+
+.assignment-row .progress .bar {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  margin-bottom: 0.4rem;
+  overflow: hidden;
+}
+
+.assignment-row .progress .fill {
+  height: 100%;
+  background: var(--primary);
+}
+
+.stat-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(var(--primary) 84%, #f1f5f9 0);
+  margin: 1.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-circle .inner {
+  width: 120px;
+  height: 120px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-circle strong { font-size: 2rem; color: var(--text-primary); }
+.stat-circle span { font-size: 0.7rem; color: var(--text-tertiary); font-weight: 800; text-transform: uppercase; }
+
+.messages-mini { padding: 1.5rem; }
+.msg-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+
+.msg-item {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+
+.avatar-sm {
+  width: 32px;
+  height: 32px;
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.msg-item .text strong { display: block; }
+.msg-item .text p { color: var(--text-secondary); margin: 0.2rem 0; font-size: 0.8rem; }
+.msg-item .time { font-size: 0.7rem; color: var(--text-tertiary); margin-left: auto; }
+
+@media (max-width: 1024px) {
+  .faculty-grid { grid-template-columns: 1fr; }
+}

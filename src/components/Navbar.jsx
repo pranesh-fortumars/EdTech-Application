@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Bell, Menu, Sun, Moon, Globe, Command } from 'lucide-react';
+import { Search, Bell, Menu, Sun, Moon, Globe, Command, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import useAuthStore from '../store/useAuthStore';
 import useNotificationStore from '../store/useNotificationStore';
@@ -21,6 +21,11 @@ const Navbar = ({ onMenuClick }) => {
           <div className="search-shortcut">
             <Command size={12} /> K
           </div>
+        </div>
+        <div className="security-pulse glass" title="Institutional Shield Active">
+          <ShieldCheck size={14} className="text-emerald" />
+          <span>Security Active</span>
+          <div className="pulse-dot"></div>
         </div>
       </div>
 
