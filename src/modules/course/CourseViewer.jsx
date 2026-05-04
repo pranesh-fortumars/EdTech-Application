@@ -35,12 +35,13 @@ const curriculum = [
 const CourseViewer = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [currentLesson, setCurrentLesson] = useState('2-1');
+  const [isCinemaMode, setIsCinemaMode] = useState(false);
   const { addNotification } = useNotificationStore();
 
   const handleAction = (msg) => addNotification(msg, 'success');
 
   return (
-    <div className="course-viewer professional-theme">
+    <div className={`course-viewer professional-theme ${isCinemaMode ? 'cinema-mode' : ''}`}>
       <div className="viewer-grid">
         <div className="viewer-main-content">
           <header className="viewer-header">
@@ -84,7 +85,13 @@ const CourseViewer = () => {
                   <span className="time-code">12:45 / 30:00</span>
                   <div className="right">
                     <div className="volume"></div>
-                    <Maximize2 size={18} />
+                    <motion.button 
+                      whileHover={{ scale: 1.1 }}
+                      onClick={() => setIsCinemaMode(!isCinemaMode)}
+                      title="Toggle Cinema Mode"
+                    >
+                      <Maximize2 size={18} />
+                    </motion.button>
                   </div>
                 </div>
               </div>

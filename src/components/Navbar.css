@@ -176,7 +176,7 @@
     padding: 0 1rem;
   }
   
-  .search-wrapper {
+  .search-wrapper, .security-pulse {
     display: none;
   }
 }

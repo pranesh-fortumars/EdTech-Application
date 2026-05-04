@@ -24,10 +24,10 @@ import useAuthStore from '../store/useAuthStore';
 import './Sidebar.css';
 
 const Sidebar = () => {
-  const { user } = useAuthStore();
+  const { user, logout } = useAuthStore();
   
   const allMenuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/', roles: ['student', 'teacher', 'admin'] },
+    { icon: LayoutDashboard, label: 'Dashboard', path: '/', roles: ['student', 'teacher', 'admin', 'parent'] },
     { icon: BookOpen, label: 'Course Library', path: '/courses', roles: ['student', 'teacher'] },
     { icon: Video, label: 'Live Studios', path: '/live', roles: ['student', 'teacher'] },
     { icon: MessageSquare, label: 'Community', path: '/community', roles: ['student', 'teacher', 'admin'] },
@@ -35,6 +35,7 @@ const Sidebar = () => {
     { icon: BarChart3, label: 'Analytics', path: '/analytics', roles: ['student', 'teacher'] },
     { icon: Trophy, label: 'Achievements', path: '/achievements', roles: ['student'] },
     { icon: Users, label: 'Collaborate', path: '/collaboration', roles: ['student'] },
+    { icon: Shield, label: 'Faculty Hub', path: '/faculty', roles: ['teacher', 'admin'] },
     { icon: Shield, label: 'Admin Hub', path: '/admin-config', roles: ['admin'] },
     { icon: Users, label: 'User Control', path: '/users', roles: ['admin'] },
     { icon: BarChart3, label: 'School Pulse', path: '/school-stats', roles: ['admin'] },
@@ -98,7 +99,13 @@ const Sidebar = () => {
         <NavLink to="/settings" className="nav-item-secondary">
           <Settings size={18} />
         </NavLink>
-        <button className="nav-item-secondary logout-btn" onClick={() => window.location.reload()}>
+        <button 
+          className="nav-item-secondary logout-btn" 
+          onClick={() => {
+            logout();
+            window.location.href = '/login';
+          }}
+        >
           <LogOut size={18} />
         </button>
       </div>

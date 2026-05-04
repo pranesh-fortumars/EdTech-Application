@@ -22,6 +22,8 @@ const UserManagement = lazy(() => import('./modules/admin/UserManagement'));
 const ParentDashboard = lazy(() => import('./modules/parent/ParentDashboard'));
 const SmartAssetTracker = lazy(() => import('./modules/admin/SmartAssetTracker'));
 const AdminConfig = lazy(() => import('./modules/admin/AdminConfig'));
+const FacultyHub = lazy(() => import('./modules/faculty/FacultyHub'));
+
 // Mock components for other routes
 const Placeholder = ({ title }) => (
   <div style={{ padding: '2rem', textAlign: 'center' }}>
@@ -52,6 +54,7 @@ const App = () => {
                       element={
                         user?.role === 'admin' ? <AdminDashboard /> : 
                         user?.role === 'teacher' ? <TeacherDashboard /> : 
+                        user?.role === 'parent' ? <ParentDashboard /> :
                         <StudentDashboard />
                       } 
                     />
@@ -63,7 +66,7 @@ const App = () => {
                     <Route path="/achievements" element={<Achievements />} />
                     <Route path="/collaboration" element={<CollaborationHub />} />
                     <Route path="/settings" element={<Placeholder title="Settings" />} />
-                    <Route path="/faculty" element={<Placeholder title="Faculty Hub" />} />
+                    <Route path="/faculty" element={<FacultyHub />} />
                     <Route path="/admin-config" element={<AdminConfig />} />
                     <Route path="/school-stats" element={<SchoolAnalytics />} />
                     <Route path="/fees" element={<FeeGateway />} />

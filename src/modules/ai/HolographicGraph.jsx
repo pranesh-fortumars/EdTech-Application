@@ -38,8 +38,8 @@ const HolographicKnowledgeGraph = () => {
         <div className="perspective-wrapper">
           <motion.div 
             className={`nodes-container ${viewMode.toLowerCase()}`}
-            animate={{ rotateY: viewMode === '3D' ? [0, 360] : 0 }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            animate={{ rotateY: (viewMode === '3D' && !selectedNode) ? [0, 360] : 0 }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           >
             {nodes.map((node) => (
               <motion.div

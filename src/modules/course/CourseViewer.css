@@ -10,6 +10,20 @@
   gap: 2rem;
   max-width: 1600px;
   margin: 0 auto;
+  transition: all 0.5s ease;
+}
+
+.course-viewer.cinema-mode .viewer-grid {
+  grid-template-columns: 1fr;
+  max-width: 100%;
+}
+
+.course-viewer.cinema-mode .viewer-sidebar {
+  display: none;
+}
+
+.course-viewer.cinema-mode .video-player-wrapper {
+  aspect-ratio: 21 / 9;
 }
 
 .viewer-main-content {
