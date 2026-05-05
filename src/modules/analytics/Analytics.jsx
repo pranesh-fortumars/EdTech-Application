@@ -12,9 +12,9 @@ import {
   Pie,
   Cell
 } from 'recharts';
-import StatsCard from '../../components/StatsCard';
-import { Target, Zap, Clock, Book } from 'lucide-react';
-import './Analytics.css';
+import { motion } from 'framer-motion';
+import { Target, Zap, Clock, Book, TrendingUp, Sparkles } from 'lucide-react';
+import '../admin/AdminModules.css';
 
 const performanceData = [
   { name: 'Week 1', react: 65, node: 40, css: 85 },
@@ -30,69 +30,121 @@ const subjectData = [
   { name: 'Design', value: 100 },
 ];
 
-const COLORS = ['#0891b2', '#06b6d4', '#f59e0b', '#10b981'];
+const COLORS = ['#0891b2', '#8b5cf6', '#f59e0b', '#10b981'];
 
 const Analytics = () => {
   return (
-    <div className="analytics-page">
-      <header className="page-header">
-        <h1>Learning <span className="gradient-text">Analytics</span></h1>
-        <p>Track your growth and performance across all modules.</p>
+    <div className="analytics-page-container">
+      <header className="module-header flex-between mb-12">
+        <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <TrendingUp size={32} className="text-primary" />
+            <h1 style={{ margin: 0 }}>Learning <span className="text-gradient">Analytics</span></h1>
+          </div>
+          <p>Track your growth and performance across all academic modules.</p>
+        </motion.div>
       </header>
 
-      <div className="stats-grid">
-        <StatsCard title="Total Modules" value="18" icon={Book} trend="up" trendValue="5" color="#0891b2" />
-        <StatsCard title="Learning Velocity" value="2.4x" icon={Zap} trend="up" trendValue="15" color="#06b6d4" />
-        <StatsCard title="Time Invested" value="156h" icon={Clock} trend="up" trendValue="10" color="#f59e0b" />
-        <StatsCard title="Goal Completion" value="88%" icon={Target} trend="up" trendValue="2" color="#10b981" />
+      <div className="pro-grid-4 mb-12">
+        {[
+          { title: 'Total Modules', value: '18', icon: Book, trend: '+2', color: 'blue' },
+          { title: 'Learning Velocity', value: '2.4x', icon: Zap, trend: '+15%', color: 'indigo' },
+          { title: 'Time Invested', value: '156h', icon: Clock, trend: '+12h', color: 'amber' },
+          { title: 'Goal Completion', value: '88%', icon: Target, trend: 'Optimal', color: 'emerald' }
+        ].map((stat, i) => (
+          <motion.div 
+            key={i} 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="admin-card"
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+              <div className={`bg-${stat.color}-vibrant`} style={{ width: '40px', height: '40px', borderRadius: '0.75rem', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <stat.icon size={20} />
+              </div>
+              <span className={`text-${stat.color === 'blue' || stat.color === 'emerald' ? 'success' : 'primary'} font-black uppercase tracking-widest`} style={{ fontSize: '0.65rem' }}>{stat.trend}</span>
+            </div>
+            <p className="text-slate-400 font-bold uppercase tracking-wider" style={{ fontSize: '0.65rem', margin: 0 }}>{stat.title}</p>
+            <h3 className="text-2xl font-black text-slate-800" style={{ margin: '0.25rem 0' }}>{stat.value}</h3>
+          </motion.div>
+        ))}
       </div>
 
-      <div className="analytics-grid">
-        <div className="chart-card card">
-          <h3>Skill Growth Trend</h3>
-          <div className="chart-wrapper">
-            <ResponsiveContainer width="100%" height={350}>
-              <LineChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                <YAxis axisLine={false} tickLine={false} />
-                <Tooltip />
-                <Legend iconType="circle" />
-                <Line type="monotone" dataKey="react" stroke="#0891b2" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="node" stroke="#06b6d4" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="css" stroke="#10b981" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
-              </LineChart>
-            </ResponsiveContainer>
+      <div className="pro-grid-main">
+        <div className="main-content" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div className="admin-card">
+            <div className="flex-between mb-10">
+              <h3 className="text-xl font-bold text-slate-800">Skill Growth Trend</h3>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <span className="badge-pro badge-blue">Frontend</span>
+                <span className="badge-pro badge-indigo">Backend</span>
+                <span className="badge-pro badge-emerald">Design</span>
+              </div>
+            </div>
+            <div style={{ height: '350px', width: '100%', minWidth: 0 }}>
+              <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                <LineChart data={performanceData}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 700, fill: '#94a3b8' }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 700, fill: '#94a3b8' }} />
+                  <Tooltip 
+                    contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)' }}
+                  />
+                  <Line type="monotone" dataKey="react" stroke="#0891b2" strokeWidth={4} dot={{ r: 6, fill: 'white', stroke: '#0891b2', strokeWidth: 3 }} activeDot={{ r: 8 }} />
+                  <Line type="monotone" dataKey="node" stroke="#8b5cf6" strokeWidth={4} dot={{ r: 6, fill: 'white', stroke: '#8b5cf6', strokeWidth: 3 }} activeDot={{ r: 8 }} />
+                  <Line type="monotone" dataKey="css" stroke="#10b981" strokeWidth={4} dot={{ r: 6, fill: 'white', stroke: '#10b981', strokeWidth: 3 }} activeDot={{ r: 8 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
 
-        <div className="chart-card card">
-          <h3>Time Distribution</h3>
-          <div className="chart-wrapper flex-center">
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={subjectData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {subjectData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend verticalAlign="bottom" />
-              </PieChart>
-            </ResponsiveContainer>
+        <aside style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div className="admin-card">
+            <h3 className="text-lg font-bold text-slate-800" style={{ marginBottom: '1.5rem' }}>Time Distribution</h3>
+            <div style={{ height: '260px', width: '100%' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={subjectData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {subjectData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: '1rem' }}>
+              {subjectData.map((s, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: COLORS[i] }} />
+                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-secondary)' }}>{s.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="ai-summary">
-            <p><strong>Aura Analysis:</strong> You're spending most of your time on <strong>Frontend</strong>, but your growth rate is highest in <strong>AI/ML</strong>. Consider balancing your week with more Node.js labs.</p>
+
+          <div className="admin-card" style={{ background: 'var(--bg-secondary)', border: '1px solid #bfdbfe' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '0.75rem', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)' }}>
+                <Sparkles size={20} className="text-primary" />
+              </div>
+              <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 900 }}>Aura Analysis</h4>
+            </div>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+              You're spending most of your time on <strong>Frontend</strong>, but your growth rate is highest in <strong>AI/ML</strong>. Consider balancing your week with more Node.js labs.
+            </p>
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   );

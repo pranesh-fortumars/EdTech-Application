@@ -85,8 +85,8 @@ const ParentDashboard = () => {
                 <option>Calculus</option>
               </select>
             </div>
-            <div style={{ height: '320px' }}>
-              <ResponsiveContainer width="100%" height="100%">
+            <div style={{ height: '320px', width: '100%', minWidth: 0 }}>
+              <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                 <LineChart data={performanceData}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                   <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 700, fill: '#94a3b8' }} />
