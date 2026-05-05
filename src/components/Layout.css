@@ -36,10 +36,13 @@
   transition: opacity 0.3s ease;
 }
 
-.app-layout.sidebar-open .sidebar-overlay {
-  display: block;
-  opacity: 1;
+@media (max-width: 1024px) {
+  .app-layout.sidebar-open .sidebar-overlay {
+    display: block;
+    opacity: 1;
+  }
 }
+
 
 @media (max-width: 1024px) {
   .main-wrapper {

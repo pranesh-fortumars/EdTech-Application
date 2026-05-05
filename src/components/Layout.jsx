@@ -11,16 +11,17 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     const handleResize = () => {
+      // Only auto-close when shrinking to mobile view
       if (window.innerWidth <= 1024) {
         setSidebarOpen(false);
-      } else {
-        setSidebarOpen(true);
       }
+      // We don't auto-open on desktop resize to respect the user's manual "close" action
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
 
   return (
     <div className={`app-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
