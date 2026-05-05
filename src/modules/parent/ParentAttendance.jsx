@@ -1,5 +1,7 @@
 import React from 'react';
 import { CalendarCheck, Info, CheckCircle2, XCircle, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
+import '../admin/AdminModules.css';
 
 const ParentAttendance = () => {
   const attendanceData = [
@@ -10,55 +12,64 @@ const ParentAttendance = () => {
   ];
 
   return (
-    <div className="parent-attendance p-6">
-      <header className="mb-8">
-        <h1 className="text-2xl font-bold flex items-center gap-3">
-          <CalendarCheck className="text-emerald-600" /> Attendance Monitor
-        </h1>
-        <p className="text-secondary">Real-time attendance tracking for your child.</p>
+    <div className="parent-attendance professional-theme">
+      <header className="module-header flex justify-between items-end mb-12">
+        <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+          <h1>Attendance Monitor</h1>
+          <p>Real-time institutional presence tracking for your child.</p>
+        </motion.div>
+        <div className="flex gap-4">
+          <button className="btn-icon-vibrant"><Clock size={20} /></button>
+          <button className="btn-primary-vibrant px-6 py-3 rounded-xl font-bold">Request Leave</button>
+        </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="pro-grid-4 mb-12">
         {[
-          { label: 'Overall Attendance', val: '94%', color: 'emerald' },
-          { label: 'Days Present', val: '142', color: 'blue' },
-          { label: 'Unexcused Absences', val: '2', color: 'rose' }
+          { label: 'Overall Attendance', val: '94%', color: 'emerald', sub: 'Institutional Target: 90%' },
+          { label: 'Days Present', val: '142', color: 'blue', sub: 'Total Working Days: 151' },
+          { label: 'Late Arrivals', val: '3', color: 'amber', sub: 'Requires Attention' },
+          { label: 'Unexcused', val: '2', color: 'rose', sub: 'Warning Issued' }
         ].map((stat, i) => (
-          <div key={i} className="card glass p-6 text-center">
-            <p className="text-sm text-secondary font-bold uppercase mb-2">{stat.label}</p>
-            <strong className={`text-3xl text-${stat.color}-600`}>{stat.val}</strong>
-          </div>
+          <motion.div 
+            key={i} 
+            whileHover={{ y: -8 }}
+            className={`admin-card node-card border-t-4 border-${stat.color}-500`}
+          >
+            <p className="text-xs text-slate-400 font-black uppercase tracking-widest mb-4">{stat.label}</p>
+            <strong className={`text-4xl font-black text-${stat.color}-600 mb-2 block`}>{stat.val}</strong>
+            <p className="text-xs text-slate-500 font-bold">{stat.sub}</p>
+            <div className={`node-glow glow-${stat.color}`} />
+          </motion.div>
         ))}
       </div>
 
-      <div className="card glass">
-        <div className="p-4 border-b">
-          <h3 className="font-bold">Recent History</h3>
+      <div className="admin-card overflow-hidden">
+        <div className="p-4 border-b flex justify-between items-center bg-slate-50">
+          <h3 className="font-bold text-slate-800 uppercase text-xs tracking-widest">Recent Presence Logs</h3>
+          <span className="text-xs font-bold text-emerald-600">Syncing with Campus Gates...</span>
         </div>
-        <div className="overflow-x-auto">
+        <div className="pro-table-wrapper">
           <table className="pro-table">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Subject</th>
-                <th>Check-in Time</th>
-                <th>Status</th>
+                <th>Temporal Data</th>
+                <th>Academic Subject</th>
+                <th>Check-in Signature</th>
+                <th>Status Signature</th>
               </tr>
             </thead>
             <tbody>
               {attendanceData.map((row, i) => (
                 <tr key={i}>
-                  <td className="font-semibold">{row.date}</td>
-                  <td>{row.subject}</td>
-                  <td>{row.time}</td>
+                  <td><strong className="text-slate-800">{row.date}</strong></td>
+                  <td><span className="grade-chip">{row.subject}</span></td>
+                  <td className="font-mono font-bold text-slate-500">{row.time}</td>
                   <td>
-                    <div className="flex items-center gap-2">
-                      {row.status === 'Present' ? <CheckCircle2 size={14} className="text-emerald-500" /> : 
-                       row.status === 'Late' ? <Clock size={14} className="text-amber-500" /> : 
-                       <XCircle size={14} className="text-rose-500" />}
-                      <span className={`text-sm font-bold ${
-                        row.status === 'Present' ? 'text-emerald-600' : 
-                        row.status === 'Late' ? 'text-amber-600' : 'text-rose-600'
+                    <div className="flex items-center gap-3">
+                      <span className={`badge-pro ${
+                        row.status === 'Present' ? 'badge-emerald' : 
+                        row.status === 'Late' ? 'badge-amber' : 'badge-rose'
                       }`}>{row.status}</span>
                     </div>
                   </td>

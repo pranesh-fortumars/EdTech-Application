@@ -1,75 +1,96 @@
 import React from 'react';
-import { BarChart3, TrendingUp, Award, FileText, Download } from 'lucide-react';
+import { BarChart3, TrendingUp, Award, FileText, Download, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
+import '../admin/AdminModules.css';
 
 const ParentReports = () => {
   return (
-    <div className="parent-reports p-6">
-      <header className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-2xl font-bold flex items-center gap-3">
-            <BarChart3 className="text-blue-600" /> Academic Performance
-          </h1>
-          <p className="text-secondary">Comprehensive analysis of test scores and learning progress.</p>
-        </div>
-        <button className="btn-outline flex items-center gap-2">
-          <Download size={18} /> Download Full Report
+    <div className="parent-reports professional-theme">
+      <header className="module-header flex justify-between items-end mb-12">
+        <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+          <h1>Academic Performance</h1>
+          <p>Multi-dimensional analysis of your child's learning journey.</p>
+        </motion.div>
+        <button className="btn-primary-vibrant px-8 py-4 rounded-2xl flex items-center gap-3 font-bold shadow-xl">
+          <Download size={20} /> Export Progress Transcript
         </button>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="card glass p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="font-bold">Subject Performance</h3>
-            <TrendingUp size={18} className="text-emerald-500" />
-          </div>
-          <div className="space-y-6">
-            {[
-              { subject: 'Physics', score: 92, trend: '+4%' },
-              { subject: 'Mathematics', score: 88, trend: '+2%' },
-              { subject: 'Chemistry', score: 76, trend: '-1%' },
-              { subject: 'English', score: 95, trend: '+5%' }
-            ].map((s, i) => (
-              <div key={i} className="space-y-2">
-                <div className="flex justify-between text-sm font-bold">
-                  <span>{s.subject}</span>
-                  <div className="flex gap-3">
-                    <span className="text-emerald-600">{s.trend}</span>
-                    <span>{s.score}%</span>
+      <div className="pro-grid-main mb-12">
+        <div className="main-stats">
+          <div className="admin-card">
+            <div className="flex justify-between items-center mb-10">
+              <h3 className="text-xl font-black text-slate-800 tracking-tight">Subject Mastery Index</h3>
+              <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm bg-emerald-50 px-3 py-1 rounded-full">
+                <TrendingUp size={16} />
+                +3.2% Overall Growth
+              </div>
+            </div>
+            <div className="space-y-10">
+              {[
+                { subject: 'Physics', score: 92, trend: '+4%', color: 'blue' },
+                { subject: 'Mathematics', score: 88, trend: '+2%', color: 'indigo' },
+                { subject: 'Chemistry', score: 76, trend: '-1%', color: 'rose' },
+                { subject: 'English', score: 95, trend: '+5%', color: 'emerald' }
+              ].map((s, i) => (
+                <div key={i} className="space-y-3">
+                  <div className="flex justify-between text-sm">
+                    <span className="font-black text-slate-700 uppercase tracking-wider">{s.subject}</span>
+                    <div className="flex gap-4 font-black">
+                      <span className={s.trend.includes('+') ? 'text-emerald-500' : 'text-rose-500'}>{s.trend}</span>
+                      <span className="text-slate-900">{s.score}%</span>
+                    </div>
+                  </div>
+                  <div className="h-4 bg-slate-100 rounded-full overflow-hidden shadow-inner p-1">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${s.score}%` }}
+                      className={`h-full rounded-full bg-${s.color}-vibrant shadow-[0_0_15px_rgba(37,99,235,0.3)]`}
+                    />
                   </div>
                 </div>
-                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${s.score}%` }}
-                    className="h-full bg-blue-500"
-                  />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="card glass p-6">
-          <h3 className="font-bold mb-6">Recent Achievements</h3>
-          <div className="space-y-4">
-            {[
-              { title: 'Top Scorer in Physics Quiz', date: 'May 02', icon: Award, color: 'amber' },
-              { title: '100% Attendance Week', date: 'Apr 28', icon: CheckCircle2, color: 'emerald' },
-              { title: 'Creative Writing Excellence', date: 'Apr 25', icon: FileText, color: 'purple' }
-            ].map((a, i) => (
-              <div key={i} className="flex items-center gap-4 p-3 bg-slate-50 rounded-xl">
-                <div className={`w-10 h-10 bg-${a.color}-100 text-${a.color}-600 rounded-lg flex items-center justify-center`}>
-                  <a.icon size={20} />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-bold">{a.title}</p>
-                  <span className="text-xs text-secondary">{a.date}</span>
-                </div>
+        <aside className="achievements-sidebar">
+          <div className="admin-card bg-purple-vibrant text-white mb-8">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+                <Award size={24} className="text-white" />
               </div>
-            ))}
+              <div>
+                <h3 className="font-black text-lg">Top Achiever</h3>
+                <p className="text-xs text-purple-100 font-bold">Science & Tech Cluster</p>
+              </div>
+            </div>
+            <p className="text-sm text-purple-50 leading-relaxed font-medium">
+              Ranked in the **Top 5%** of the institution for academic excellence in STEM subjects.
+            </p>
           </div>
-        </div>
+
+          <div className="admin-card">
+            <h3 className="font-bold text-slate-800 mb-6">Learning Milestones</h3>
+            <div className="space-y-4">
+              {[
+                { title: 'Perfect Quiz Score', date: 'May 02', icon: Target, color: 'amber' },
+                { title: '100% Attendance Week', date: 'Apr 28', icon: CheckCircle2, color: 'emerald' },
+                { title: 'Creative Writing Excellence', date: 'Apr 25', icon: FileText, color: 'blue' }
+              ].map((a, i) => (
+                <div key={i} className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                  <div className={`w-10 h-10 bg-${a.color}-100 text-${a.color}-600 rounded-xl flex items-center justify-center`}>
+                    <a.icon size={20} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">{a.title}</p>
+                    <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{a.date}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );
