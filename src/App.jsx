@@ -26,6 +26,12 @@ const FacultyHub = lazy(() => import('./modules/faculty/FacultyHub'));
 const Settings = lazy(() => import('./modules/settings/Settings'));
 const Timetable = lazy(() => import('./modules/dashboard/Timetable'));
 const HelpCenter = lazy(() => import('./modules/support/HelpCenter'));
+const Admissions = lazy(() => import('./modules/admin/Admissions'));
+const Infrastructure = lazy(() => import('./modules/admin/Infrastructure'));
+const AuditLogs = lazy(() => import('./modules/admin/AuditLogs'));
+const ParentAttendance = lazy(() => import('./modules/parent/ParentAttendance'));
+const ParentReports = lazy(() => import('./modules/parent/ParentReports'));
+const ParentSupport = lazy(() => import('./modules/parent/ParentSupport'));
 
 // Mock components for other routes
 const Placeholder = ({ title }) => (
@@ -79,6 +85,12 @@ const App = () => {
                     <Route path="/parent" element={<ParentDashboard />} />
                     <Route path="/assets" element={<SmartAssetTracker />} />
                     <Route path="/help" element={<HelpCenter />} />
+                    <Route path="/admissions" element={<Admissions />} />
+                    <Route path="/infrastructure" element={<Infrastructure />} />
+                    <Route path="/audit" element={<AuditLogs />} />
+                    <Route path="/parent-attendance" element={<ParentAttendance />} />
+                    <Route path="/parent-reports" element={<ParentReports />} />
+                    <Route path="/parent-support" element={<ParentSupport />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </Layout>

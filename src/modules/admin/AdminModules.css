@@ -1,0 +1,146 @@
+/* Admin Modules Core Layouts */
+.admissions-container,
+.infrastructure-hub,
+.audit-logs {
+  padding: 2.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.module-header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+
+/* Grid Systems */
+.pro-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.pro-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.pro-grid-main {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2.5rem;
+}
+
+/* Card Enhancements */
+.admin-card {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+/* Table Refinements */
+.pro-table-wrapper {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.pro-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.pro-table th {
+  background: #f8fafc;
+  padding: 1rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pro-table td {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.pro-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Audit Log List */
+.audit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.audit-item {
+  background: white;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 100px 1fr 150px;
+  align-items: center;
+  gap: 2rem;
+}
+
+.audit-item:hover {
+  background: #f8fafc;
+}
+
+/* Status Badges */
+.badge-pro {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.badge-blue { background: #eff6ff; color: #2563eb; }
+.badge-purple { background: #faf5ff; color: #9333ea; }
+.badge-amber { background: #fffbeb; color: #d97706; }
+.badge-emerald { background: #ecfdf5; color: #059669; }
+.badge-rose { background: #fff1f2; color: #e11d48; }
+
+/* Network Visualizer */
+.network-viz {
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 2rem;
+  background: #0f172a;
+  border-radius: var(--radius-lg);
+}
+
+.bar-node {
+  flex: 1;
+  background: rgba(37, 99, 235, 0.4);
+  border-radius: 4px 4px 0 0;
+}
+
+@media (max-width: 1200px) {
+  .pro-grid-main, .pro-grid-4, .pro-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}

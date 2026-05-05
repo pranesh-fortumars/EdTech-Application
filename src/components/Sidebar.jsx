@@ -1,25 +1,11 @@
 import React from 'react';
-import { 
-  LayoutDashboard, 
-  BookOpen, 
-  Video, 
-  MessageSquare, 
-  Bot, 
-  BarChart3, 
-  Trophy, 
-  Settings,
-  LogOut,
-  Users,
-  Shield,
-  CreditCard,
-  HelpCircle,
-  ChevronRight,
-  Target,
-  Baby,
-  Database
-} from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { 
+  LayoutDashboard, BookOpen, Video, MessageSquare, Bot, BarChart3, Trophy, Settings,
+  LogOut, Users, Shield, CreditCard, HelpCircle, ChevronRight, Target, Baby, Database,
+  Server, ShieldCheck, UserPlus, ClipboardList, Briefcase, CalendarCheck, FileBarChart
+} from 'lucide-react';
 import useAuthStore from '../store/useAuthStore';
 import useNotificationStore from '../store/useNotificationStore';
 import './Sidebar.css';
@@ -37,14 +23,24 @@ const Sidebar = () => {
     { icon: BarChart3, label: 'Analytics', path: '/analytics', roles: ['student', 'teacher'] },
     { icon: Trophy, label: 'Achievements', path: '/achievements', roles: ['student'] },
     { icon: Users, label: 'Collaborate', path: '/collaboration', roles: ['student'] },
-    { icon: Shield, label: 'Faculty Hub', path: '/faculty', roles: ['teacher', 'admin'] },
+    { icon: Target, label: 'Mastery Quiz', path: '/ai-quiz', roles: ['student'] },
+    
+    // Admin Specific Hubs
     { icon: Shield, label: 'Admin Hub', path: '/admin-config', roles: ['admin'] },
     { icon: Users, label: 'User Control', path: '/users', roles: ['admin'] },
+    { icon: UserPlus, label: 'Admissions', path: '/admissions', roles: ['admin'] },
+    { icon: Shield, label: 'Faculty Hub', path: '/faculty', roles: ['teacher', 'admin'] },
     { icon: BarChart3, label: 'School Pulse', path: '/school-stats', roles: ['admin'] },
-    { icon: CreditCard, label: 'Fee Portal', path: '/fees', roles: ['parent', 'admin'] },
-    { icon: Target, label: 'Mastery Quiz', path: '/ai-quiz', roles: ['student'] },
-    { icon: Baby, label: 'Parent Portal', path: '/parent', roles: ['parent', 'admin'] },
+    { icon: Server, label: 'Infrastructure', path: '/infrastructure', roles: ['admin'] },
+    { icon: ShieldCheck, label: 'Audit Logs', path: '/audit', roles: ['admin'] },
     { icon: Database, label: 'Asset Tracking', path: '/assets', roles: ['admin'] },
+    
+    // Shared / Parent
+    { icon: Baby, label: 'Parent Portal', path: '/parent', roles: ['parent', 'admin'] },
+    { icon: CalendarCheck, label: 'Attendance Monitor', path: '/parent-attendance', roles: ['parent'] },
+    { icon: BarChart3, label: 'Performance Report', path: '/parent-reports', roles: ['parent'] },
+    { icon: CreditCard, label: 'Fee Portal', path: '/fees', roles: ['parent', 'admin'] },
+    { icon: MessageSquare, label: 'Parent Support', path: '/parent-support', roles: ['parent'] },
   ];
 
   const menuItems = allMenuItems.filter(item => item.roles.includes(user?.role));
