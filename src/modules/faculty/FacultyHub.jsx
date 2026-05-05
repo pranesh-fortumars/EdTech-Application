@@ -16,6 +16,23 @@ const assignments = [
 
 const FacultyHub = () => {
   const { addNotification } = useNotificationStore();
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [showAssignmentModal, setShowAssignmentModal] = useState(false);
+  
+  const [scheduleForm, setScheduleForm] = useState({ title: '', date: '', time: '', subject: 'Physics' });
+  const [assignmentForm, setAssignmentForm] = useState({ title: '', dueDate: '', marks: '100', desc: '' });
+
+  const onScheduleSubmit = (e) => {
+    e.preventDefault();
+    addNotification(`Class "${scheduleForm.title}" scheduled successfully`, 'success');
+    setShowScheduleModal(false);
+  };
+
+  const onAssignmentSubmit = (e) => {
+    e.preventDefault();
+    addNotification(`Evaluation "${assignmentForm.title}" created`, 'success');
+    setShowAssignmentModal(false);
+  };
 
   return (
     <div className="faculty-hub-container professional-theme">
@@ -25,10 +42,10 @@ const FacultyHub = () => {
           <p>Orchestrate learning, manage evaluations, and engage with your students.</p>
         </div>
         <div className="action-group">
-          <button className="btn-outline" onClick={() => addNotification('Opening schedule builder...')}>
+          <button className="btn-outline" onClick={() => setShowScheduleModal(true)}>
             <Calendar size={18} /> Class Schedule
           </button>
-          <button className="btn-primary" onClick={() => addNotification('Creating new assignment portal...')}>
+          <button className="btn-primary" onClick={() => setShowAssignmentModal(true)}>
             <Plus size={18} /> New Assignment
           </button>
         </div>
@@ -127,6 +144,54 @@ const FacultyHub = () => {
           </div>
         </aside>
       </div>
+
+      {showScheduleModal && (
+        <div className="modal-overlay">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="modal-card card glass">
+            <div className="modal-header">
+              <h3>Academic Schedule Builder</h3>
+              <button className="close-btn" onClick={() => setShowScheduleModal(false)}>×</button>
+            </div>
+            <form onSubmit={onScheduleSubmit} className="pro-form">
+              <div className="form-group">
+                <label>Class Name</label>
+                <input type="text" required value={scheduleForm.title} onChange={e => setScheduleForm({...scheduleForm, title: e.target.value})} />
+              </div>
+              <div className="form-row">
+                <div className="form-group"><label>Date</label><input type="date" required value={scheduleForm.date} onChange={e => setScheduleForm({...scheduleForm, date: e.target.value})} /></div>
+                <div className="form-group"><label>Time</label><input type="time" required value={scheduleForm.time} onChange={e => setScheduleForm({...scheduleForm, time: e.target.value})} /></div>
+              </div>
+              <button type="submit" className="btn-primary full-width mt-2">Publish Class</button>
+            </form>
+          </motion.div>
+        </div>
+      )}
+
+      {showAssignmentModal && (
+        <div className="modal-overlay">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="modal-card card glass">
+            <div className="modal-header">
+              <h3>Create Evaluation Portal</h3>
+              <button className="close-btn" onClick={() => setShowAssignmentModal(false)}>×</button>
+            </div>
+            <form onSubmit={onAssignmentSubmit} className="pro-form">
+              <div className="form-group">
+                <label>Assignment Title</label>
+                <input type="text" required value={assignmentForm.title} onChange={e => setAssignmentForm({...assignmentForm, title: e.target.value})} />
+              </div>
+              <div className="form-row">
+                <div className="form-group"><label>Deadline</label><input type="date" required value={assignmentForm.dueDate} onChange={e => setAssignmentForm({...assignmentForm, dueDate: e.target.value})} /></div>
+                <div className="form-group"><label>Max Points</label><input type="number" required value={assignmentForm.marks} onChange={e => setAssignmentForm({...assignmentForm, marks: e.target.value})} /></div>
+              </div>
+              <div className="form-group">
+                <label>Evaluation Guidelines</label>
+                <textarea rows="3" value={assignmentForm.desc} onChange={e => setAssignmentForm({...assignmentForm, desc: e.target.value})} />
+              </div>
+              <button type="submit" className="btn-primary full-width mt-2">Initialize Assignment</button>
+            </form>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

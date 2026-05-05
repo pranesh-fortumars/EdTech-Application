@@ -453,36 +453,53 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-  z-index: 9999;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
 }
 
-.modal-content {
+.modal-card {
   width: 100%;
-  max-width: 500px;
-  padding: 2rem;
-  background: white;
+  max-width: 550px;
+  background: white !important;
+  border: 1px solid var(--border-color);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  border-radius: var(--radius-lg);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .modal-header h3 {
-  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
   color: var(--text-primary);
 }
 
-.modal-form {
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 0;
+  margin-top: -10px;
+}
+
+.pro-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .form-group {
@@ -491,40 +508,51 @@
   gap: 0.5rem;
 }
 
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
 .form-group label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
 }
 
-.form-group input, .form-group select {
-  padding: 0.75rem;
+.pro-form input, 
+.pro-form select, 
+.pro-form textarea {
+  padding: 0.85rem;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  background: var(--bg-secondary);
-  outline: none;
-  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  transition: all 0.2s;
 }
 
-.form-group input:focus {
+.pro-form input:focus, 
+.pro-form select:focus, 
+.pro-form textarea:focus {
+  outline: none;
   border-color: var(--primary);
   background: white;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+.pro-form textarea {
+  resize: none;
+  font-family: inherit;
 }
 
-.form-actions button {
-  flex: 1;
+.full-width {
+  width: 100%;
 }
 
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.mt-2 { margin-top: 2rem; }
+
 
 
