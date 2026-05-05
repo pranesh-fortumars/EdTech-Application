@@ -140,6 +140,70 @@
 .msg-item .text p { color: var(--text-secondary); margin: 0.2rem 0; font-size: 0.8rem; }
 .msg-item .time { font-size: 0.7rem; color: var(--text-tertiary); margin-left: auto; }
 
+/* Interactive Inputs */
+.topic-input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: #f8fafc;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 0.4rem;
+}
+
+.topic-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.grading-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8fafc;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.input-with-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-with-label label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.score-input {
+  width: 50px;
+  background: transparent;
+  border: none;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--primary);
+  padding: 0;
+  text-align: center;
+}
+
+.score-input:focus {
+  outline: none;
+}
+
+.max-score {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 1024px) {
   .faculty-grid { grid-template-columns: 1fr; }
 }

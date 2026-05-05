@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { 
   Users, BookOpen, Calendar, ClipboardCheck, 
   Plus, MessageSquare, Filter, MoreVertical,
-  CheckCircle2, Clock, AlertCircle, FileText
+  CheckCircle2, Clock, AlertCircle, FileText, ChevronRight
 } from 'lucide-react';
 import useNotificationStore from '../../store/useNotificationStore';
 import './FacultyHub.css';
@@ -56,12 +56,14 @@ const FacultyHub = () => {
           <div className="active-classes card">
             <div className="section-header">
               <h3>Active Classes</h3>
-              <button className="btn-icon"><Filter size={16} /></button>
+              <div className="flex gap-2">
+                <button className="btn-sm btn-outline" onClick={() => addNotification('Filters applied', 'info')}><Filter size={14} /></button>
+              </div>
             </div>
             <div className="class-cards">
               {[
-                { name: 'Physics 12-A', students: 30, attendance: '92%', topic: 'Particle Physics' },
-                { name: 'Mathematics 12-B', students: 28, attendance: '88%', topic: 'Integrals' }
+                { id: 'p12a', name: 'Physics 12-A', students: 30, attendance: '92%', topic: 'Particle Physics' },
+                { id: 'm12b', name: 'Mathematics 12-B', students: 28, attendance: '88%', topic: 'Integrals' }
               ].map((cls, i) => (
                 <div key={i} className="class-mini-card glass">
                   <div className="card-header">
@@ -69,13 +71,22 @@ const FacultyHub = () => {
                     <span className="student-count"><Users size={12} /> {cls.students}</span>
                   </div>
                   <div className="card-body">
-                    <p>Current: <strong>{cls.topic}</strong></p>
+                    <div className="input-group-inline mb-2">
+                      <label className="text-xs font-bold text-tertiary uppercase">Active Topic</label>
+                      <input 
+                        type="text" 
+                        defaultValue={cls.topic}
+                        className="topic-input"
+                        placeholder="Update topic..."
+                        onBlur={(e) => addNotification(`Topic for ${cls.name} updated to: ${e.target.value}`, 'success')}
+                      />
+                    </div>
                     <div className="attendance-row">
                       <span>Live Attendance</span>
                       <strong className="text-emerald">{cls.attendance}</strong>
                     </div>
                   </div>
-                  <button className="btn-sm-primary" onClick={() => addNotification(`Entering Live Studio for ${cls.name}`)}>
+                  <button className="btn-sm-primary mt-2" onClick={() => addNotification(`Entering Live Studio for ${cls.name}`)}>
                     Launch Class
                   </button>
                 </div>
@@ -86,7 +97,7 @@ const FacultyHub = () => {
           <div className="assignment-management card mt-2">
             <div className="section-header">
               <h3>Evaluation Stream</h3>
-              <span className="badge">3 Action Required</span>
+              <span className="badge">Action Required</span>
             </div>
             <div className="assignment-list">
               {assignments.map((asm) => (
@@ -98,11 +109,19 @@ const FacultyHub = () => {
                     <h4>{asm.title}</h4>
                     <span>{asm.class} • Due: {asm.due}</span>
                   </div>
-                  <div className="progress">
-                    <div className="bar"><div className="fill" style={{ width: `${(asm.submissions/asm.total)*100}%` }}></div></div>
-                    <span>{asm.submissions}/{asm.total} Graded</span>
+                  <div className="grading-input">
+                    <div className="input-with-label">
+                      <label>Grade</label>
+                      <input 
+                        type="number" 
+                        placeholder="0" 
+                        className="score-input"
+                        onBlur={(e) => addNotification(`Graded ${asm.title}: ${e.target.value}/${asm.total}`, 'success')}
+                      />
+                    </div>
+                    <span className="max-score">/ {asm.total}</span>
                   </div>
-                  <button className="btn-icon" onClick={() => addNotification(`Reviewing submissions for ${asm.title}`)}>
+                  <button className="btn-icon" onClick={() => addNotification(`Reviewing all submissions for ${asm.title}`)}>
                     <ChevronRight size={18} />
                   </button>
                 </div>
@@ -196,6 +215,6 @@ const FacultyHub = () => {
   );
 };
 
-const ChevronRight = ({ size }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>;
+
 
 export default FacultyHub;
