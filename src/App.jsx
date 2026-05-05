@@ -32,6 +32,10 @@ const AuditLogs = lazy(() => import('./modules/admin/AuditLogs'));
 const ParentAttendance = lazy(() => import('./modules/parent/ParentAttendance'));
 const ParentReports = lazy(() => import('./modules/parent/ParentReports'));
 const ParentSupport = lazy(() => import('./modules/parent/ParentSupport'));
+const TransportTracker = lazy(() => import('./modules/parent/TransportTracker'));
+const HealthSafety = lazy(() => import('./modules/parent/HealthSafety'));
+const NoticeBoard = lazy(() => import('./modules/parent/NoticeBoard'));
+
 
 // Mock components for other routes
 const Placeholder = ({ title }) => (
@@ -91,7 +95,11 @@ const App = () => {
                     <Route path="/parent-attendance" element={<ParentAttendance />} />
                     <Route path="/parent-reports" element={<ParentReports />} />
                     <Route path="/parent-support" element={<ParentSupport />} />
+                    <Route path="/transport" element={<TransportTracker />} />
+                    <Route path="/health-safety" element={<HealthSafety />} />
+                    <Route path="/notices" element={<NoticeBoard />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
+
                   </Routes>
                 </Layout>
               ) : (

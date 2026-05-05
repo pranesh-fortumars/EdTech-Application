@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { 
   LayoutDashboard, BookOpen, Video, MessageSquare, Bot, BarChart3, Trophy, Settings,
   LogOut, Users, Shield, CreditCard, HelpCircle, ChevronRight, Target, Baby, Database,
-  Server, ShieldCheck, UserPlus, ClipboardList, Briefcase, CalendarCheck, FileBarChart, X
+  Server, ShieldCheck, UserPlus, ClipboardList, Briefcase, CalendarCheck, FileBarChart, X,
+  Bus, Megaphone
 } from 'lucide-react';
 import useAuthStore from '../store/useAuthStore';
 import useNotificationStore from '../store/useNotificationStore';
@@ -39,8 +40,12 @@ const Sidebar = ({ isOpen, onClose }) => {
     { icon: Baby, label: 'Parent Portal', path: '/parent', roles: ['parent', 'admin'] },
     { icon: CalendarCheck, label: 'Attendance Monitor', path: '/parent-attendance', roles: ['parent'] },
     { icon: BarChart3, label: 'Performance Report', path: '/parent-reports', roles: ['parent'] },
+    { icon: Bus, label: 'Transport Tracker', path: '/transport', roles: ['parent'] },
+    { icon: ShieldCheck, label: 'Health & Safety', path: '/health-safety', roles: ['parent'] },
+    { icon: Megaphone, label: 'Notice Board', path: '/notices', roles: ['parent'] },
     { icon: CreditCard, label: 'Fee Portal', path: '/fees', roles: ['parent', 'admin'] },
     { icon: MessageSquare, label: 'Parent Support', path: '/parent-support', roles: ['parent'] },
+
   ];
 
   const menuItems = allMenuItems.filter(item => item.roles.includes(user?.role));
