@@ -1,13 +1,14 @@
 import React from 'react';
 import { Search, Bell, Menu, Sun, Moon, Globe, Command, ShieldCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import useAuthStore from '../store/useAuthStore';
 import useNotificationStore from '../store/useNotificationStore';
 import './Navbar.css';
 
 const Navbar = ({ onMenuClick }) => {
-  const { user } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const { addNotification } = useNotificationStore();
+  const [showProfileMenu, setShowProfileMenu] = React.useState(false);
 
   return (
     <nav className="navbar professional-theme">
@@ -60,7 +61,7 @@ const Navbar = ({ onMenuClick }) => {
 
         <div className="header-divider"></div>
 
-        <div className="nav-profile">
+        <div className="nav-profile" onClick={() => setShowProfileMenu(!showProfileMenu)}>
           <div className="profile-text">
             <span className="name">{user?.name}</span>
             <span className="inst">{user?.institution.split(',')[0]}</span>
@@ -71,6 +72,27 @@ const Navbar = ({ onMenuClick }) => {
             alt="User Avatar" 
             className="nav-avatar" 
           />
+
+          <AnimatePresence>
+            {showProfileMenu && (
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="profile-dropdown card glass"
+              >
+                <div className="dropdown-header">
+                  <strong>{user?.name}</strong>
+                  <span>{user?.email}</span>
+                </div>
+                <div className="dropdown-divider"></div>
+                <button className="dropdown-item" onClick={() => window.location.href = '/settings'}>Settings</button>
+                <button className="dropdown-item" onClick={() => window.location.href = '/timetable'}>Timetable</button>
+                <div className="dropdown-divider"></div>
+                <button className="dropdown-item logout text-error" onClick={() => logout()}>Logout</button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </nav>

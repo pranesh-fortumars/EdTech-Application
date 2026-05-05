@@ -23,6 +23,8 @@ const ParentDashboard = lazy(() => import('./modules/parent/ParentDashboard'));
 const SmartAssetTracker = lazy(() => import('./modules/admin/SmartAssetTracker'));
 const AdminConfig = lazy(() => import('./modules/admin/AdminConfig'));
 const FacultyHub = lazy(() => import('./modules/faculty/FacultyHub'));
+const Settings = lazy(() => import('./modules/settings/Settings'));
+const Timetable = lazy(() => import('./modules/dashboard/Timetable'));
 
 // Mock components for other routes
 const Placeholder = ({ title }) => (
@@ -59,13 +61,14 @@ const App = () => {
                       } 
                     />
                     <Route path="/courses" element={<CourseViewer />} />
+                    <Route path="/timetable" element={<Timetable />} />
                     <Route path="/live" element={<LiveClass />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/ai-tutor" element={<AuraKnowledgeGraph />} />
                     <Route path="/analytics" element={<Analytics />} />
                     <Route path="/achievements" element={<Achievements />} />
                     <Route path="/collaboration" element={<CollaborationHub />} />
-                    <Route path="/settings" element={<Placeholder title="Settings" />} />
+                    <Route path="/settings" element={<Settings />} />
                     <Route path="/faculty" element={<FacultyHub />} />
                     <Route path="/admin-config" element={<AdminConfig />} />
                     <Route path="/school-stats" element={<SchoolAnalytics />} />

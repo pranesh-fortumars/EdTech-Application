@@ -16,13 +16,19 @@
 .header-main {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 2rem;
 }
 
 .action-group {
   display: flex;
   gap: 0.75rem;
+}
+
+.ai-insight-pro p {
+  line-height: 1.5;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
 /* Stats Row */

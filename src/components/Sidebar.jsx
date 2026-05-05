@@ -67,6 +67,11 @@ const Sidebar = () => {
             key={item.path} 
             to={item.path} 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+            onClick={(e) => {
+              if (item.label === 'Aura AI') {
+                window.dispatchEvent(new CustomEvent('open-aura-ai'));
+              }
+            }}
           >
             <item.icon size={18} />
             <span>{item.label}</span>

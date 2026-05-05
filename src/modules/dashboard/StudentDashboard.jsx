@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Book, Clock, Star, Zap, PlayCircle, Trophy, Bot, Calendar, RefreshCw, Award, Target, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import useAuthStore from '../../store/useAuthStore';
@@ -29,6 +30,7 @@ const activityData = [
 const StudentDashboard = () => {
   const { user } = useAuthStore();
   const { addNotification } = useNotificationStore();
+  const navigate = useNavigate();
 
   const handleAction = (msg) => addNotification(msg, 'success');
   
@@ -46,7 +48,7 @@ const StudentDashboard = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-outline"
-              onClick={() => handleAction('Opening full academic timetable...')}
+              onClick={() => navigate('/timetable')}
             >
               <Calendar size={16} /> View Timetable
             </motion.button>
@@ -54,7 +56,10 @@ const StudentDashboard = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-primary"
-              onClick={() => handleAction('Initializing Aura AI personalized session...')}
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('open-aura-ai'));
+                handleAction('Aura AI is now listening...');
+              }}
             >
               <Zap size={16} /> Ask Aura AI
             </motion.button>
@@ -181,7 +186,12 @@ const StudentDashboard = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-primary btn-sm bg-violet"
-              onClick={() => handleAction('Generating chemistry revision roadmap...')}
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('open-aura-ai', { 
+                  detail: { message: "I want to start my Chemistry revision session for the board exams." } 
+                }));
+                handleAction('Generating chemistry revision roadmap...');
+              }}
             >
               Start Revision
             </motion.button>

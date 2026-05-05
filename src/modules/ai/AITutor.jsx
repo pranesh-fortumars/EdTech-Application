@@ -19,6 +19,25 @@ const AITutor = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+  
+  useEffect(() => {
+    const handleOpen = (e) => {
+      setIsOpen(true);
+      setIsMinimized(false);
+      if (e.detail?.message) {
+        setMessages(prev => [...prev, { role: 'user', content: e.detail.message }]);
+        // Simulate response for the automated message
+        setTimeout(() => {
+          setMessages(prev => [...prev, { 
+            role: 'ai', 
+            content: `I've analyzed your request for "${e.detail.message}". I'm preparing a customized learning path for you right now!` 
+          }]);
+        }, 800);
+      }
+    };
+    window.addEventListener('open-aura-ai', handleOpen);
+    return () => window.removeEventListener('open-aura-ai', handleOpen);
+  }, []);
 
   const handleSend = () => {
     if (!input.trim()) return;
