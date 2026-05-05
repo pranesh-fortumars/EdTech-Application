@@ -24,43 +24,51 @@ const ParentDashboard = () => {
 
   return (
     <div className="parent-dashboard-container professional-theme">
-      <header className="module-header flex justify-between items-end mb-12">
-        <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
-          <div className="flex items-center gap-3 mb-2">
-            <Baby className="text-primary" size={32} />
-            <h1 className="!m-0">Anbu's Progress</h1>
+      <header className="dashboard-executive-header mb-12">
+        <div className="profile-context flex items-center gap-6">
+          <div className="student-avatar-large">
+            <Baby size={32} />
           </div>
-          <p>Class 12-A | Roll No: 2026104</p>
-        </motion.div>
-        <div className="flex gap-4">
-          <button className="btn-icon-vibrant" onClick={() => addNotification('Sending message to Class Teacher...', 'success')}>
-            <Mail size={16} /> Contact Teacher
+          <div>
+            <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">Student Profile</span>
+            <h1 className="text-3xl font-black text-slate-900 !m-0">Anbu Selvan</h1>
+            <div className="flex gap-4 mt-2">
+              <span className="text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">Grade 12-A</span>
+              <span className="text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">Roll: #2026104</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="executive-actions flex gap-3">
+          <button className="btn-executive-outline" onClick={() => addNotification('Opening directory...', 'info')}>
+            <Mail size={14} /> Contact Faculty
           </button>
-          <button className="btn-primary-vibrant" onClick={() => addNotification('Downloading progress report...', 'success')}>
-            <Download size={16} /> Progress Report
+          <button className="btn-executive-primary" onClick={() => addNotification('Generating PDF...', 'success')}>
+            <Download size={14} /> Academic Record
           </button>
         </div>
       </header>
 
-
-
-      <div className="pro-grid-4 mb-12">
+      <div className="quick-stats-strip grid grid-cols-4 gap-6 mb-12">
         {[
-          { icon: TrendingUp, label: 'Current GPA', value: '3.8', trend: '+0.2 from last term', color: 'blue' },
-          { icon: Clock, label: 'Attendance', value: '94%', trend: 'On track', color: 'emerald' },
-          { icon: Award, label: 'Aura Credits', value: '1,240', trend: 'Top 5% of class', color: 'amber' },
-          { icon: AlertTriangle, label: 'Alerts', value: '1 Active', trend: 'Disciplinary', color: 'rose' }
+          { label: 'Academic GPA', value: '3.82', icon: TrendingUp, trend: '+0.12%', color: 'blue' },
+          { label: 'Attendance Rate', value: '94.8%', icon: Clock, trend: 'Optimal', color: 'emerald' },
+          { label: 'Aura Credits', value: '1,240', icon: Award, trend: 'Tier 1', color: 'amber' },
+          { label: 'Active Alerts', value: '01', icon: AlertTriangle, trend: 'Review Needed', color: 'rose' }
         ].map((stat, i) => (
-          <div key={i} className="admin-card">
-            <div className={`w-10 h-10 rounded-xl bg-${stat.color}-50 text-${stat.color}-600 flex items-center justify-center mb-4`}>
-              <stat.icon size={20} />
+          <div key={i} className="stat-node-clean">
+            <div className={`node-icon bg-${stat.color}-50 text-${stat.color}-600`}>
+              <stat.icon size={18} />
             </div>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{stat.label}</p>
-            <h3 className="text-xl font-black text-slate-800">{stat.value}</h3>
-            <p className={`text-[10px] font-bold mt-2 text-${stat.color === 'rose' ? 'rose' : 'emerald'}-600`}>{stat.trend}</p>
+            <div className="node-data">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</p>
+              <h3 className="text-xl font-black text-slate-800">{stat.value}</h3>
+              <p className={`text-[9px] font-black uppercase text-${stat.color === 'rose' ? 'rose' : 'emerald'}-600`}>{stat.trend}</p>
+            </div>
           </div>
         ))}
       </div>
+
 
       <div className="pro-grid-main">
         <div className="main-content">
