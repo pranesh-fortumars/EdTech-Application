@@ -6,10 +6,17 @@
 
 .main-wrapper {
   flex: 1;
-  margin-left: 260px;
+  margin-left: 0; /* Default to 0 for mobile and collapsed desktop */
   display: flex;
   flex-direction: column;
-  transition: margin-left 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Desktop Alignment: When sidebar is open, push content */
+@media (min-width: 1025px) {
+  .app-layout.sidebar-open .main-wrapper {
+    margin-left: 260px;
+  }
 }
 
 .content-area {
@@ -22,20 +29,24 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(8px);
   z-index: 95;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.app-layout.sidebar-open .sidebar-overlay {
+  display: block;
+  opacity: 1;
 }
 
 @media (max-width: 1024px) {
   .main-wrapper {
-    margin-left: 0;
-  }
-  
-  .sidebar-overlay {
-    display: block;
+    margin-left: 0 !important;
   }
 }
+
 
 /* Toast Styles */
 .toast-container {

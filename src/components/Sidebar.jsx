@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 import { 
   LayoutDashboard, BookOpen, Video, MessageSquare, Bot, BarChart3, Trophy, Settings,
   LogOut, Users, Shield, CreditCard, HelpCircle, ChevronRight, Target, Baby, Database,
-  Server, ShieldCheck, UserPlus, ClipboardList, Briefcase, CalendarCheck, FileBarChart
+  Server, ShieldCheck, UserPlus, ClipboardList, Briefcase, CalendarCheck, FileBarChart, X
 } from 'lucide-react';
 import useAuthStore from '../store/useAuthStore';
 import useNotificationStore from '../store/useNotificationStore';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useAuthStore();
   const { addNotification } = useNotificationStore();
   
@@ -29,7 +29,7 @@ const Sidebar = () => {
     { icon: Shield, label: 'Admin Hub', path: '/admin-config', roles: ['admin'] },
     { icon: Users, label: 'User Control', path: '/users', roles: ['admin'] },
     { icon: UserPlus, label: 'Admissions', path: '/admissions', roles: ['admin'] },
-    { icon: Shield, label: 'Faculty Hub', path: '/faculty', roles: ['teacher', 'admin'] },
+    { icon: Shield, label: 'Faculty Hub', path: '/teacher', roles: ['teacher', 'admin'] },
     { icon: BarChart3, label: 'School Pulse', path: '/school-stats', roles: ['admin'] },
     { icon: Server, label: 'Infrastructure', path: '/infrastructure', roles: ['admin'] },
     { icon: ShieldCheck, label: 'Audit Logs', path: '/audit', roles: ['admin'] },
@@ -46,7 +46,7 @@ const Sidebar = () => {
   const menuItems = allMenuItems.filter(item => item.roles.includes(user?.role));
 
   return (
-    <aside className="sidebar professional-theme">
+    <aside className={`sidebar professional-theme ${isOpen ? 'active' : ''}`}>
       <div className="sidebar-logo">
         <motion.div 
           whileHover={{ rotate: 180 }}
@@ -56,6 +56,11 @@ const Sidebar = () => {
         </motion.div>
         <span className="logo-text">Aura<span>Ed</span></span>
         <div className="role-badge">{user?.role}</div>
+        
+        {/* Mobile Close Button */}
+        <button className="sidebar-close-btn" onClick={onClose}>
+          <X size={20} />
+        </button>
       </div>
 
       <nav className="sidebar-nav">
