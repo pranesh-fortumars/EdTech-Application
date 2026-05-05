@@ -107,22 +107,22 @@ const NoticeBoard = () => {
             </div>
           </div>
 
-          <div className="admin-card" style={{ background: '#0f172a', color: 'white', position: 'relative', overflow: 'hidden' }}>
+          <div className="admin-card" style={{ background: 'white', border: '1px solid var(--border-color)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'relative', zIndex: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                <div style={{ width: '40px', height: '40px', background: 'rgba(251, 191, 36, 0.2)', color: '#fbbf24', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '40px', height: '40px', background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Bell size={20} />
                 </div>
-                <h3 className="text-lg font-bold" style={{ margin: 0 }}>Alert Matrix</h3>
+                <h3 className="text-lg font-bold text-slate-800" style={{ margin: 0 }}>Alert Matrix</h3>
               </div>
-              <p className="text-sm text-slate-400 font-medium" style={{ marginBottom: '2rem', lineHeight: 1.6 }}>
+              <p className="text-sm text-slate-500 font-medium" style={{ marginBottom: '2rem', lineHeight: 1.6 }}>
                 Configure how you receive official institutional updates via SMS or Email notifications.
               </p>
-              <button className="btn-primary-vibrant" style={{ width: '100%', background: 'white', color: '#0f172a', justifyContent: 'center', boxShadow: 'none' }}>
+              <button className="btn-primary-vibrant" style={{ width: '100%', justifyContent: 'center', boxShadow: 'none' }}>
                 CONFIGURE ALERTS
               </button>
             </div>
-            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '128px', height: '128px', borderRadius: '50%', background: 'rgba(251, 191, 36, 0.1)', filter: 'blur(40px)' }}></div>
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '128px', height: '128px', borderRadius: '50%', background: 'rgba(251, 191, 36, 0.05)', filter: 'blur(40px)' }}></div>
           </div>
         </aside>
       </div>

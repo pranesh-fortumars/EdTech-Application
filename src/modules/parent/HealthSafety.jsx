@@ -100,11 +100,11 @@ const HealthSafety = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
             className="admin-card"
-            style={{ background: '#0f172a', color: 'white' }}
+            style={{ background: 'white', border: '1px solid var(--border-color)' }}
           >
             <div style={{ position: 'relative', zIndex: 10 }}>
-              <h3 className="font-black text-slate-400 uppercase tracking-widest" style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '1.5rem' }}>Security Clearance</h3>
-              <p className="text-sm leading-relaxed font-medium" style={{ color: '#cbd5e1', marginBottom: '2rem' }}>
+              <h3 className="font-black text-slate-400 uppercase tracking-widest" style={{ fontSize: '0.65rem', color: '#64748b', marginBottom: '1.5rem' }}>Security Clearance</h3>
+              <p className="text-sm leading-relaxed font-medium" style={{ color: '#475569', marginBottom: '2rem' }}>
                 Access is strictly limited to authorized parents/guardians with valid institutional digital IDs.
               </p>
               <button className="btn-primary-vibrant" style={{ width: '100%', justifyContent: 'center' }}>

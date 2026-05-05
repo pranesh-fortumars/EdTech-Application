@@ -170,15 +170,15 @@ const ParentDashboard = () => {
             </div>
           </div>
 
-          <div className="admin-card" style={{ background: '#0f172a', color: 'white', position: 'relative', overflow: 'hidden' }}>
+          <div className="admin-card" style={{ background: 'white', border: '1px solid var(--border-color)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'relative', zIndex: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-                <TrendingUp size={24} style={{ color: 'var(--primary-light)' }} />
-                <h3 className="text-lg font-bold" style={{ margin: 0 }}>Financial Health</h3>
+                <TrendingUp size={24} style={{ color: 'var(--primary)' }} />
+                <h3 className="text-lg font-bold text-slate-800" style={{ margin: 0 }}>Financial Health</h3>
               </div>
               <div style={{ marginBottom: '2rem' }}>
                 <p className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.65rem', marginBottom: '0.25rem' }}>Outstanding Balance</p>
-                <h2 className="text-4xl font-black text-white" style={{ margin: 0 }}>₹45,000</h2>
+                <h2 className="text-4xl font-black text-slate-900" style={{ margin: 0 }}>₹45,000</h2>
               </div>
               <button 
                 className="btn-primary-vibrant" 
@@ -188,7 +188,7 @@ const ParentDashboard = () => {
                 PAY SECURELY NOW
               </button>
             </div>
-            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '128px', height: '128px', borderRadius: '50%', background: 'rgba(8, 145, 178, 0.2)', filter: 'blur(40px)' }}></div>
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '128px', height: '128px', borderRadius: '50%', background: 'rgba(8, 145, 178, 0.05)', filter: 'blur(40px)' }}></div>
           </div>
         </aside>
       </div>

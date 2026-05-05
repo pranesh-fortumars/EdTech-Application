@@ -134,36 +134,36 @@ const TransportTracker = () => {
             </div>
           </div>
 
-          <div className="admin-card" style={{ background: '#0f172a', color: 'white', position: 'relative', overflow: 'hidden' }}>
+          <div className="admin-card" style={{ background: 'white', border: '1px solid var(--border-color)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'relative', zIndex: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                <div style={{ width: '40px', height: '40px', background: 'rgba(8, 145, 178, 0.2)', color: 'var(--primary-light)', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '40px', height: '40px', background: 'rgba(8, 145, 178, 0.1)', color: 'var(--primary)', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Phone size={20} />
                 </div>
-                <h3 className="text-lg font-bold" style={{ margin: 0 }}>Logistics Staff</h3>
+                <h3 className="text-lg font-bold text-slate-800" style={{ margin: 0 }}>Logistics Staff</h3>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div className="hover-bg-slate group" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', padding: '1rem', borderRadius: '1rem', cursor: 'pointer', transition: 'background 0.2s' }}>
+                <div className="hover-bg-slate group" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0, 0, 0, 0.02)', padding: '1rem', borderRadius: '1rem', cursor: 'pointer', transition: 'background 0.2s' }}>
                   <div>
                     <p className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.65rem', margin: 0 }}>Fleet Pilot</p>
-                    <p className="font-bold text-slate-100" style={{ margin: 0 }}>Murali Krishna</p>
+                    <p className="font-bold text-slate-800" style={{ margin: 0 }}>Murali Krishna</p>
                   </div>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '0.75rem', background: 'rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="group-hover:bg-primary transition-all">
+                  <div style={{ width: '40px', height: '40px', borderRadius: '0.75rem', background: 'rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="group-hover:bg-primary group-hover:text-white transition-all">
                     <Phone size={16} />
                   </div>
                 </div>
-                <div className="hover-bg-slate group" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', padding: '1rem', borderRadius: '1rem', cursor: 'pointer', transition: 'background 0.2s' }}>
+                <div className="hover-bg-slate group" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0, 0, 0, 0.02)', padding: '1rem', borderRadius: '1rem', cursor: 'pointer', transition: 'background 0.2s' }}>
                   <div>
                     <p className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.65rem', margin: 0 }}>Security Attendant</p>
-                    <p className="font-bold text-slate-100" style={{ margin: 0 }}>Sarah Begum</p>
+                    <p className="font-bold text-slate-800" style={{ margin: 0 }}>Sarah Begum</p>
                   </div>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '0.75rem', background: 'rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="group-hover:bg-primary transition-all">
+                  <div style={{ width: '40px', height: '40px', borderRadius: '0.75rem', background: 'rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="group-hover:bg-primary group-hover:text-white transition-all">
                     <Phone size={16} />
                   </div>
                 </div>
               </div>
             </div>
-            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '128px', height: '128px', borderRadius: '50%', background: 'rgba(8, 145, 178, 0.1)', filter: 'blur(40px)' }}></div>
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '128px', height: '128px', borderRadius: '50%', background: 'rgba(8, 145, 178, 0.05)', filter: 'blur(40px)' }}></div>
           </div>
         </aside>
       </div>
