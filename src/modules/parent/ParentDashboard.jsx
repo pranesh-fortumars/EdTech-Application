@@ -6,8 +6,7 @@ import {
   ChevronRight, Download, Mail
 } from 'lucide-react';
 import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import useNotificationStore from '../../store/useNotificationStore';
 import '../admin/AdminModules.css';
@@ -24,22 +23,22 @@ const ParentDashboard = () => {
 
   return (
     <div className="parent-dashboard-container">
-      <header className="dashboard-executive-header mb-12">
-        <div className="profile-context flex items-center gap-6">
+      <header className="dashboard-executive-header mb-12" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           <div className="student-avatar-large">
             <Baby size={36} />
           </div>
           <div>
-            <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">Student Profile</span>
-            <h1 className="text-3xl font-black text-slate-900 !m-0">Anbu Selvan</h1>
-            <div className="flex gap-4 mt-2">
+            <span className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.65rem', color: 'var(--primary)', marginBottom: '0.25rem', display: 'block' }}>Student Profile</span>
+            <h1 className="text-3xl font-black text-slate-900" style={{ margin: 0 }}>Anbu Selvan</h1>
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
               <span className="grade-chip">Grade 12-A</span>
               <span className="grade-chip">Roll: #2026104</span>
             </div>
           </div>
         </div>
         
-        <div className="executive-actions flex gap-4">
+        <div style={{ display: 'flex', gap: '1rem' }}>
           <button className="btn-executive-outline" onClick={() => addNotification('Opening directory...', 'info')}>
             <Mail size={16} /> Contact Faculty
           </button>
@@ -49,31 +48,36 @@ const ParentDashboard = () => {
         </div>
       </header>
 
-      <div className="quick-stats-strip pro-grid-4 mb-12">
+      <div className="pro-grid-4 mb-12">
         {[
           { label: 'Academic GPA', value: '3.82', icon: TrendingUp, trend: '+0.12%', color: 'blue' },
           { label: 'Attendance Rate', value: '94.8%', icon: Clock, trend: 'Optimal', color: 'emerald' },
           { label: 'Aura Credits', value: '1,240', icon: Award, trend: 'Tier 1', color: 'amber' },
           { label: 'Active Alerts', value: '01', icon: AlertTriangle, trend: 'Review Needed', color: 'rose' }
         ].map((stat, i) => (
-          <div key={i} className="stat-node-clean">
+          <motion.div 
+            key={i} 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="stat-node-clean"
+          >
             <div className={`node-icon bg-${stat.color}-vibrant text-white`}>
               <stat.icon size={20} />
             </div>
             <div className="node-data">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</p>
-              <h3 className="text-2xl font-black text-slate-800">{stat.value}</h3>
-              <p className={`text-[10px] font-black uppercase text-${stat.color === 'rose' ? 'rose' : 'emerald'}-600`}>{stat.trend}</p>
+              <p className="text-slate-400 font-bold uppercase tracking-wider" style={{ fontSize: '0.65rem', margin: 0 }}>{stat.label}</p>
+              <h3 className="text-2xl font-black text-slate-800" style={{ margin: '0.25rem 0' }}>{stat.value}</h3>
+              <p className={`text-success font-black uppercase`} style={{ fontSize: '0.65rem', color: stat.color === 'rose' ? 'var(--error)' : 'var(--success)', margin: 0 }}>{stat.trend}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-
       <div className="pro-grid-main">
-        <div className="main-content">
-          <div className="admin-card mb-8">
-            <div className="flex justify-between items-center mb-10">
+        <div className="main-content" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div className="admin-card">
+            <div className="flex-between mb-10">
               <h3 className="text-xl font-bold text-slate-800">Academic Progress Curve</h3>
               <select className="tag-pill">
                 <option>All Subjects</option>
@@ -81,7 +85,7 @@ const ParentDashboard = () => {
                 <option>Calculus</option>
               </select>
             </div>
-            <div className="chart-container h-[320px]">
+            <div style={{ height: '320px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={performanceData}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -103,92 +107,91 @@ const ParentDashboard = () => {
             </div>
           </div>
 
-          <div className="admin-card !p-0 overflow-hidden">
-            <div className="p-6 border-b bg-slate-50/50 flex justify-between items-center">
+          <div className="admin-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="flex-between" style={{ padding: '1.5rem', background: 'rgba(248, 250, 252, 0.5)', borderBottom: '1px solid var(--border-color)' }}>
               <h3 className="text-lg font-bold text-slate-800">Institutional Calendar</h3>
-              <button className="text-xs font-bold text-primary uppercase tracking-widest">View All</button>
+              <button className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.65rem', border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--primary)' }}>View All</button>
             </div>
-            <div className="divide-y divide-slate-100">
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {[
                 { date: 'May 15', title: 'Second Term Examination', type: 'Exam' },
                 { date: 'May 20', title: 'Parent Teacher Meeting', type: 'Meeting' },
                 { date: 'June 02', title: 'Summer Tech Workshop', type: 'Event' }
               ].map((ev, i) => (
-                <div key={i} className="p-6 flex items-center justify-between hover:bg-slate-50/80 transition-all cursor-pointer group">
+                <div key={i} style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--bg-tertiary)' }} className="hover-bg-slate group cursor-pointer">
                   <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
                     <div className="date-badge-pro" style={{ flexShrink: 0 }}>
                       <span className="month">{ev.date.split(' ')[0]}</span>
                       <span className="day">{ev.date.split(' ')[1]}</span>
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold text-slate-800 m-0 leading-tight">{ev.title}</h4>
-                      <div className="mt-2 flex gap-2">
+                      <h4 className="text-lg font-bold text-slate-800" style={{ margin: 0 }}>{ev.title}</h4>
+                      <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                         <span className={`badge-pro ${
                           ev.type === 'Exam' ? 'badge-rose' :
                           ev.type === 'Meeting' ? 'badge-amber' : 'badge-emerald'
                         }`}>
                           {ev.type}
                         </span>
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-1">
-                          <Clock size={10} /> 09:00 AM
+                        <span className="text-slate-400 font-bold uppercase tracking-widest" style={{ fontSize: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                          <Clock size={12} /> 09:00 AM
                         </span>
                       </div>
                     </div>
                   </div>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-primary group-hover:text-white transition-all">
+                  <div className="btn-action-round">
                     <ChevronRight size={20} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
-
         </div>
 
-        <aside className="sidebar-content">
-          <div className="admin-card border-amber-200 bg-amber-50/20 mb-8">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shadow-inner">
+        <aside style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div className="admin-card" style={{ background: 'rgba(254, 243, 199, 0.3)', borderColor: '#fde68a' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '1rem', background: '#fef3c7', color: '#92400e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <AlertTriangle size={24} />
               </div>
               <div>
-                <h3 className="font-bold text-slate-800">Pedagogical Feedback</h3>
-                <p className="text-[10px] text-amber-600 font-black uppercase tracking-widest">Urgent Review</p>
+                <h3 className="font-bold text-slate-800" style={{ margin: 0 }}>Pedagogical Feedback</h3>
+                <p className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.6rem', color: '#b45309', margin: 0 }}>Urgent Review</p>
               </div>
             </div>
-            <div className="p-5 bg-white/80 backdrop-filter blur-sm rounded-2xl border border-amber-100 shadow-sm">
-              <p className="text-sm text-slate-600 font-medium italic leading-relaxed">
+            <div style={{ padding: '1.25rem', background: 'white', borderRadius: '1rem', border: '1px solid #fef3c7' }}>
+              <p className="text-sm text-slate-600 font-medium italic leading-relaxed" style={{ margin: 0 }}>
                 "Anbu is performing exceptionally well in **Physics**. However, we suggest focusing more on **Calculus** applications for the upcoming finals."
               </p>
-              <div className="mt-5 pt-4 border-t border-amber-50 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-slate-200 flex-center font-bold text-[10px]">SK</div>
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Selvi Kavitha (Class Teacher)</p>
+              <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid #fde68a', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.65rem' }}>SK</div>
+                <p className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.6rem', margin: 0 }}>Selvi Kavitha (Class Teacher)</p>
               </div>
             </div>
           </div>
 
-          <div className="admin-card bg-slate-900 text-white overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-8">
-                <TrendingUp size={24} className="text-primary-light" />
-                <h3 className="text-lg font-bold">Financial Health</h3>
+          <div className="admin-card" style={{ background: '#0f172a', color: 'white', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'relative', zIndex: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
+                <TrendingUp size={24} style={{ color: 'var(--primary-light)' }} />
+                <h3 className="text-lg font-bold" style={{ margin: 0 }}>Financial Health</h3>
               </div>
-              <div className="mb-8">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Outstanding Balance</p>
-                <h2 className="text-4xl font-black text-white">₹45,000</h2>
+              <div style={{ marginBottom: '2rem' }}>
+                <p className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.65rem', marginBottom: '0.25rem' }}>Outstanding Balance</p>
+                <h2 className="text-4xl font-black text-white" style={{ margin: 0 }}>₹45,000</h2>
               </div>
               <button 
-                className="w-full py-4 bg-primary text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:brightness-110 transition-all shadow-xl shadow-primary/30"
+                className="btn-primary-vibrant" 
+                style={{ width: '100%', justifyContent: 'center', padding: '1rem' }}
                 onClick={() => addNotification('Redirecting to Fee Portal...')}
               >
                 PAY SECURELY NOW
               </button>
             </div>
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '128px', height: '128px', borderRadius: '50%', background: 'rgba(8, 145, 178, 0.2)', filter: 'blur(40px)' }}></div>
           </div>
         </aside>
       </div>
-
     </div>
   );
 };
