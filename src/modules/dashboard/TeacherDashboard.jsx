@@ -1,363 +1,184 @@
 import React from 'react';
-import { Users, FileCheck, Calendar, MessageSquare, Plus, Video, Bell, RefreshCw, BarChart2, BookOpen, Clock } from 'lucide-react';
+import { 
+  Users, FileCheck, Calendar, MessageSquare, Plus, 
+  Video, Bell, RefreshCw, BarChart2, BookOpen, 
+  Clock, TrendingUp, Sparkles, ChevronRight,
+  ShieldAlert, Activity
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import StatsCard from '../../components/StatsCard';
+import { NavLink } from 'react-router-dom';
 import useAuthStore from '../../store/useAuthStore';
 import useNotificationStore from '../../store/useNotificationStore';
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line 
-} from 'recharts';
-import '../dashboard/Dashboard.css';
-
-const studentPerformance = [
-  { id: 'STU001', name: 'Arun Kumar', class: '12-A', attendance: '98%', avgGrade: 'A+', status: 'Excellent' },
-  { id: 'STU002', name: 'Kavitha R.', class: '12-A', attendance: '95%', avgGrade: 'A', status: 'Good' },
-  { id: 'STU003', name: 'Rajesh S.', class: '12-B', attendance: '82%', avgGrade: 'B', status: 'Needs Focus' },
-  { id: 'STU004', name: 'Priya M.', class: '10-A', attendance: '99%', avgGrade: 'A+', status: 'Excellent' },
-];
+import '../admin/AdminModules.css';
 
 const TeacherDashboard = () => {
   const { user } = useAuthStore();
   const { addNotification } = useNotificationStore();
-  const [showScheduleModal, setShowScheduleModal] = React.useState(false);
-  const [showAssignmentModal, setShowAssignmentModal] = React.useState(false);
-  
-  const [scheduleForm, setScheduleForm] = React.useState({ title: '', date: '', time: '', subject: 'Mathematics' });
-  const [assignmentForm, setAssignmentForm] = React.useState({ title: '', dueDate: '', marks: '100', desc: '' });
-
-  const handleAction = (msg) => addNotification(msg, 'success');
-
-  const onScheduleSubmit = (e) => {
-    e.preventDefault();
-    addNotification(`Class "${scheduleForm.title}" scheduled for ${scheduleForm.date}`, 'success');
-    setShowScheduleModal(false);
-    setScheduleForm({ title: '', date: '', time: '', subject: 'Mathematics' });
-  };
-
-  const onAssignmentSubmit = (e) => {
-    e.preventDefault();
-    addNotification(`Assignment "${assignmentForm.title}" created successfully`, 'success');
-    setShowAssignmentModal(false);
-    setAssignmentForm({ title: '', dueDate: '', marks: '100', desc: '' });
-  };
 
   return (
-    <div className="dashboard-container professional-theme">
-      <header className="dashboard-header">
-        <div className="header-main">
-          <div className="welcome-text">
-            <span className="breadcrumb">Academic Year 2026-27 • Term 1</span>
-            <h1>Faculty Portal: <span className="text-primary">{user.name}</span></h1>
-            <p>Senior Educator at {user.institution}</p>
+    <div className="teacher-dashboard-pro" style={{ background: 'white', minHeight: '100vh', padding: '2rem', paddingTop: '5rem' }}>
+      <header className="module-header flex-between mb-12">
+        <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div className="avatar-vibrant" style={{ width: '48px', height: '48px' }}>{user.name?.charAt(0)}</div>
+            <div>
+              <h1 style={{ margin: 0, fontSize: '2rem' }}>Welcome back, <span className="text-primary">{user.name}</span></h1>
+              <p style={{ margin: 0 }}>Senior Educator • {user.institution}</p>
+            </div>
           </div>
-          <div className="action-group">
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-outline"
-              onClick={() => setShowScheduleModal(true)}
-            >
-              <Calendar size={16} /> Schedule Class
-            </motion.button>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary"
-              onClick={() => setShowAssignmentModal(true)}
-            >
-              <Plus size={16} /> Create Assignment
-            </motion.button>
-          </div>
+        </motion.div>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button className="btn-icon-vibrant"><Bell size={20} /></button>
+          <NavLink to="/faculty" className="btn-primary-vibrant">
+            <Activity size={18} /> Launch Operations Hub
+          </NavLink>
         </div>
       </header>
 
-      <div className="stats-row">
+      <div className="pro-grid-4 mb-12">
         {[
-          { icon: Users, label: 'Total Managed Students', value: '142', trend: '+4% from last month', color: 'cyan' },
-          { icon: FileCheck, label: 'Pending Submissions', value: '28', trend: '12 overdue', color: 'orange', isNegative: true },
-          { icon: Calendar, label: 'Term Attendance', value: '94.2%', trend: 'Above school avg', color: 'green' }
+          { label: 'Managed Students', value: '142', icon: Users, color: 'blue', trend: '+4%' },
+          { label: 'Avg. Grade Pulse', value: 'A-', icon: TrendingUp, color: 'emerald', trend: 'Stable' },
+          { label: 'Retention Risk', value: '3', icon: ShieldAlert, color: 'rose', trend: 'Critical' },
+          { label: 'Interaction Rate', value: '92%', icon: Sparkles, color: 'indigo', trend: 'Optimal' }
         ].map((stat, i) => (
           <motion.div 
-            key={i}
-            whileHover={{ y: -5 }}
-            className="stat-item card clickable"
-            onClick={() => handleAction(`Accessing ${stat.label} report`)}
+            key={i} 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="admin-card"
           >
-            <div className={`stat-icon ${stat.color}`}><stat.icon size={20} /></div>
-            <div className="stat-content">
-              <span className="stat-label">{stat.label}</span>
-              <span className="stat-value">{stat.value}</span>
-              <span className={`stat-trend ${stat.isNegative ? 'negative' : 'positive'}`}>{stat.trend}</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+              <div className={`bg-${stat.color}-vibrant`} style={{ width: '40px', height: '40px', borderRadius: '0.75rem', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <stat.icon size={20} />
+              </div>
+              <span className={`text-${stat.color === 'rose' ? 'rose' : 'primary'} font-black uppercase tracking-widest`} style={{ fontSize: '0.65rem' }}>{stat.trend}</span>
             </div>
+            <p className="text-slate-400 font-bold uppercase tracking-wider" style={{ fontSize: '0.65rem', margin: 0 }}>{stat.label}</p>
+            <h3 className="text-2xl font-black text-slate-800" style={{ margin: '0.25rem 0' }}>{stat.value}</h3>
           </motion.div>
         ))}
       </div>
 
-      <div className="dashboard-layout-grid">
-        <div className="grid-main">
-          <div className="table-section card">
-            <div className="section-header">
-              <h3>Student Performance Overview</h3>
-              <div className="table-actions">
-                <motion.button whileHover={{ scale: 1.05 }} onClick={() => handleAction('Filtering student data...')} className="btn-sm btn-outline">Filter</motion.button>
-                <motion.button whileHover={{ scale: 1.05 }} onClick={() => handleAction('Generating performance CSV...')} className="btn-sm btn-primary">Export CSV</motion.button>
-              </div>
+      <div className="pro-grid-main">
+        <div className="main-content" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          {/* Today's Academic Schedule */}
+          <div className="admin-card">
+            <div className="flex-between mb-8">
+              <h3 className="text-xl font-bold text-slate-800">Academic Schedule: Today</h3>
+              <button className="btn-sm btn-outline">View Weekly</button>
             </div>
-            <div className="table-container">
-              <table className="pro-table">
-                <thead>
-                  <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Class</th>
-                    <th>Attendance</th>
-                    <th>Avg. Grade</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {studentPerformance.map(student => (
-                    <tr key={student.id}>
-                      <td className="text-mono">{student.id}</td>
-                      <td className="font-semibold">{student.name}</td>
-                      <td>{student.class}</td>
-                      <td>{student.attendance}</td>
-                      <td><span className={`grade-badge ${student.avgGrade.startsWith('A') ? 'high' : 'mid'}`}>{student.avgGrade}</span></td>
-                      <td><span className={`status-text ${student.status.toLowerCase().replace(' ', '-')}`}>{student.status}</span></td>
-                      <td>
-                        <motion.button 
-                          whileHover={{ scale: 1.2, color: 'var(--primary)' }}
-                          onClick={() => handleAction(`Opening chat with ${student.name}`)}
-                          className="btn-icon"
-                        >
-                          <MessageSquare size={14} />
-                        </motion.button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {[
+                { time: '09:00 AM', subject: 'Advanced Physics', class: '12-A', type: 'Live Studio' },
+                { time: '11:30 AM', subject: 'Quantum Mechanics', class: '11-C', type: 'Lab Session' },
+                { time: '02:00 PM', subject: 'Curriculum Review', class: 'Faculty', type: 'Meeting' }
+              ].map((session, i) => (
+                <div key={i} className="hover-bg-slate" style={{ padding: '1.25rem', borderRadius: '1.25rem', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                  <div style={{ width: '60px', textAlign: 'center' }}>
+                    <p className="font-black text-primary" style={{ fontSize: '0.8rem', margin: 0 }}>{session.time.split(' ')[0]}</p>
+                    <p className="text-slate-400 font-bold" style={{ fontSize: '0.6rem', margin: 0 }}>{session.time.split(' ')[1]}</p>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h4 style={{ margin: 0, fontWeight: 800 }}>{session.subject}</h4>
+                    <span className="text-slate-500 font-medium" style={{ fontSize: '0.8rem' }}>{session.class} • {session.type}</span>
+                  </div>
+                  <button className="btn-sm btn-primary">Join</button>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="dual-grid">
-            <div className="chart-card card border-teal">
-              <div className="section-header">
-                <h3>Monthly Attendance Trend</h3>
-                <motion.button whileHover={{ rotate: 180 }} onClick={() => handleAction('Refreshing attendance data...')} className="btn-icon">
-                  <RefreshCw size={14} />
-                </motion.button>
-              </div>
-              <div className="chart-container">
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={[
-                    { day: 'Mon', count: 98 },
-                    { day: 'Tue', count: 95 },
-                    { day: 'Wed', count: 88 },
-                    { day: 'Thu', count: 92 },
-                    { day: 'Fri', count: 99 },
-                  ]}>
-                    <XAxis dataKey="day" axisLine={false} tickLine={false} />
-                    <Tooltip cursor={{fill: 'rgba(0,0,0,0.02)'}} />
-                    <Bar dataKey="count" fill="var(--accent-teal)" radius={[4, 4, 0, 0]} barSize={40} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+          {/* Quick AI Insights */}
+          <div className="admin-card" style={{ background: '#f8fafc', border: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+              <Sparkles size={24} className="text-primary" />
+              <h3 style={{ margin: 0, fontWeight: 900 }}>Aura Executive Insights</h3>
             </div>
-            
-            <div className="quiz-card card border-violet">
-              <div className="section-header">
-                <h3>Quiz Builder Performance</h3>
-                <BarChart2 size={16} className="text-violet" />
+            <div className="pro-grid-2">
+              <div className="admin-card" style={{ background: 'white' }}>
+                <p className="text-slate-400 font-black uppercase tracking-widest mb-2" style={{ fontSize: '0.6rem' }}>Top Performer</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--primary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.7rem' }}>AK</div>
+                  <strong className="text-slate-800">Arun Kumar</strong>
+                </div>
+                <p className="text-xs text-slate-500 mt-2">100% attendance and A+ grade streak maintained.</p>
               </div>
-              <div className="quiz-stats">
-                {[
-                  { label: 'Active Quizzes', value: '12' },
-                  { label: 'Avg. Completion', value: '84%' },
-                  { label: 'Top Score', value: '100/100' }
-                ].map((s, i) => (
-                  <div key={i} className="quiz-stat-item">
-                    <span className="label">{s.label}</span>
-                    <span className="value text-violet">{s.value}</span>
-                  </div>
-                ))}
+              <div className="admin-card" style={{ background: 'white' }}>
+                <p className="text-slate-400 font-black uppercase tracking-widest mb-2" style={{ fontSize: '0.6rem' }}>Improvement Area</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <BookOpen size={20} className="text-amber" />
+                  <strong className="text-slate-800">Organic Chemistry</strong>
+                </div>
+                <p className="text-xs text-slate-500 mt-2">Class engagement is down 12% in the last 48 hours.</p>
               </div>
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="btn-primary btn-sm full-width mt-1 bg-violet"
-                onClick={() => handleAction('Initializing new quiz builder...')}
-              >
-                Launch New Quiz
-              </motion.button>
             </div>
           </div>
         </div>
 
-        <aside className="grid-sidebar">
-          <div className="lesson-planner card border-amber">
-            <div className="section-header">
-              <h3>Lesson Planner</h3>
-              <BookOpen size={16} className="text-amber" />
-            </div>
-            <div className="planner-item clickable" onClick={() => handleAction('Viewing Monday lesson details...')}>
-              <div className="day-circle border-amber">Mon</div>
-              <div className="plan-info">
-                <p>Advanced Integration</p>
-                <span>Prep materials, Assignment #4</span>
-              </div>
-            </div>
-            <div className="planner-item active bg-amber-light clickable" onClick={() => handleAction('Viewing Tuesday lesson details...')}>
-              <div className="day-circle border-amber bg-amber text-white">Tue</div>
-              <div className="plan-info">
-                <p>Organic Chemistry Lab</p>
-                <span>Safety equipment check required</span>
-              </div>
+        <aside style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          {/* Quick Actions */}
+          <div className="admin-card">
+            <h3 className="text-lg font-bold text-slate-800 mb-6">Quick Operations</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <button className="btn-outline w-full" style={{ justifyContent: 'space-between' }}>
+                <span>Record Attendance</span>
+                <ChevronRight size={16} />
+              </button>
+              <button className="btn-outline w-full" style={{ justifyContent: 'space-between' }}>
+                <span>Broadcast Notice</span>
+                <ChevronRight size={16} />
+              </button>
+              <button className="btn-outline w-full" style={{ justifyContent: 'space-between' }}>
+                <span>Review Quiz Data</span>
+                <ChevronRight size={16} />
+              </button>
             </div>
           </div>
 
-          <div className="upcoming-events card border-rose">
-            <div className="section-header">
-              <h3>Institutional Calendar</h3>
-              <Clock size={16} className="text-rose" />
+          {/* Student Engagement Heatmap */}
+          <div className="admin-card">
+            <h3 className="text-lg font-bold text-slate-800 mb-6">Engagement Heatmap</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '0.25rem' }}>
+              {Array.from({ length: 28 }).map((_, i) => (
+                <div 
+                  key={i} 
+                  style={{ 
+                    aspectRatio: '1/1', 
+                    borderRadius: '4px', 
+                    background: i % 4 === 0 ? 'var(--primary)' : i % 3 === 0 ? 'var(--primary-light)' : '#f1f5f9',
+                    opacity: 0.3 + (Math.random() * 0.7)
+                  }} 
+                />
+              ))}
             </div>
-            {[
-              { date: 'May 15', title: 'Parent-Teacher Meeting', desc: 'All Day • Main Hall' },
-              { date: 'May 22', title: 'Annual Science Fair', desc: '10:00 AM • Lab Block' }
-            ].map((event, i) => (
-              <div key={i} className="event-item clickable" onClick={() => handleAction(`Viewing details for ${event.title}`)}>
-                <div className="event-date text-rose">{event.date}</div>
-                <div className="event-info">
-                  <p>{event.title}</p>
-                  <span>{event.desc}</span>
+            <div className="flex-between mt-4">
+              <span className="text-slate-400 font-bold" style={{ fontSize: '0.6rem' }}>LESS ACTIVE</span>
+              <span className="text-slate-400 font-bold" style={{ fontSize: '0.6rem' }}>MOST ACTIVE</span>
+            </div>
+          </div>
+
+          {/* Institutional Notifications */}
+          <div className="admin-card">
+            <h3 className="text-lg font-bold text-slate-800 mb-6">Staff Notifications</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {[
+                { title: 'Faculty Meeting', time: '1h ago', icon: Calendar, color: 'blue' },
+                { title: 'New Lab Guidelines', time: '4h ago', icon: FileCheck, color: 'emerald' }
+              ].map((notif, i) => (
+                <div key={i} style={{ display: 'flex', gap: '1rem' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)', marginTop: '0.4rem' }} />
+                  <div>
+                    <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: 800 }}>{notif.title}</p>
+                    <span className="text-slate-400 font-bold" style={{ fontSize: '0.7rem' }}>{notif.time}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </aside>
       </div>
-
-      <AnimatePresence>
-        {showScheduleModal && (
-          <div className="modal-overlay">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="modal-card card glass"
-            >
-              <div className="modal-header">
-                <h3>Schedule New Live Class</h3>
-                <button className="close-btn" onClick={() => setShowScheduleModal(false)}>×</button>
-              </div>
-              <form onSubmit={onScheduleSubmit} className="pro-form">
-                <div className="form-group">
-                  <label>Class Title</label>
-                  <input 
-                    type="text" 
-                    required 
-                    placeholder="e.g. Advanced Calculus Review"
-                    value={scheduleForm.title}
-                    onChange={e => setScheduleForm({...scheduleForm, title: e.target.value})}
-                  />
-                </div>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Date</label>
-                    <input 
-                      type="date" 
-                      required
-                      value={scheduleForm.date}
-                      onChange={e => setScheduleForm({...scheduleForm, date: e.target.value})}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Time</label>
-                    <input 
-                      type="time" 
-                      required
-                      value={scheduleForm.time}
-                      onChange={e => setScheduleForm({...scheduleForm, time: e.target.value})}
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>Subject</label>
-                  <select 
-                    value={scheduleForm.subject}
-                    onChange={e => setScheduleForm({...scheduleForm, subject: e.target.value})}
-                  >
-                    <option>Mathematics</option>
-                    <option>Physics</option>
-                    <option>Chemistry</option>
-                    <option>Computer Science</option>
-                  </select>
-                </div>
-                <button type="submit" className="btn-primary full-width mt-2">Publish Schedule</button>
-              </form>
-            </motion.div>
-          </div>
-        )}
-
-        {showAssignmentModal && (
-          <div className="modal-overlay">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="modal-card card glass"
-            >
-              <div className="modal-header">
-                <h3>Create New Assignment</h3>
-                <button className="close-btn" onClick={() => setShowAssignmentModal(false)}>×</button>
-              </div>
-              <form onSubmit={onAssignmentSubmit} className="pro-form">
-                <div className="form-group">
-                  <label>Assignment Title</label>
-                  <input 
-                    type="text" 
-                    required 
-                    placeholder="e.g. Organic Chemistry Lab Report"
-                    value={assignmentForm.title}
-                    onChange={e => setAssignmentForm({...assignmentForm, title: e.target.value})}
-                  />
-                </div>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Due Date</label>
-                    <input 
-                      type="date" 
-                      required
-                      value={assignmentForm.dueDate}
-                      onChange={e => setAssignmentForm({...assignmentForm, dueDate: e.target.value})}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Total Marks</label>
-                    <input 
-                      type="number" 
-                      required
-                      value={assignmentForm.marks}
-                      onChange={e => setAssignmentForm({...assignmentForm, marks: e.target.value})}
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>Instructions</label>
-                  <textarea 
-                    rows="4" 
-                    placeholder="Provide detailed instructions for students..."
-                    value={assignmentForm.desc}
-                    onChange={e => setAssignmentForm({...assignmentForm, desc: e.target.value})}
-                  ></textarea>
-                </div>
-                <button type="submit" className="btn-primary full-width mt-2">Release Assignment</button>
-              </form>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };

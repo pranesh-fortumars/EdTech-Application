@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, BookOpen, Calendar, ClipboardCheck, 
   Plus, MessageSquare, Filter, MoreVertical,
   CheckCircle2, Clock, AlertCircle, FileText, ChevronRight
 } from 'lucide-react';
 import useNotificationStore from '../../store/useNotificationStore';
-import './FacultyHub.css';
+import '../admin/AdminModules.css';
 
-const assignments = [
+const assignmentsData = [
   { id: 1, title: 'Quantum Physics Quiz', class: '12-A', submissions: 24, total: 30, due: '2h remaining' },
   { id: 2, title: 'Calculus Applications', class: '12-B', submissions: 12, total: 28, due: 'May 15' },
   { id: 3, title: 'Electromagnetism Lab', class: '11-A', submissions: 30, total: 30, due: 'Completed' },
@@ -35,58 +35,54 @@ const FacultyHub = () => {
   };
 
   return (
-    <div className="faculty-hub-container professional-theme">
-      <header className="module-header">
-        <div className="header-text">
-          <h1>Faculty Excellence Hub</h1>
+    <div className="faculty-hub-container-pro" style={{ background: 'white', minHeight: '100vh', padding: '2rem', paddingTop: '5rem' }}>
+      <header className="module-header flex-between mb-12">
+        <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+          <h1 style={{ margin: 0 }}>Faculty <span className="text-primary">Excellence Hub</span></h1>
           <p>Orchestrate learning, manage evaluations, and engage with your students.</p>
-        </div>
-        <div className="action-group">
+        </motion.div>
+        <div style={{ display: 'flex', gap: '1rem' }}>
           <button className="btn-outline" onClick={() => setShowScheduleModal(true)}>
             <Calendar size={18} /> Class Schedule
           </button>
-          <button className="btn-primary" onClick={() => setShowAssignmentModal(true)}>
+          <button className="btn-primary-vibrant" onClick={() => setShowAssignmentModal(true)}>
             <Plus size={18} /> New Assignment
           </button>
         </div>
       </header>
 
-      <div className="faculty-grid">
-        <main className="main-content">
-          <div className="active-classes card">
-            <div className="section-header">
-              <h3>Active Classes</h3>
-              <div className="flex gap-2">
-                <button className="btn-sm btn-outline" onClick={() => addNotification('Filters applied', 'info')}><Filter size={14} /></button>
-              </div>
+      <div className="pro-grid-main">
+        <div className="main-content" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          {/* Active Classes */}
+          <div className="admin-card">
+            <div className="flex-between mb-6">
+              <h3 className="text-xl font-bold text-slate-800">Active Classes</h3>
+              <button className="btn-icon-vibrant"><Filter size={14} /></button>
             </div>
-            <div className="class-cards">
+            <div className="pro-grid-2">
               {[
                 { id: 'p12a', name: 'Physics 12-A', students: 30, attendance: '92%', topic: 'Particle Physics' },
                 { id: 'm12b', name: 'Mathematics 12-B', students: 28, attendance: '88%', topic: 'Integrals' }
               ].map((cls, i) => (
-                <div key={i} className="class-mini-card glass">
-                  <div className="card-header">
-                    <h4>{cls.name}</h4>
-                    <span className="student-count"><Users size={12} /> {cls.students}</span>
+                <div key={i} className="admin-card" style={{ background: '#f8fafc', border: 'none' }}>
+                  <div className="flex-between mb-4">
+                    <h4 style={{ margin: 0, fontWeight: 800 }}>{cls.name}</h4>
+                    <span className="text-slate-400 font-bold" style={{ fontSize: '0.8rem' }}><Users size={12} /> {cls.students}</span>
                   </div>
-                  <div className="card-body">
-                    <div className="input-group-inline mb-2">
-                      <label className="text-xs font-bold text-tertiary uppercase">Active Topic</label>
-                      <input 
-                        type="text" 
-                        defaultValue={cls.topic}
-                        className="topic-input"
-                        placeholder="Update topic..."
-                        onBlur={(e) => addNotification(`Topic for ${cls.name} updated to: ${e.target.value}`, 'success')}
-                      />
-                    </div>
-                    <div className="attendance-row">
-                      <span>Live Attendance</span>
-                      <strong className="text-emerald">{cls.attendance}</strong>
-                    </div>
+                  <div className="mb-4">
+                    <label className="text-slate-400 font-black uppercase tracking-widest mb-1 block" style={{ fontSize: '0.6rem' }}>Active Topic</label>
+                    <input 
+                      type="text" 
+                      defaultValue={cls.topic}
+                      style={{ width: '100%', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', fontSize: '0.9rem' }}
+                      onBlur={(e) => addNotification(`Topic for ${cls.name} updated to: ${e.target.value}`, 'success')}
+                    />
                   </div>
-                  <button className="btn-sm-primary mt-2" onClick={() => addNotification(`Entering Live Studio for ${cls.name}`)}>
+                  <div className="flex-between mb-4">
+                    <span className="text-slate-500 font-medium">Live Attendance</span>
+                    <strong className="text-emerald">{cls.attendance}</strong>
+                  </div>
+                  <button className="btn-primary-vibrant" style={{ width: '100%', justifyContent: 'center' }} onClick={() => addNotification(`Entering Live Studio for ${cls.name}`)}>
                     Launch Class
                   </button>
                 </div>
@@ -94,127 +90,125 @@ const FacultyHub = () => {
             </div>
           </div>
 
-          <div className="assignment-management card mt-2">
-            <div className="section-header">
-              <h3>Evaluation Stream</h3>
-              <span className="badge">Action Required</span>
+          {/* Evaluation Stream */}
+          <div className="admin-card">
+            <div className="flex-between mb-6">
+              <h3 className="text-xl font-bold text-slate-800">Evaluation Stream</h3>
+              <span className="badge-pro badge-rose">Action Required</span>
             </div>
-            <div className="assignment-list">
-              {assignments.map((asm) => (
-                <div key={asm.id} className="assignment-row">
-                  <div className="icon-box">
-                    <FileText size={20} className="text-blue" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {assignmentsData.map((asm) => (
+                <div key={asm.id} className="hover-bg-slate" style={{ padding: '1.25rem', borderRadius: '1.25rem', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '1rem', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <FileText size={20} className="text-primary" />
                   </div>
-                  <div className="info">
-                    <h4>{asm.title}</h4>
-                    <span>{asm.class} • Due: {asm.due}</span>
+                  <div style={{ flex: 1 }}>
+                    <h4 style={{ margin: 0, fontWeight: 800 }}>{asm.title}</h4>
+                    <span className="text-slate-500 font-medium" style={{ fontSize: '0.85rem' }}>{asm.class} • Due: {asm.due}</span>
                   </div>
-                  <div className="grading-input">
-                    <div className="input-with-label">
-                      <label>Grade</label>
-                      <input 
-                        type="number" 
-                        placeholder="0" 
-                        className="score-input"
-                        onBlur={(e) => addNotification(`Graded ${asm.title}: ${e.target.value}/${asm.total}`, 'success')}
-                      />
-                    </div>
-                    <span className="max-score">/ {asm.total}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input 
+                      type="number" 
+                      placeholder="0" 
+                      style={{ width: '60px', padding: '0.4rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', textAlign: 'center' }}
+                      onBlur={(e) => addNotification(`Graded ${asm.title}: ${e.target.value}/${asm.total}`, 'success')}
+                    />
+                    <span className="text-slate-400 font-bold">/ {asm.total}</span>
                   </div>
-                  <button className="btn-icon" onClick={() => addNotification(`Reviewing all submissions for ${asm.title}`)}>
+                  <button className="btn-icon-vibrant" onClick={() => addNotification(`Reviewing all submissions for ${asm.title}`)}>
                     <ChevronRight size={18} />
                   </button>
                 </div>
               ))}
             </div>
           </div>
-        </main>
+        </div>
 
-        <aside className="faculty-sidebar">
-          <div className="card glass student-engagement">
-            <h3>Student Engagement</h3>
-            <div className="stat-circle">
-              <div className="inner">
-                <strong>84%</strong>
-                <span>Overall Pulse</span>
-              </div>
+        <aside style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div className="admin-card" style={{ textAlign: 'center' }}>
+            <h3 className="text-lg font-bold text-slate-800 mb-4">Student Engagement</h3>
+            <div style={{ width: '120px', height: '120px', borderRadius: '50%', border: '8px solid var(--primary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
+              <strong className="text-2xl font-black text-slate-800">84%</strong>
+              <span className="text-slate-400 font-bold" style={{ fontSize: '0.6rem' }}>PULSE</span>
             </div>
-            <p>Your students are most active between **10 AM - 12 PM**.</p>
+            <p className="text-sm text-slate-500 leading-relaxed">Your students are most active between **10 AM - 12 PM**.</p>
           </div>
 
-          <div className="card mt-2 messages-mini">
-            <h3>Recent Inquiries</h3>
-            <div className="msg-list">
+          <div className="admin-card">
+            <h3 className="text-lg font-bold text-slate-800 mb-6">Recent Inquiries</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               {[
                 { name: 'Arun Kumar', msg: 'Doubts in Quantum entanglement...', time: '10m ago' },
                 { name: 'Meena R.', msg: 'Requesting leave for Monday.', time: '1h ago' }
               ].map((m, i) => (
-                <div key={i} className="msg-item">
-                  <div className="avatar-sm">{m.name.charAt(0)}</div>
-                  <div className="text">
-                    <strong>{m.name}</strong>
-                    <p>{m.msg}</p>
+                <div key={i} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                  <div className="avatar-vibrant" style={{ width: '36px', height: '36px', fontSize: '0.8rem' }}>{m.name.charAt(0)}</div>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: 800 }}>{m.name}</p>
+                    <p style={{ margin: '0.1rem 0 0.25rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>{m.msg}</p>
+                    <span className="text-slate-400 font-bold" style={{ fontSize: '0.7rem' }}>{m.time}</span>
                   </div>
-                  <span className="time">{m.time}</span>
                 </div>
               ))}
             </div>
-            <button className="btn-outline full-width mt-1">View All Messages</button>
+            <button className="btn-outline w-full mt-6">View All Messages</button>
           </div>
         </aside>
       </div>
 
-      {showScheduleModal && (
-        <div className="modal-overlay">
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="modal-card card glass">
-            <div className="modal-header">
-              <h3>Academic Schedule Builder</h3>
-              <button className="close-btn" onClick={() => setShowScheduleModal(false)}>×</button>
-            </div>
-            <form onSubmit={onScheduleSubmit} className="pro-form">
-              <div className="form-group">
-                <label>Class Name</label>
-                <input type="text" required value={scheduleForm.title} onChange={e => setScheduleForm({...scheduleForm, title: e.target.value})} />
+      <AnimatePresence>
+        {showScheduleModal && (
+          <div className="modal-overlay">
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="admin-card" style={{ width: '450px', padding: '2rem' }}>
+              <div className="modal-header flex-between mb-6">
+                <h3 className="text-xl font-bold">Academic Schedule Builder</h3>
+                <button className="close-btn" onClick={() => setShowScheduleModal(false)}>×</button>
               </div>
-              <div className="form-row">
-                <div className="form-group"><label>Date</label><input type="date" required value={scheduleForm.date} onChange={e => setScheduleForm({...scheduleForm, date: e.target.value})} /></div>
-                <div className="form-group"><label>Time</label><input type="time" required value={scheduleForm.time} onChange={e => setScheduleForm({...scheduleForm, time: e.target.value})} /></div>
-              </div>
-              <button type="submit" className="btn-primary full-width mt-2">Publish Class</button>
-            </form>
-          </motion.div>
-        </div>
-      )}
+              <form onSubmit={onScheduleSubmit} className="pro-form">
+                <div className="form-group mb-4">
+                  <label>Class Name</label>
+                  <input type="text" required value={scheduleForm.title} onChange={e => setScheduleForm({...scheduleForm, title: e.target.value})} placeholder="e.g., Physics Review" />
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="form-group"><label>Date</label><input type="date" required value={scheduleForm.date} onChange={e => setScheduleForm({...scheduleForm, date: e.target.value})} /></div>
+                  <div className="form-group"><label>Time</label><input type="time" required value={scheduleForm.time} onChange={e => setScheduleForm({...scheduleForm, time: e.target.value})} /></div>
+                </div>
+                <button type="submit" className="btn-primary-vibrant w-full mt-6" style={{ justifyContent: 'center' }}>Publish Class</button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
-      {showAssignmentModal && (
-        <div className="modal-overlay">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="modal-card card glass">
-            <div className="modal-header">
-              <h3>Create Evaluation Portal</h3>
-              <button className="close-btn" onClick={() => setShowAssignmentModal(false)}>×</button>
-            </div>
-            <form onSubmit={onAssignmentSubmit} className="pro-form">
-              <div className="form-group">
-                <label>Assignment Title</label>
-                <input type="text" required value={assignmentForm.title} onChange={e => setAssignmentForm({...assignmentForm, title: e.target.value})} />
+      <AnimatePresence>
+        {showAssignmentModal && (
+          <div className="modal-overlay">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="admin-card" style={{ width: '450px', padding: '2rem' }}>
+              <div className="modal-header flex-between mb-6">
+                <h3 className="text-xl font-bold">Create Evaluation Portal</h3>
+                <button className="close-btn" onClick={() => setShowAssignmentModal(false)}>×</button>
               </div>
-              <div className="form-row">
-                <div className="form-group"><label>Deadline</label><input type="date" required value={assignmentForm.dueDate} onChange={e => setAssignmentForm({...assignmentForm, dueDate: e.target.value})} /></div>
-                <div className="form-group"><label>Max Points</label><input type="number" required value={assignmentForm.marks} onChange={e => setAssignmentForm({...assignmentForm, marks: e.target.value})} /></div>
-              </div>
-              <div className="form-group">
-                <label>Evaluation Guidelines</label>
-                <textarea rows="3" value={assignmentForm.desc} onChange={e => setAssignmentForm({...assignmentForm, desc: e.target.value})} />
-              </div>
-              <button type="submit" className="btn-primary full-width mt-2">Initialize Assignment</button>
-            </form>
-          </motion.div>
-        </div>
-      )}
+              <form onSubmit={onAssignmentSubmit} className="pro-form">
+                <div className="form-group mb-4">
+                  <label>Assignment Title</label>
+                  <input type="text" required value={assignmentForm.title} onChange={e => setAssignmentForm({...assignmentForm, title: e.target.value})} placeholder="e.g., Quantum Mechanics Quiz" />
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="form-group"><label>Deadline</label><input type="date" required value={assignmentForm.dueDate} onChange={e => setAssignmentForm({...assignmentForm, dueDate: e.target.value})} /></div>
+                  <div className="form-group"><label>Max Points</label><input type="number" required value={assignmentForm.marks} onChange={e => setAssignmentForm({...assignmentForm, marks: e.target.value})} /></div>
+                </div>
+                <div className="form-group mt-4">
+                  <label>Evaluation Guidelines</label>
+                  <textarea rows="3" value={assignmentForm.desc} onChange={e => setAssignmentForm({...assignmentForm, desc: e.target.value})} style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }} />
+                </div>
+                <button type="submit" className="btn-primary-vibrant w-full mt-6" style={{ justifyContent: 'center' }}>Initialize Assignment</button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
-
-
 
 export default FacultyHub;

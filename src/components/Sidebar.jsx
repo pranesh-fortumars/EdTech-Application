@@ -30,7 +30,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     { icon: Shield, label: 'Admin Hub', path: '/admin-config', roles: ['admin'] },
     { icon: Users, label: 'User Control', path: '/users', roles: ['admin'] },
     { icon: UserPlus, label: 'Admissions', path: '/admissions', roles: ['admin'] },
-    { icon: Shield, label: 'Faculty Hub', path: '/teacher', roles: ['teacher', 'admin'] },
+    { icon: Shield, label: 'Faculty Hub', path: '/faculty', roles: ['teacher', 'admin'] },
     { icon: BarChart3, label: 'School Pulse', path: '/school-stats', roles: ['admin'] },
     { icon: Server, label: 'Infrastructure', path: '/infrastructure', roles: ['admin'] },
     { icon: ShieldCheck, label: 'Audit Logs', path: '/audit', roles: ['admin'] },
