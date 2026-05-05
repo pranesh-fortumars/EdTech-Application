@@ -105,27 +105,30 @@ const ParentDashboard = () => {
                 { date: 'May 20', title: 'Parent Teacher Meeting', type: 'Meeting' },
                 { date: 'June 02', title: 'Summer Tech Workshop', type: 'Event' }
               ].map((ev, i) => (
-                <div key={i} className="p-6 flex items-center justify-between hover:bg-slate-50 transition-colors">
-                  <div className="flex items-center gap-6">
-                    <div className="date-badge-pro">
+                <div key={i} className="p-6 flex items-center justify-between hover:bg-slate-50 transition-colors cursor-pointer group">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                    <div className="date-badge-pro" style={{ flexShrink: 0 }}>
                       <span className="month">{ev.date.split(' ')[0]}</span>
                       <span className="day">{ev.date.split(' ')[1]}</span>
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-800">{ev.title}</h4>
-                      <span className={`badge-pro !rounded-md mt-1 inline-block ${
-                        ev.type === 'Exam' ? 'badge-rose' :
-                        ev.type === 'Meeting' ? 'badge-amber' : 'badge-emerald'
-                      }`}>
-                        {ev.type}
-                      </span>
+                      <h4 className="font-bold text-slate-800 m-0 leading-tight">{ev.title}</h4>
+                      <div className="mt-1">
+                        <span className={`badge-pro ${
+                          ev.type === 'Exam' ? 'badge-rose' :
+                          ev.type === 'Meeting' ? 'badge-amber' : 'badge-emerald'
+                        }`} style={{ fontSize: '10px', padding: '2px 8px' }}>
+                          {ev.type}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <ChevronRight size={18} className="text-slate-300" />
+                  <ChevronRight size={18} className="text-slate-300 group-hover:text-primary transition-colors" />
                 </div>
               ))}
             </div>
           </div>
+
         </div>
 
         <aside className="sidebar-content">
