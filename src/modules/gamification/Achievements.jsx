@@ -5,7 +5,7 @@ import useNotificationStore from '../../store/useNotificationStore';
 import '../admin/AdminModules.css';
 
 const badges = [
-  { id: 1, title: 'Early Bird', icon: Flame, color: 'orange', xp: 50, earned: true },
+  { id: 1, title: 'Early Bird', icon: Flame, color: 'amber', xp: 50, earned: true },
   { id: 2, title: 'Calculus King', icon: Crown, color: 'indigo', xp: 200, earned: true },
   { id: 3, title: 'Perfect Week', icon: ShieldCheck, color: 'emerald', xp: 150, earned: false },
   { id: 4, title: 'Top Contributor', icon: Award, color: 'blue', xp: 100, earned: true },
@@ -45,7 +45,7 @@ const Achievements = () => {
             <h3 className="text-xl font-bold text-slate-800" style={{ marginBottom: '2rem' }}>Earning Progression</h3>
             <div className="pro-grid-3">
               {[
-                { label: 'Academic Rank', value: '#12', icon: Trophy, color: 'orange' },
+                { label: 'Academic Rank', value: '#12', icon: Trophy, color: 'amber' },
                 { label: 'Total Experience', value: '14,200', icon: Zap, color: 'blue' },
                 { label: 'Current Streak', value: '15 Days', icon: Flame, color: 'rose' }
               ].map((stat, i) => (
