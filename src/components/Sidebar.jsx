@@ -21,10 +21,12 @@ import {
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useAuthStore from '../store/useAuthStore';
+import useNotificationStore from '../store/useNotificationStore';
 import './Sidebar.css';
 
 const Sidebar = () => {
   const { user, logout } = useAuthStore();
+  const { addNotification } = useNotificationStore();
   
   const allMenuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/', roles: ['student', 'teacher', 'admin', 'parent'] },
@@ -84,6 +86,16 @@ const Sidebar = () => {
           <HelpCircle size={18} />
           <span>Help Center</span>
         </NavLink>
+        <button 
+          className="nav-item border-none bg-transparent w-full cursor-pointer"
+          onClick={() => {
+            window.dispatchEvent(new CustomEvent('open-aura-ai', { detail: { message: "I need technical support with my courses." } }));
+            addNotification('Connecting to Aura AI Support...', 'info');
+          }}
+        >
+          <MessageSquare size={18} className="text-primary" />
+          <span>Live Support</span>
+        </button>
       </nav>
 
       <div className="sidebar-profile card glass">

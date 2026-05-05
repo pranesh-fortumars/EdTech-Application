@@ -25,6 +25,7 @@ const AdminConfig = lazy(() => import('./modules/admin/AdminConfig'));
 const FacultyHub = lazy(() => import('./modules/faculty/FacultyHub'));
 const Settings = lazy(() => import('./modules/settings/Settings'));
 const Timetable = lazy(() => import('./modules/dashboard/Timetable'));
+const HelpCenter = lazy(() => import('./modules/support/HelpCenter'));
 
 // Mock components for other routes
 const Placeholder = ({ title }) => (
@@ -77,6 +78,7 @@ const App = () => {
                     <Route path="/users" element={<UserManagement />} />
                     <Route path="/parent" element={<ParentDashboard />} />
                     <Route path="/assets" element={<SmartAssetTracker />} />
+                    <Route path="/help" element={<HelpCenter />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </Layout>
