@@ -13,15 +13,19 @@ const NoticeBoard = () => {
 
   return (
     <div className="notice-board-container">
-      <header className="module-header flex justify-between items-end mb-12">
-        <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
-          <div className="flex items-center gap-4 mb-2">
+      <header className="module-header flex-between mb-12">
+        <motion.div 
+          initial={{ y: -30, opacity: 0 }} 
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <Megaphone className="text-primary" size={36} />
-            <h1 className="!m-0">Notice Board</h1>
+            <h1 style={{ margin: 0 }}>Notice Board</h1>
           </div>
           <p>Official institutional announcements and real-time circulars.</p>
         </motion.div>
-        <div className="search-pill-ledger !w-[350px]">
+        <div className="search-pill-ledger" style={{ width: '350px' }}>
           <Search size={18} />
           <input type="text" placeholder="Search institutional records..." />
         </div>
@@ -29,42 +33,48 @@ const NoticeBoard = () => {
 
       <div className="pro-grid-main">
         <div className="notice-feed">
-          <div className="admin-card !p-0 overflow-hidden">
-            <div className="p-6 border-b bg-slate-50/50 flex justify-between items-center">
-              <h3 className="text-lg font-bold text-slate-800">Active Announcements</h3>
-              <div className="flex gap-3">
+          <div className="admin-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="flex-between" style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', background: 'rgba(248, 250, 252, 0.5)' }}>
+              <h3 className="text-lg font-bold text-slate-800" style={{ margin: 0 }}>Active Announcements</h3>
+              <div style={{ display: 'flex', gap: '0.75rem' }}>
                 {['All', 'High Priority', 'Events'].map(tag => (
-                  <button key={tag} className="tag-pill hover:bg-slate-200 transition-colors">{tag}</button>
+                  <button key={tag} className="tag-pill">{tag}</button>
                 ))}
               </div>
             </div>
             
-            <div className="divide-y divide-slate-100">
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {notices.map((notice, i) => (
                 <motion.div 
                   key={i}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: i * 0.1 }}
                   whileHover={{ x: 12, backgroundColor: 'rgba(248, 250, 252, 0.8)' }}
-                  className="p-8 flex items-start justify-between cursor-pointer group transition-all"
+                  className="group transition-all"
+                  style={{ padding: '2rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', borderBottom: '1px solid var(--bg-tertiary)', cursor: 'pointer' }}
                 >
-                  <div className="flex gap-8">
-                    <div className="date-badge-pro shadow-md">
+                  <div style={{ display: 'flex', gap: '2rem' }}>
+                    <div className="date-badge-pro shadow-md" style={{ flexShrink: 0 }}>
                       <span className="month">{notice.date.split(' ')[0]}</span>
                       <span className="day">{notice.date.split(' ')[1]}</span>
                     </div>
                     <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className={`w-2 h-2 rounded-full shadow-lg ${
-                          notice.priority === 'high' ? 'bg-rose-500 shadow-rose-200' :
-                          notice.priority === 'medium' ? 'bg-amber-500 shadow-amber-200' : 'bg-emerald-500 shadow-emerald-200'
-                        }`} />
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{notice.category}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                        <span className="ping-dot" style={{ 
+                          width: '8px', 
+                          height: '8px',
+                          background: notice.priority === 'high' ? 'var(--error)' : notice.priority === 'medium' ? 'var(--warning)' : 'var(--success)',
+                          animation: 'none'
+                        }} />
+                        <span className="text-slate-400 font-black uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>{notice.category}</span>
                       </div>
-                      <h4 className="text-xl font-bold text-slate-800 group-hover:text-primary transition-colors leading-tight">{notice.title}</h4>
-                      <p className="text-sm text-slate-500 mt-2 font-medium leading-relaxed max-w-2xl">Official circular regarding the upcoming institutional changes, scheduling, and protocol updates for the academic year.</p>
+                      <h4 className="text-xl font-bold text-slate-800 group-hover:text-primary transition-colors" style={{ margin: 0, lineHeight: 1.2 }}>{notice.title}</h4>
+                      <p className="text-slate-500 font-medium" style={{ fontSize: '0.9rem', marginTop: '0.5rem', lineHeight: 1.6, maxWidth: '600px', margin: '0.5rem 0 0 0' }}>Official circular regarding the upcoming institutional changes, scheduling, and protocol updates for the academic year.</p>
                     </div>
                   </div>
-                  <button className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-primary group-hover:text-white group-hover:shadow-lg group-hover:shadow-primary/30 transition-all">
-                    <Download size={22} />
+                  <button className="btn-action-round" style={{ width: '48px', height: '48px' }}>
+                    <Download size={20} />
                   </button>
                 </motion.div>
               ))}
@@ -72,47 +82,47 @@ const NoticeBoard = () => {
           </div>
         </div>
 
-        <aside className="board-sidebar space-y-8">
+        <aside className="board-sidebar" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div className="admin-card">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-10 h-10 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center shadow-inner">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div style={{ width: '40px', height: '40px', background: '#fff1f2', color: '#e11d48', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Pin size={20} />
               </div>
-              <h3 className="text-lg font-bold text-slate-800">Pinned Circulars</h3>
+              <h3 className="text-lg font-bold text-slate-800" style={{ margin: 0 }}>Pinned Circulars</h3>
             </div>
-            <div className="space-y-4">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {[
                 'Academic Handbook 2026-27',
                 'Institutional Safety Charter',
                 'Global Ethics Guidelines'
               ].map((item, i) => (
-                <div key={i} className="flex items-center justify-between p-4 bg-slate-50/50 rounded-2xl hover:bg-slate-50 transition-all cursor-pointer group border border-slate-100">
-                  <div className="flex items-center gap-4">
-                    <FileText size={18} className="text-slate-400 group-hover:text-primary transition-colors" />
+                <div key={i} className="hover-bg-slate group" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: 'rgba(248, 250, 252, 0.5)', borderRadius: '1rem', border: '1px solid var(--border-color)', cursor: 'pointer', transition: 'all 0.2s' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <FileText size={18} style={{ color: '#94a3b8' }} className="group-hover:text-primary" />
                     <span className="text-sm font-bold text-slate-700">{item}</span>
                   </div>
-                  <ChevronRight size={16} className="text-slate-300 group-hover:text-primary transition-all" />
+                  <ChevronRight size={16} style={{ color: '#cbd5e1' }} className="group-hover:text-primary" />
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="admin-card bg-slate-900 text-white overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
-            <div className="relative z-10">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-10 h-10 bg-amber-400/20 rounded-xl flex items-center justify-center">
-                  <Bell className="text-amber-400" size={20} />
+          <div className="admin-card" style={{ background: '#0f172a', color: 'white', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'relative', zIndex: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                <div style={{ width: '40px', height: '40px', background: 'rgba(251, 191, 36, 0.2)', color: '#fbbf24', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Bell size={20} />
                 </div>
-                <h3 className="text-lg font-bold">Alert Matrix</h3>
+                <h3 className="text-lg font-bold" style={{ margin: 0 }}>Alert Matrix</h3>
               </div>
-              <p className="text-sm text-slate-400 leading-relaxed font-medium mb-8">
+              <p className="text-sm text-slate-400 font-medium" style={{ marginBottom: '2rem', lineHeight: 1.6 }}>
                 Configure how you receive official institutional updates via SMS or Email notifications.
               </p>
-              <button className="w-full py-4 bg-white text-slate-900 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-100 transition-all shadow-xl">
+              <button className="btn-primary-vibrant" style={{ width: '100%', background: 'white', color: '#0f172a', justifyContent: 'center', boxShadow: 'none' }}>
                 CONFIGURE ALERTS
               </button>
             </div>
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '128px', height: '128px', borderRadius: '50%', background: 'rgba(251, 191, 36, 0.1)', filter: 'blur(40px)' }}></div>
           </div>
         </aside>
       </div>
