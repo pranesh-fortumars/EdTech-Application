@@ -12,7 +12,7 @@ const ParentAttendance = () => {
   ];
 
   return (
-    <div className="parent-attendance professional-theme">
+    <div className="parent-attendance">
       <header className="module-header flex justify-between items-end mb-12">
         <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
           <h1>Attendance Monitor</h1>
@@ -20,7 +20,7 @@ const ParentAttendance = () => {
         </motion.div>
         <div className="flex gap-4">
           <button className="btn-icon-vibrant"><Clock size={20} /></button>
-          <button className="btn-primary-vibrant px-6 py-3 rounded-xl font-bold">Request Leave</button>
+          <button className="btn-primary-vibrant">Request Leave</button>
         </div>
       </header>
 
@@ -34,22 +34,28 @@ const ParentAttendance = () => {
           <motion.div 
             key={i} 
             whileHover={{ y: -8 }}
-            className={`admin-card node-card border-t-4 border-${stat.color}-500`}
+            className={`admin-card node-card`}
           >
-            <p className="text-xs text-slate-400 font-black uppercase tracking-widest mb-4">{stat.label}</p>
-            <strong className={`text-4xl font-black text-${stat.color}-600 mb-2 block`}>{stat.val}</strong>
+            <div className="flex justify-between items-start mb-6">
+              <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{stat.label}</p>
+              <div className={`w-2 h-2 rounded-full bg-${stat.color}-500 shadow-[0_0_10px_var(--${stat.color})]`}></div>
+            </div>
+            <strong className={`text-5xl font-black text-slate-900 mb-2 block`}>{stat.val}</strong>
             <p className="text-xs text-slate-500 font-bold">{stat.sub}</p>
             <div className={`node-glow glow-${stat.color}`} />
           </motion.div>
         ))}
       </div>
 
-      <div className="admin-card overflow-hidden">
-        <div className="p-4 border-b flex justify-between items-center bg-slate-50">
+      <div className="admin-card !p-0">
+        <div className="p-6 border-b flex justify-between items-center bg-slate-50/50">
           <h3 className="font-bold text-slate-800 uppercase text-xs tracking-widest">Recent Presence Logs</h3>
-          <span className="text-xs font-bold text-emerald-600">Syncing with Campus Gates...</span>
+          <div className="flex items-center gap-2">
+            <div className="ping-dot"></div>
+            <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Live Campus Sync</span>
+          </div>
         </div>
-        <div className="pro-table-wrapper">
+        <div className="pro-table-wrapper border-none shadow-none">
           <table className="pro-table">
             <thead>
               <tr>
@@ -62,7 +68,7 @@ const ParentAttendance = () => {
             <tbody>
               {attendanceData.map((row, i) => (
                 <tr key={i}>
-                  <td><strong className="text-slate-800">{row.date}</strong></td>
+                  <td><strong className="text-slate-800 font-black">{row.date}</strong></td>
                   <td><span className="grade-chip">{row.subject}</span></td>
                   <td className="font-mono font-bold text-slate-500">{row.time}</td>
                   <td>
@@ -70,7 +76,10 @@ const ParentAttendance = () => {
                       <span className={`badge-pro ${
                         row.status === 'Present' ? 'badge-emerald' : 
                         row.status === 'Late' ? 'badge-amber' : 'badge-rose'
-                      }`}>{row.status}</span>
+                      }`}>
+                        {row.status === 'Present' ? <CheckCircle2 size={12} /> : row.status === 'Late' ? <Clock size={12} /> : <XCircle size={12} />}
+                        {row.status}
+                      </span>
                     </div>
                   </td>
                 </tr>

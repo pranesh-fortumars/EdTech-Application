@@ -5,13 +5,13 @@ import '../admin/AdminModules.css';
 
 const ParentReports = () => {
   return (
-    <div className="parent-reports professional-theme">
+    <div className="parent-reports">
       <header className="module-header flex justify-between items-end mb-12">
         <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
           <h1>Academic Performance</h1>
           <p>Multi-dimensional analysis of your child's learning journey.</p>
         </motion.div>
-        <button className="btn-primary-vibrant px-8 py-4 rounded-2xl flex items-center gap-3 font-bold shadow-xl">
+        <button className="btn-primary-vibrant">
           <Download size={20} /> Export Progress Transcript
         </button>
       </header>
@@ -20,9 +20,9 @@ const ParentReports = () => {
         <div className="main-stats">
           <div className="admin-card">
             <div className="flex justify-between items-center mb-10">
-              <h3 className="text-xl font-black text-slate-800 tracking-tight">Subject Mastery Index</h3>
-              <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm bg-emerald-50 px-3 py-1 rounded-full">
-                <TrendingUp size={16} />
+              <h3 className="text-xl font-bold text-slate-800 tracking-tight">Subject Mastery Index</h3>
+              <div className="badge-pro badge-emerald">
+                <TrendingUp size={14} />
                 +3.2% Overall Growth
               </div>
             </div>
@@ -45,7 +45,7 @@ const ParentReports = () => {
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${s.score}%` }}
-                      className={`h-full rounded-full bg-${s.color}-vibrant shadow-[0_0_15px_rgba(37,99,235,0.3)]`}
+                      className={`h-full rounded-full bg-${s.color}-vibrant shadow-lg`}
                     />
                   </div>
                 </div>
@@ -56,31 +56,34 @@ const ParentReports = () => {
 
         <aside className="achievements-sidebar">
           <div className="admin-card bg-purple-vibrant text-white mb-8">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
-                <Award size={24} className="text-white" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/30">
+                  <Award size={24} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="font-black text-lg">Top Achiever</h3>
+                  <p className="text-xs text-purple-100 font-bold">Science & Tech Cluster</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-black text-lg">Top Achiever</h3>
-                <p className="text-xs text-purple-100 font-bold">Science & Tech Cluster</p>
-              </div>
+              <p className="text-sm text-purple-50 leading-relaxed font-medium">
+                Ranked in the **Top 5%** of the institution for academic excellence in STEM subjects.
+              </p>
             </div>
-            <p className="text-sm text-purple-50 leading-relaxed font-medium">
-              Ranked in the **Top 5%** of the institution for academic excellence in STEM subjects.
-            </p>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
           </div>
 
           <div className="admin-card">
-            <h3 className="font-bold text-slate-800 mb-6">Learning Milestones</h3>
+            <h3 className="text-lg font-bold text-slate-800 mb-8">Learning Milestones</h3>
             <div className="space-y-4">
               {[
                 { title: 'Perfect Quiz Score', date: 'May 02', icon: Target, color: 'amber' },
                 { title: '100% Attendance Week', date: 'Apr 28', icon: CheckCircle2, color: 'emerald' },
                 { title: 'Creative Writing Excellence', date: 'Apr 25', icon: FileText, color: 'blue' }
               ].map((a, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                  <div className={`w-10 h-10 bg-${a.color}-100 text-${a.color}-600 rounded-xl flex items-center justify-center`}>
-                    <a.icon size={20} />
+                <div key={i} className="flex items-center gap-4 p-5 bg-slate-50/50 rounded-2xl border border-slate-100 hover:border-primary-light transition-all cursor-default">
+                  <div className={`w-12 h-12 bg-${a.color}-vibrant text-white rounded-xl flex items-center justify-center shadow-lg shadow-${a.color}-500/20`}>
+                    <a.icon size={22} />
                   </div>
                   <div>
                     <p className="text-sm font-bold text-slate-900">{a.title}</p>
