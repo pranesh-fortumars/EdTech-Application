@@ -11,7 +11,14 @@ const Navbar = ({ onMenuClick }) => {
   const { addNotification } = useNotificationStore();
   const navigate = useNavigate();
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);
+  const [showNotifications, setShowNotifications] = React.useState(false);
   const [isDark, setIsDark] = React.useState(false);
+
+  const alerts = [
+    { id: 1, title: 'Fee Payment Success', msg: 'Term 2 fees for STU-001 verified.', time: '2m ago', type: 'success' },
+    { id: 2, title: 'Exam Schedule', msg: 'Physics board exam moved to Hall B.', time: '1h ago', type: 'info' },
+    { id: 3, title: 'Security Alert', msg: 'Unusual login detected from Chennai.', time: '3h ago', type: 'warning' },
+  ];
 
   return (
     <nav className="navbar professional-theme">
@@ -60,16 +67,50 @@ const Navbar = ({ onMenuClick }) => {
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </motion.button>
 
-          <div className="notification-center">
+          <div className="notification-center" style={{ position: 'relative' }}>
             <motion.button 
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="icon-btn"
-              onClick={() => addNotification('You have 3 new institutional alerts', 'success')}
+              className={`icon-btn ${showNotifications ? 'active' : ''}`}
+              onClick={() => setShowNotifications(!showNotifications)}
             >
               <Bell size={18} />
               <span className="badge-pulse"></span>
             </motion.button>
+
+            <AnimatePresence>
+              {showNotifications && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 15, scale: 0.95 }}
+                  className="notification-dropdown card glass"
+                >
+                  <div className="dropdown-header">
+                    <strong>Institutional Alerts</strong>
+                    <span className="text-primary clickable" style={{ fontSize: '0.7rem' }}>Mark all as read</span>
+                  </div>
+                  <div className="alert-list">
+                    {alerts.map((alert) => (
+                      <div key={alert.id} className="alert-item clickable">
+                        <div className={`alert-indicator ${alert.type}`}></div>
+                        <div className="alert-content">
+                          <p className="alert-title">{alert.title}</p>
+                          <p className="alert-msg">{alert.msg}</p>
+                          <span className="alert-time">{alert.time}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <button className="view-all-btn" onClick={() => {
+                    setShowNotifications(false);
+                    addNotification('Redirecting to full alert history...');
+                  }}>
+                    View All Notifications
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 

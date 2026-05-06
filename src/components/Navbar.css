@@ -274,3 +274,105 @@
     height: 38px;
   }
 }
+
+/* Notification Dropdown Styles */
+.notification-dropdown {
+  position: absolute;
+  top: calc(100% + 15px);
+  right: -80px;
+  width: 320px;
+  padding: 0 !important;
+  overflow: hidden;
+  z-index: 110;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15) !important;
+}
+
+.notification-dropdown .dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background: rgba(248, 250, 252, 0.8);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.alert-list {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.alert-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--bg-secondary);
+  transition: all 0.2s;
+}
+
+.alert-item:hover {
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.alert-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.alert-indicator.success { background: var(--success); box-shadow: 0 0 8px var(--success); }
+.alert-indicator.info { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
+.alert-indicator.warning { background: var(--accent-amber); box-shadow: 0 0 8px var(--accent-amber); }
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+
+.alert-msg {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.alert-time {
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  font-weight: 700;
+  margin-top: 0.4rem;
+  display: block;
+}
+
+.view-all-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--bg-secondary);
+  border: none;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--primary);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.view-all-btn:hover {
+  background: #f1f5f9;
+}
+
+@media (max-width: 768px) {
+  .notification-dropdown {
+    position: fixed;
+    top: 80px;
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+  }
+}
