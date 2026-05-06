@@ -35,6 +35,7 @@ const ParentSupport = lazy(() => import('./modules/parent/ParentSupport'));
 const TransportTracker = lazy(() => import('./modules/parent/TransportTracker'));
 const HealthSafety = lazy(() => import('./modules/parent/HealthSafety'));
 const NoticeBoard = lazy(() => import('./modules/parent/NoticeBoard'));
+const ScholarshipMarket = lazy(() => import('./modules/finance/ScholarshipMarket'));
 
 
 // Mock components for other routes
@@ -98,6 +99,7 @@ const App = () => {
                     <Route path="/transport" element={<TransportTracker />} />
                     <Route path="/health-safety" element={<HealthSafety />} />
                     <Route path="/notices" element={<NoticeBoard />} />
+                    <Route path="/scholarships" element={<ScholarshipMarket />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
 
                   </Routes>

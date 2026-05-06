@@ -5,7 +5,7 @@ import {
   LayoutDashboard, BookOpen, Video, MessageSquare, Bot, BarChart3, Trophy, Settings,
   LogOut, Users, Shield, CreditCard, HelpCircle, ChevronRight, Target, Baby, Database,
   Server, ShieldCheck, UserPlus, ClipboardList, Briefcase, CalendarCheck, FileBarChart, X,
-  Bus, Megaphone
+  Bus, Megaphone, Award
 } from 'lucide-react';
 import useAuthStore from '../store/useAuthStore';
 import useNotificationStore from '../store/useNotificationStore';
@@ -44,6 +44,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     { icon: ShieldCheck, label: 'Health & Safety', path: '/health-safety', roles: ['parent'] },
     { icon: Megaphone, label: 'Notice Board', path: '/notices', roles: ['parent'] },
     { icon: CreditCard, label: 'Fee Portal', path: '/fees', roles: ['parent', 'admin'] },
+    { icon: Award, label: 'Scholarship Market', path: '/scholarships', roles: ['student', 'parent', 'admin'] },
     { icon: MessageSquare, label: 'Parent Support', path: '/parent-support', roles: ['parent'] },
 
   ];

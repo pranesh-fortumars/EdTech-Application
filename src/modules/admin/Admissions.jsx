@@ -1,85 +1,108 @@
-import React from 'react';
-import { UserPlus, Search, Filter, Mail, Phone, MoreHorizontal } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Users, UserPlus, FileSearch, CheckCircle, 
+  XCircle, Clock, Search, Filter, ShieldCheck, 
+  Sparkles, BrainCircuit, Scan, TrendingUp, AlertCircle
+} from 'lucide-react';
+import useNotificationStore from '../../store/useNotificationStore';
 import './AdminModules.css';
 
 const Admissions = () => {
+  const { addNotification } = useNotificationStore();
+  const [activeTab, setActiveTab] = useState('pipeline');
+  
   const applicants = [
-    { name: 'Siva Rama', grade: 'Grade 10', status: 'In Review', date: '2026-05-01', avatar: 'S' },
-    { name: 'Meera K.', grade: 'Grade 11', status: 'Awaiting Documents', date: '2026-04-28', avatar: 'M' },
-    { name: 'Rahul V.', grade: 'Grade 9', status: 'Interview Scheduled', date: '2026-05-04', avatar: 'R' },
+    { id: 'APP-2024-001', name: 'Siddharth R.', grade: '11th', fitScore: 92, ocrStatus: 'Verified', status: 'Screened', essaySentiment: 'Positive' },
+    { id: 'APP-2024-002', name: 'Ananya M.', grade: '9th', fitScore: 78, ocrStatus: 'Pending', status: 'Processing', essaySentiment: 'Neutral' },
+    { id: 'APP-2024-003', name: 'Rahul V.', grade: '12th', fitScore: 45, ocrStatus: 'Verified', status: 'Rejected', essaySentiment: 'Negative' },
   ];
 
   return (
     <div className="admissions-container professional-theme">
-      <div className="module-header flex justify-between items-end mb-12">
-        <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
-          <h1>Institutional Admissions</h1>
-          <p>Orchestrate student enrollments with high-fidelity tracking.</p>
-        </motion.div>
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="btn-primary-vibrant flex items-center gap-3 px-8 py-4 rounded-2xl shadow-xl font-bold"
+      <header className="module-header flex-between mb-8">
+        <div>
+          <h1>Admissions <span className="text-gradient">Intelligence Hub</span></h1>
+          <p>Automated screening, document OCR, and predictive candidate matching.</p>
+        </div>
+        <div className="flex gap-4">
+          <button className="btn-icon-vibrant" title="Run Batch AI Scan"><Scan size={20} /></button>
+          <button className="btn-primary-vibrant"><UserPlus size={18} /> New Application</button>
+        </div>
+      </header>
+
+      <div className="flex gap-4 mb-8">
+        <button 
+          className={`btn-sm ${activeTab === 'pipeline' ? 'btn-primary' : 'btn-outline'}`}
+          onClick={() => setActiveTab('pipeline')}
         >
-          <UserPlus size={20} /> New Application Portal
-        </motion.button>
+          Active Pipeline
+        </button>
+        <button 
+          className={`btn-sm ${activeTab === 'ai' ? 'btn-primary' : 'btn-outline'}`}
+          onClick={() => setActiveTab('ai')}
+        >
+          <Sparkles size={14} className="mr-2" /> AI Screening Lab
+        </button>
       </div>
 
       <div className="pro-grid-main">
-        <div className="main-feed">
-          <div className="admin-card overflow-hidden">
-            <div className="flex justify-between items-center mb-8">
-              <h3 className="text-xl font-black text-slate-800 tracking-tight">Active Application Queue</h3>
-              <div className="flex gap-4">
-                <div className="search-pill">
-                  <Search size={16} />
-                  <input type="text" placeholder="Search by name or grade..." />
-                </div>
-                <button className="btn-icon-vibrant"><Filter size={18} /></button>
+        <div className="main-content">
+          <div className="admin-card">
+            <div className="flex-between mb-6">
+              <h3 className="text-xl font-bold">Candidate Evaluation Matrix</h3>
+              <div className="search-pill">
+                <Search size={16} className="text-slate-400" />
+                <input type="text" placeholder="Search applicants..." />
               </div>
             </div>
+
             <div className="pro-table-wrapper">
               <table className="pro-table">
                 <thead>
                   <tr>
-                    <th>Applicant Profile</th>
-                    <th>Grade</th>
-                    <th>Application Date</th>
-                    <th>Status</th>
+                    <th>Application ID</th>
+                    <th>Candidate</th>
+                    <th>AI Fit Score</th>
+                    <th>OCR Status</th>
+                    <th>Sentiment</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {applicants.map((app, i) => (
-                    <motion.tr 
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                    >
-                      <td className="flex items-center gap-4">
-                        <div className="avatar-vibrant">{app.avatar}</div>
-                        <strong className="text-slate-900 text-lg">{app.name}</strong>
-                      </td>
-                      <td><span className="grade-chip">{app.grade}</span></td>
-                      <td className="text-sm font-bold text-slate-500">{app.date}</td>
+                  {applicants.map((app) => (
+                    <tr key={app.id}>
+                      <td className="text-mono font-bold">{app.id}</td>
                       <td>
-                        <span className={`badge-pro ${
-                          app.status === 'In Review' ? 'badge-blue' :
-                          app.status === 'Interview Scheduled' ? 'badge-purple' :
-                          'badge-amber'
-                        }`}>
-                          {app.status}
+                        <div className="font-bold">{app.name}</div>
+                        <div className="text-xs text-slate-400">Grade: {app.grade}</div>
+                      </td>
+                      <td>
+                        <div className="flex items-center gap-2">
+                          <div style={{ flex: 1, height: '6px', background: '#f1f5f9', borderRadius: '3px', width: '60px' }}>
+                            <div style={{ width: `${app.fitScore}%`, height: '100%', background: app.fitScore > 80 ? 'var(--success)' : app.fitScore > 50 ? 'var(--primary)' : 'var(--error)', borderRadius: '3px' }} />
+                          </div>
+                          <span className="font-black text-xs">{app.fitScore}%</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span className={`badge-pro ${app.ocrStatus === 'Verified' ? 'badge-emerald' : 'badge-amber'}`}>
+                          {app.ocrStatus === 'Verified' ? <ShieldCheck size={12} /> : <Clock size={12} />}
+                          {app.ocrStatus}
+                        </span>
+                      </td>
+                      <td>
+                        <span className={`text-xs font-bold ${app.essaySentiment === 'Positive' ? 'text-emerald' : app.essaySentiment === 'Negative' ? 'text-rose' : 'text-slate-400'}`}>
+                          {app.essaySentiment}
                         </span>
                       </td>
                       <td>
                         <div className="flex gap-2">
-                          <button className="btn-action-round"><Mail size={16} /></button>
-                          <button className="btn-action-round"><MoreHorizontal size={16} /></button>
+                          <button className="btn-icon-vibrant" onClick={() => addNotification(`Reviewing ${app.name}'s AI Profile`, 'info')}><FileSearch size={16} /></button>
+                          <button className="btn-icon-vibrant text-emerald"><CheckCircle size={16} /></button>
                         </div>
                       </td>
-                    </motion.tr>
+                    </tr>
                   ))}
                 </tbody>
               </table>
@@ -87,45 +110,51 @@ const Admissions = () => {
           </div>
         </div>
 
-        <aside className="stats-sidebar">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="admin-card bg-indigo-vibrant text-white mb-8"
-          >
-            <h3 className="font-black text-white/80 uppercase text-xs tracking-widest mb-6">Enrollment Velocity</h3>
-            <div className="flex items-end gap-3 mb-4">
-              <strong className="text-5xl font-black">482</strong>
-              <span className="text-emerald-300 font-bold mb-1">+12% vs LY</span>
+        <aside className="flex flex-col gap-6">
+          <div className="admin-card bg-indigo-vibrant text-white">
+            <div className="flex items-center gap-3 mb-4">
+              <BrainCircuit size={24} />
+              <h4 className="font-black m-0">Institutional Fit AI</h4>
             </div>
-            <div className="h-4 bg-white/20 rounded-full overflow-hidden mb-4">
-              <motion.div 
-                initial={{ width: 0 }}
-                animate={{ width: '75%' }}
-                className="h-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)]"
-              />
-            </div>
-            <p className="text-sm text-indigo-100 font-medium">
-              Achieved **75.4%** of institutional target. Final surge expected in late May.
+            <p className="text-sm opacity-90 leading-relaxed mb-6">
+              Our AI analyzes socio-academic history, extracurricular consistency, and essay tone to predict candidate success.
             </p>
-          </motion.div>
+            <div className="space-y-4">
+              <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
+                <span>Total Applications</span>
+                <span>482</span>
+              </div>
+              <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
+                <span>Avg. Fit Score</span>
+                <span>74%</span>
+              </div>
+              <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
+                <span>AI Rejected</span>
+                <span>124</span>
+              </div>
+            </div>
+          </div>
 
           <div className="admin-card">
-            <h3 className="font-bold text-slate-800 mb-6">Upcoming Interviews</h3>
+            <h4 className="font-bold mb-4">OCR Verification Queue</h4>
             <div className="space-y-4">
               {[
-                { name: 'Rahul V.', time: 'Today, 2:00 PM', color: 'purple' },
-                { name: 'Siva Rama', time: 'Tomorrow, 10:30 AM', color: 'blue' }
-              ].map((inv, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                  <div className={`w-2 h-12 bg-${inv.color}-500 rounded-full`} />
-                  <div>
-                    <p className="font-bold text-slate-900">{inv.name}</p>
-                    <p className="text-xs text-slate-500 font-bold">{inv.time}</p>
+                { label: 'Academic Transcripts', status: '84%', color: 'blue' },
+                { label: 'Identity Documents', status: '98%', color: 'emerald' },
+                { label: 'Extra-Curricular Certs', status: '45%', color: 'amber' }
+              ].map((ocr, i) => (
+                <div key={i}>
+                  <div className="flex justify-between text-xs mb-1 font-bold">
+                    <span>{ocr.label}</span>
+                    <span className={`text-${ocr.color}-600`}>{ocr.status}</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div style={{ width: ocr.status, height: '100%', background: `var(--${ocr.color})` }} />
                   </div>
                 </div>
               ))}
             </div>
+            <button className="btn-outline full-width mt-6 text-xs font-black">RE-SCAN ALL DOCUMENTS</button>
           </div>
         </aside>
       </div>
