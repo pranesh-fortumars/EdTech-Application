@@ -11,16 +11,15 @@
   border-right: 1px solid var(--border-color);
   z-index: 100;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateX(-100%); /* Hidden by default on ALL devices */
+  transform: translateX(-100%);
 }
 
-/* Show sidebar when open */
 .app-layout.sidebar-open .sidebar {
   transform: translateX(0);
 }
 
-
 .sidebar-logo {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -59,14 +58,22 @@
   color: #64748b;
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
-  letter-spacing: 0.5px;
 }
 
+/* Scrollable area for navigation */
 .sidebar-nav {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  overflow-y: auto;
+  margin: 0 -0.5rem;
+  padding: 0 0.5rem;
+  scrollbar-width: none;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-section-label {
@@ -89,6 +96,7 @@
   font-size: 0.9rem;
   transition: all 0.2s ease;
   position: relative;
+  text-decoration: none;
 }
 
 .nav-item:hover {
@@ -110,14 +118,23 @@
   font-weight: 800;
   padding: 0.1rem 0.35rem;
   border-radius: 10px;
-  text-transform: uppercase;
+}
+
+/* Bottom section fixed at the base */
+.sidebar-bottom-section {
+  flex-shrink: 0;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .sidebar-profile {
-  margin-top: auto;
-  padding: 1rem !important;
-  margin-bottom: 1.5rem;
-  cursor: pointer;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius-lg);
+  background: white;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
 }
 
 .profile-mini {
@@ -166,8 +183,6 @@
 .sidebar-footer {
   display: flex;
   justify-content: space-between;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
 }
 
 .nav-item-secondary {
@@ -179,6 +194,9 @@
   border-radius: var(--radius-md);
   color: var(--text-tertiary);
   transition: all 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .nav-item-secondary:hover {
@@ -201,7 +219,10 @@
 
 @media (max-width: 1024px) {
   .sidebar {
+    width: 280px;
+    max-width: 85vw;
     transform: translateX(-100%);
+    padding: 1.25rem;
   }
   
   .app-layout.sidebar-open .sidebar {
@@ -215,6 +236,10 @@
     justify-content: center;
     position: absolute;
     right: 0.5rem;
+    top: 0.5rem;
+  }
+
+  .sidebar-logo {
+    margin-bottom: 1.5rem;
   }
 }
-

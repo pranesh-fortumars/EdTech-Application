@@ -80,6 +80,7 @@ const Sidebar = ({ isOpen, onClose }) => {
               if (item.label === 'Aura AI') {
                 window.dispatchEvent(new CustomEvent('open-aura-ai'));
               }
+              if (window.innerWidth <= 1024) onClose();
             }}
           >
             <item.icon size={18} />
@@ -89,15 +90,17 @@ const Sidebar = ({ isOpen, onClose }) => {
         ))}
         
         <div className="nav-section-label mt-2">Support & Admin</div>
-        <NavLink to="/help" className="nav-item">
+        <NavLink to="/help" className="nav-item" onClick={() => window.innerWidth <= 1024 && onClose()}>
           <HelpCircle size={18} />
           <span>Help Center</span>
         </NavLink>
         <button 
           className="nav-item border-none bg-transparent w-full cursor-pointer"
+          style={{ textAlign: 'left' }}
           onClick={() => {
             window.dispatchEvent(new CustomEvent('open-aura-ai', { detail: { message: "I need technical support with my courses." } }));
             addNotification('Connecting to Aura AI Support...', 'info');
+            if (window.innerWidth <= 1024) onClose();
           }}
         >
           <MessageSquare size={18} className="text-primary" />
@@ -105,33 +108,35 @@ const Sidebar = ({ isOpen, onClose }) => {
         </button>
       </nav>
 
-      <div className="sidebar-profile card glass">
-        <div className="profile-mini">
-          <div className="avatar">
-            {user?.name?.charAt(0)}
-            <div className="status-online"></div>
+      <div className="sidebar-bottom-section">
+        <div className="sidebar-profile">
+          <div className="profile-mini">
+            <div className="avatar">
+              {user?.name?.charAt(0)}
+              <div className="status-online"></div>
+            </div>
+            <div className="info" style={{ overflow: 'hidden' }}>
+              <p style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name}</p>
+              <span>Pro Member</span>
+            </div>
+            <ChevronRight size={14} className="text-tertiary" style={{ marginLeft: 'auto' }} />
           </div>
-          <div className="info">
-            <p>{user?.name}</p>
-            <span>Pro Member</span>
-          </div>
-          <ChevronRight size={14} className="text-tertiary" />
         </div>
-      </div>
 
-      <div className="sidebar-footer">
-        <NavLink to="/settings" className="nav-item-secondary">
-          <Settings size={18} />
-        </NavLink>
-        <button 
-          className="nav-item-secondary logout-btn" 
-          onClick={() => {
-            logout();
-            window.location.href = '/login';
-          }}
-        >
-          <LogOut size={18} />
-        </button>
+        <div className="sidebar-footer">
+          <NavLink to="/settings" className="nav-item-secondary" onClick={() => window.innerWidth <= 1024 && onClose()}>
+            <Settings size={18} />
+          </NavLink>
+          <button 
+            className="nav-item-secondary logout-btn" 
+            onClick={() => {
+              logout();
+              window.location.href = '/login';
+            }}
+          >
+            <LogOut size={18} />
+          </button>
+        </div>
       </div>
     </aside>
   );
