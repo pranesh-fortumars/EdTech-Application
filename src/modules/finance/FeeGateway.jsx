@@ -58,11 +58,11 @@ const FeeGateway = () => {
             { label: 'Total Expected Revenue', value: '₹4.2M', icon: Building, color: 'blue' },
             { label: 'Revenue Collected', value: '₹3.1M', icon: CheckCircle2, color: 'emerald' },
             { label: 'Outstanding Dues', value: '₹1.1M', icon: AlertCircle, color: 'rose' },
-            { label: 'Scholarship Impact', value: '₹450k', icon: Award, color: 'indigo' }
+            { label: 'Scholarship Impact', value: '₹450k', icon: Award, color: 'amber' }
           ].map((stat, i) => (
             <div key={i} className="admin-card">
-              <div className={`bg-${stat.color}-vibrant`} style={{ width: '40px', height: '40px', borderRadius: '0.75rem', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
-                <stat.icon size={20} />
+              <div className={`bg-${stat.color}-vibrant`} style={{ width: '48px', height: '48px', borderRadius: '1rem', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem', padding: '0' }}>
+                <stat.icon size={24} style={{ display: 'block' }} />
               </div>
               <p className="text-slate-400 font-bold uppercase tracking-wider" style={{ fontSize: '0.65rem', margin: 0 }}>{stat.label}</p>
               <h3 className="text-2xl font-black text-slate-800" style={{ margin: '0.25rem 0' }}>{stat.value}</h3>
@@ -108,17 +108,17 @@ const FeeGateway = () => {
           </div>
 
           <aside>
-            <div className="admin-card bg-blue-vibrant text-white mb-6">
-              <h4 className="font-black mb-4">Collection Pulse</h4>
+            <div className="admin-card" style={{ background: '#f0f9ff', border: '1px solid #bae6fd', color: '#0369a1', marginBottom: '1.5rem' }}>
+              <h4 className="font-black mb-4" style={{ color: '#0c4a6e' }}>Collection Pulse</h4>
               <div style={{ position: 'relative', height: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                 <div style={{ width: '120px', height: '120px', borderRadius: '50%', border: '10px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                 <div style={{ width: '120px', height: '120px', borderRadius: '50%', border: '10px solid #e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ textAlign: 'center' }}>
-                      <span style={{ fontSize: '1.5rem', fontWeight: 900 }}>74%</span>
-                      <p style={{ fontSize: '0.6rem', margin: 0, opacity: 0.8 }}>COLLECTED</p>
+                      <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0369a1' }}>74%</span>
+                      <p style={{ fontSize: '0.6rem', margin: 0, opacity: 0.8, color: '#0369a1' }}>COLLECTED</p>
                     </div>
                  </div>
               </div>
-              <p className="text-xs opacity-90 mt-4">Current collection is **12% higher** compared to the same period last year.</p>
+              <p className="text-xs mt-4" style={{ color: '#0369a1', fontWeight: 600 }}>Current collection is 12% higher compared to the same period last year.</p>
             </div>
 
             <div className="admin-card">
