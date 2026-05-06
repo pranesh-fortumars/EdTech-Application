@@ -35,14 +35,35 @@
 
 /* Structured Enterprise Cards - Modernized */
 .admin-card {
-  background: var(--bg-primary);
+  background: white;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
   padding: 1.75rem;
-  box-shadow: var(--shadow-sm);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
+}
+
+.responsive-card-stack {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .responsive-card-stack {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+  }
+  
+  .responsive-card-stack > div:last-child {
+    text-align: left !important;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 1.5rem;
+  }
 }
 
 .admin-card:hover {
@@ -648,6 +669,65 @@
   
   .module-header h1 {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .admissions-container,
+  .institutional-finance-monitor,
+  .scholarship-container-pro {
+    padding: 1rem;
+    padding-top: 5.5rem;
+  }
+
+  .module-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .module-header .flex {
+    width: 100%;
+  }
+
+  .module-header button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .pro-grid-4 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .admin-card {
+    padding: 1.25rem;
+  }
+
+  .pro-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pro-table {
+    min-width: 700px; /* Ensure table data isn't squeezed */
+  }
+}
+
+@media (max-width: 480px) {
+  .module-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .avatar-vibrant {
+    width: 40px;
+    height: 40px;
+  }
+
+  .btn-primary-vibrant, 
+  .btn-executive-outline {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
   }
 }
 

@@ -242,9 +242,35 @@
   .navbar {
     width: 100%;
     padding: 0 1rem;
+    left: 0;
   }
   
-  .search-wrapper, .security-pulse {
+  .search-wrapper, 
+  .security-pulse,
+  .header-divider,
+  .profile-text {
     display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .navbar-right {
+    gap: 0.5rem;
+  }
+
+  .nav-avatar {
+    width: 38px;
+    height: 38px;
   }
 }

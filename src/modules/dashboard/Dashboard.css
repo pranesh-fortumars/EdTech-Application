@@ -554,5 +554,72 @@
 
 .mt-2 { margin-top: 2rem; }
 
+@media (max-width: 1024px) {
+  .dashboard-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
+@media (max-width: 768px) {
+  .professional-theme {
+    padding: 1rem;
+    padding-top: 5rem;
+  }
 
+  .header-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .action-group {
+    width: 100%;
+  }
+
+  .action-group button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .dual-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+  }
+
+  .pro-table {
+    min-width: 600px;
+  }
+
+  .welcome-text h1 {
+    font-size: 1.75rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-text h1 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-item {
+    padding: 1.25rem;
+  }
+}

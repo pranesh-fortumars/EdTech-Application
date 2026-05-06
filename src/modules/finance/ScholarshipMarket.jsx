@@ -99,20 +99,17 @@ const ScholarshipMarket = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {scholarships.map((sch) => (
                 <motion.div 
-                  key={sch.id}
+                  key={sch.id} 
+                  className="admin-card"
                   whileHover={{ y: -5 }}
                   style={{ 
-                    padding: '1.5rem', 
-                    borderRadius: '1.25rem', 
-                    border: '1px solid var(--border-color)', 
-                    background: 'white',
-                    borderLeft: (isStudent && sch.eligible) ? '4px solid var(--success)' : '4px solid var(--border-color)',
+                    borderLeft: `6px solid ${(isStudent && sch.eligible) ? '#10b981' : '#cbd5e1'}`,
                     transition: 'all 0.3s'
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <div style={{ display: 'flex', gap: '1.5rem' }}>
-                      <div style={{ width: '64px', height: '64px', background: '#f8fafc', borderRadius: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div className="responsive-card-stack">
+                    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                      <div style={{ width: '64px', height: '64px', background: '#f8fafc', borderRadius: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '1.5rem' }}>
                         <Gift size={28} className={(isStudent && sch.eligible) ? 'text-emerald' : 'text-slate-300'} />
                       </div>
                       <div>
