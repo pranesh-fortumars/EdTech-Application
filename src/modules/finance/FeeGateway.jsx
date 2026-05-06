@@ -8,15 +8,27 @@ import {
 import useNotificationStore from '../../store/useNotificationStore';
 import './FeeGateway.css';
 
+import useAuthStore from '../../store/useAuthStore';
+import '../admin/AdminModules.css';
+
 const bills = [
   { id: 'INV-2026-004', title: 'Term 2 Tuition Fee', amount: 45000, due: 'May 15, 2026', status: 'pending' },
   { id: 'INV-2026-003', title: 'Lab & Infrastructure Fee', amount: 5000, due: 'Paid', status: 'paid' },
 ];
 
+const allStudentFees = [
+  { id: 'STU-001', name: 'Arun Kumar', grade: '12-A', total: 50000, paid: 45000, status: 'partial' },
+  { id: 'STU-002', name: 'Meena R.', grade: '11-B', total: 50000, paid: 50000, status: 'paid' },
+  { id: 'STU-003', name: 'Siddharth V.', grade: '12-A', total: 50000, paid: 0, status: 'pending' },
+  { id: 'STU-004', name: 'Ananya S.', grade: '10-C', total: 50000, paid: 50000, status: 'paid' },
+];
+
 const FeeGateway = () => {
+  const { user } = useAuthStore();
   const { addNotification } = useNotificationStore();
   const [selectedBill, setSelectedBill] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const isAdmin = user?.role === 'admin';
 
   const handlePayment = () => {
     setIsProcessing(true);
@@ -26,6 +38,114 @@ const FeeGateway = () => {
       addNotification('Payment successful! Transaction ID: TXN_992834', 'success');
     }, 2500);
   };
+
+  if (isAdmin) {
+    return (
+      <div className="institutional-finance-monitor" style={{ padding: '2rem', background: 'var(--bg-secondary)', minHeight: '100vh', paddingTop: '6rem' }}>
+        <header className="module-header flex-between mb-12">
+          <div>
+            <h1>Institutional <span className="text-gradient">Financial Monitor</span></h1>
+            <p>Macro-scale oversight of revenue collection and scholarship disbursement.</p>
+          </div>
+          <div className="flex gap-4">
+            <button className="btn-icon-vibrant"><Download size={20} /></button>
+            <button className="btn-primary-vibrant"><CreditCard size={18} /> Initiate Batch Billing</button>
+          </div>
+        </header>
+
+        <div className="pro-grid-4 mb-12">
+          {[
+            { label: 'Total Expected Revenue', value: '₹4.2M', icon: Building, color: 'blue' },
+            { label: 'Revenue Collected', value: '₹3.1M', icon: CheckCircle2, color: 'emerald' },
+            { label: 'Outstanding Dues', value: '₹1.1M', icon: AlertCircle, color: 'rose' },
+            { label: 'Scholarship Impact', value: '₹450k', icon: Award, color: 'indigo' }
+          ].map((stat, i) => (
+            <div key={i} className="admin-card">
+              <div className={`bg-${stat.color}-vibrant`} style={{ width: '40px', height: '40px', borderRadius: '0.75rem', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
+                <stat.icon size={20} />
+              </div>
+              <p className="text-slate-400 font-bold uppercase tracking-wider" style={{ fontSize: '0.65rem', margin: 0 }}>{stat.label}</p>
+              <h3 className="text-2xl font-black text-slate-800" style={{ margin: '0.25rem 0' }}>{stat.value}</h3>
+            </div>
+          ))}
+        </div>
+
+        <div className="pro-grid-main">
+          <div className="main-content">
+            <div className="admin-card">
+              <h3 className="text-xl font-bold mb-8">Student Financial Ledger</h3>
+              <div className="pro-table-wrapper">
+                <table className="pro-table">
+                  <thead>
+                    <tr>
+                      <th>Student ID</th>
+                      <th>Full Name</th>
+                      <th>Grade</th>
+                      <th>Total Due</th>
+                      <th>Paid Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allStudentFees.map((stu) => (
+                      <tr key={stu.id}>
+                        <td className="text-mono font-bold">{stu.id}</td>
+                        <td className="font-bold">{stu.name}</td>
+                        <td>{stu.grade}</td>
+                        <td>₹{stu.total.toLocaleString()}</td>
+                        <td className="text-emerald font-bold">₹{stu.paid.toLocaleString()}</td>
+                        <td>
+                          <span className={`badge-pro ${stu.status === 'paid' ? 'badge-emerald' : stu.status === 'partial' ? 'badge-amber' : stu.status === 'rose'}`}>
+                            {stu.status.toUpperCase()}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <aside>
+            <div className="admin-card bg-blue-vibrant text-white mb-6">
+              <h4 className="font-black mb-4">Collection Pulse</h4>
+              <div style={{ position: 'relative', height: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                 <div style={{ width: '120px', height: '120px', borderRadius: '50%', border: '10px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <span style={{ fontSize: '1.5rem', fontWeight: 900 }}>74%</span>
+                      <p style={{ fontSize: '0.6rem', margin: 0, opacity: 0.8 }}>COLLECTED</p>
+                    </div>
+                 </div>
+              </div>
+              <p className="text-xs opacity-90 mt-4">Current collection is **12% higher** compared to the same period last year.</p>
+            </div>
+
+            <div className="admin-card">
+              <h4 className="font-bold mb-6">Recent Transactions</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                {[
+                  { user: 'Meena R.', msg: 'Paid Term 2 Fee', amount: '₹45,000', time: '10m ago' },
+                  { user: 'Ananya S.', msg: 'Lab Fee Credit', amount: '₹5,000', time: '1h ago' }
+                ].map((txn, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div>
+                      <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: 800 }}>{txn.user}</p>
+                      <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{txn.msg}</p>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: 900, color: 'var(--success)' }}>{txn.amount}</p>
+                      <span className="text-slate-400 font-bold" style={{ fontSize: '0.65rem' }}>{txn.time}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fee-gateway-container professional-theme">

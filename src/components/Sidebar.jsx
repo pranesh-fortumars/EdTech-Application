@@ -37,7 +37,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     { icon: Database, label: 'Asset Tracking', path: '/assets', roles: ['admin'] },
     
     // Shared / Parent
-    { icon: Baby, label: 'Parent Portal', path: '/parent', roles: ['parent', 'admin'] },
+    { icon: Baby, label: 'Parent Portal', path: '/parent', roles: ['parent'] },
     { icon: CalendarCheck, label: 'Attendance Monitor', path: '/parent-attendance', roles: ['parent'] },
     { icon: BarChart3, label: 'Performance Report', path: '/parent-reports', roles: ['parent'] },
     { icon: Bus, label: 'Transport Tracker', path: '/transport', roles: ['parent'] },
