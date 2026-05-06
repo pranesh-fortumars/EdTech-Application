@@ -14,7 +14,7 @@ const scholarships = [
     id: 1, 
     title: 'Intellectual Pioneer Grant', 
     sponsor: 'FutureTech Corp', 
-    amount: 1500, 
+    amount: 15000, 
     criteria: 'Master of Calculus Badge', 
     eligible: true,
     type: 'Alumni Sponsored'
@@ -23,7 +23,7 @@ const scholarships = [
     id: 2, 
     title: 'Community Leader Award', 
     sponsor: 'Class of 1998', 
-    amount: 800, 
+    amount: 8500, 
     criteria: 'Top Contributor Badge', 
     eligible: true,
     type: 'Corporate Grant'
@@ -32,7 +32,7 @@ const scholarships = [
     id: 3, 
     title: 'Quantum Merit Scholarship', 
     sponsor: 'Nexus Labs', 
-    amount: 2500, 
+    amount: 25000, 
     criteria: 'Perfect Week Streak (5x)', 
     eligible: false,
     type: 'Institutional'
@@ -48,9 +48,9 @@ const ScholarshipMarket = () => {
 
   const stats = [
     { label: 'Active Sponsors', value: '42', icon: Building2, color: 'blue', roles: ['admin', 'parent'] },
-    { label: 'Total Funds Disbursed', value: '$124.5k', icon: Globe, color: 'emerald', roles: ['admin', 'parent', 'student'] },
+    { label: 'Total Funds Disbursed', value: '₹1.2Cr', icon: Globe, color: 'emerald', roles: ['admin', 'parent', 'student'] },
     { label: 'Eligible Awards', value: '08', icon: Trophy, color: 'amber', roles: ['student', 'admin'] },
-    { label: 'Applied Credits', value: '$1.2k', icon: Award, color: 'blue', roles: ['parent', 'student'] },
+    { label: 'Applied Credits', value: '₹12k', icon: Award, color: 'blue', roles: ['parent', 'student'] },
     { label: 'Pending Approvals', value: '14', icon: Check, color: 'rose', roles: ['admin'] }
   ].filter(s => s.roles.includes(user?.role));
 
@@ -128,14 +128,14 @@ const ScholarshipMarket = () => {
                       </div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <h3 className="text-2xl font-black text-slate-800" style={{ margin: 0 }}>${sch.amount}</h3>
+                      <h3 className="text-2xl font-black text-slate-800" style={{ margin: 0 }}>₹{sch.amount.toLocaleString()}</h3>
                       <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Institutional Credit</p>
                       {isStudent && (
                         sch.eligible ? (
                           <button 
                             className="btn-primary-vibrant mt-4" 
                             style={{ padding: '0.6rem 1.25rem', fontSize: '0.8rem', background: '#059669', boxShadow: 'none' }}
-                            onClick={() => addNotification(`Grant of $${sch.amount} requested!`, 'success')}
+                            onClick={() => addNotification(`Grant of ₹${sch.amount.toLocaleString()} requested!`, 'success')}
                           >
                             REDEEM NOW
                           </button>
