@@ -6,8 +6,10 @@ import './AITutor.css';
 const AITutor = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [auraMode, setAuraMode] = useState('Empathetic'); // Empathetic, Analytical, Creative
+  const [credits, setCredits] = useState(1240);
   const [messages, setMessages] = useState([
-    { role: 'ai', content: 'Vanakkam Arun! I\'m Aura, your AI mentor. How can I help you with your subjects today?' }
+    { role: 'ai', content: "Vanakkam Arun! I'm Aura, your holographic AI mentor. My synaptic processors are synchronized with your academic record. How shall we accelerate your learning today?" }
   ]);
   const [input, setInput] = useState('');
   const chatEndRef = useRef(null);
@@ -81,30 +83,33 @@ const AITutor = () => {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 100, opacity: 0, scale: 0.9 }}
           >
-            <div className="chat-header">
+            <div className="chat-header holographic-header">
               <div className="header-info">
-                <div className="ai-avatar flex-center">
+                <div className="ai-avatar-glow flex-center">
                   <Sparkles size={16} />
                 </div>
                 <div>
-                  <h4>Aura AI</h4>
+                  <h4>Aura AI <span className="v-tag">v2.4</span></h4>
                   <div className="status-row">
-                    <span className="status">Online</span>
-                    <div className="emotion-indicator" title="Emotional Resonance: Focused">
-                      <div className="dot pulse-emerald"></div>
-                      <span>Empathetic Mode</span>
+                    <div className="aura-credits-mini" title="Your Aura Credits Balance">
+                      <Zap size={10} /> {credits}
+                    </div>
+                    <div className="personality-toggle" onClick={() => setAuraMode(auraMode === 'Empathetic' ? 'Analytical' : 'Empathetic')}>
+                      <div className={`dot ${auraMode === 'Empathetic' ? 'pulse-emerald' : 'pulse-indigo'}`}></div>
+                      <span>{auraMode} Mode</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="header-actions">
-                <button onClick={() => setIsMinimized(!isMinimized)}>
-                  {isMinimized ? <Maximize2 size={18} /> : <Minimize2 size={18} />}
+                <button onClick={() => setIsMinimized(!isMinimized)} className="icon-action">
+                  {isMinimized ? <Maximize2 size={16} /> : <Minimize2 size={16} />}
                 </button>
-                <button onClick={() => setIsOpen(false)}>
-                  <X size={18} />
+                <button onClick={() => setIsOpen(false)} className="icon-action">
+                  <X size={16} />
                 </button>
               </div>
+              <div className="hologram-scanline"></div>
             </div>
 
             {!isMinimized && (
