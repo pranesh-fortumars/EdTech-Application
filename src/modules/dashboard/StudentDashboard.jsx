@@ -39,8 +39,8 @@ const StudentDashboard = () => {
       <header className="dashboard-header">
         <div className="header-main">
           <div className="welcome-text">
-            <span className="breadcrumb">Student Portal • {user.institution.split(',')[0]}</span>
-            <h1>Vanakkam, <span className="text-primary">{user.name.split(' ')[0]}!</span> 👋</h1>
+            <span className="breadcrumb">Student Portal • {user?.institution?.split(',')[0] || 'Institution'}</span>
+            <h1>Vanakkam, <span className="text-primary">{user?.name?.split(' ')[0] || 'User'}!</span> 👋</h1>
             <p>Class 12-A • Academic Streak: 5 Days</p>
           </div>
           <div className="action-group">

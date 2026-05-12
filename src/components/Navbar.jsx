@@ -119,7 +119,7 @@ const Navbar = ({ onMenuClick }) => {
         <div className="nav-profile" onClick={() => setShowProfileMenu(!showProfileMenu)}>
           <div className="profile-text">
             <span className="name">{user?.name}</span>
-            <span className="inst">{user?.institution.split(',')[0]}</span>
+            <span className="inst">{user?.institution?.split(',')[0] || 'Institution'}</span>
           </div>
           <motion.img 
             whileHover={{ scale: 1.1 }}
