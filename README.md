@@ -25,20 +25,48 @@ AuraEd is a high-fidelity, professional EdTech platform designed for state-of-th
 
 ---
 
+## 🏗️ Architecture
+
+AuraEd employs a scalable, modular architecture based on feature slicing:
+
+*   **Modular Monolith**: Codebase is split into domain-specific modules (`admin`, `faculty`, `ai`, `finance`, `gamification`, etc.) inside `src/modules/`. This guarantees high cohesion and low coupling.
+*   **Global Layout & Routing**: Handled centrally via `react-router-dom` incorporating an immersive `Sidebar` and `Navbar` with contextual intelligence.
+*   **State Management (Zustand)**: Uses lightweight, decentralized stores for session data (Auth), asynchronous UI states, and global notifications without boilerplate.
+*   **UI Components**: `src/components/` holds atomic, reusable elements like `StatsCard`, layout wrappers, and the `ToastContainer`.
+
+---
+
 ## 🎨 Design System
 
-AuraEd uses a **Professional Enterprise Theme** characterized by:
-*   **Primary Palette**: Deep Sea Blue & Cyan for core navigation.
-*   **Functional Categories**: Category-based coloring (Emerald for Finance, Amber for Assets, Violet for AI, Rose for Calendars).
-*   **Micro-Animations**: Powered by `Framer Motion` for a premium, reactive user experience.
-*   **Global Interactivity**: Standardized notification system (Toasts) for all institutional actions.
+AuraEd utilizes a **Professional Enterprise Theme** prioritizing clarity, engagement, and data legibility:
+
+*   **Primary Palette**: Deep Sea Blue & Cyan for core navigation and interactive states, conveying trust and technological edge.
+*   **Functional Colors**: 
+    *   🟢 *Emerald*: Financial metrics & successes.
+    *   🟡 *Amber*: Asset tracking & warnings.
+    *   🟣 *Violet*: AI insights & predictive data.
+    *   🔴 *Rose*: Calendars & alerts.
+*   **Typography**: Clean sans-serif typesets optimized for data-dense dashboards.
+*   **Glassmorphism**: Subtle transluscent surfaces and deep shadows to establish a hierarchy without visual clutter.
+
+---
+
+## ✨ Animations & Micro-Interactions
+
+Every interaction in AuraEd feels alive, powered by **Framer Motion**:
+
+*   **Page Transitions**: Smooth fade-in and slide-up animations as users navigate between modules (e.g., from Dashboard to Analytics).
+*   **Staggered Children**: Data grids, lists, and statistical cards cascade onto the screen sequentially for a premium loading experience.
+*   **Hover Physics**: Interactive elements (buttons, cards, sidebar items) feature spring-based hover scaling and subtle color shifts.
+*   **Layout Animations**: Seamless reflowing of DOM elements when items are added or removed (e.g., dismissing a notification, expanding a panel).
+*   **Data Visualizations**: Recharts integration with custom entry animations that make financial and predictive graphs "draw" themselves.
 
 ---
 
 ## 💻 Technology Stack
 
 *   **Core**: React 19 + Vite
-*   **State Management**: Zustand (Auth, Data, Notifications)
+*   **State Management**: Zustand
 *   **Styling**: Vanilla CSS (Enterprise Tokens)
 *   **Animations**: Framer Motion
 *   **Visualization**: Recharts
