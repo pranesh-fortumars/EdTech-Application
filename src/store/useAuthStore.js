@@ -1,51 +1,71 @@
 import { create } from 'zustand';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import { auth, db } from '../firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const useAuthStore = create((set) => ({
-  user: {
-    id: '1',
-    name: 'Arun Kumar',
-    email: 'arun.k@auraed.in',
-    role: 'student', // 'student', 'teacher', 'admin'
-    institution: 'Government Higher Secondary School, Madurai',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Arun',
-    xp: 1250,
-    level: 12,
-    badges: ['Top Scorer', 'Science Whiz', 'Punctual Learner']
-  },
-  isAuthenticated: false, // Start as logged out for login flow testing
-  isLoading: false,
+  user: null,
+  isAuthenticated: false,
+  isLoading: true, // Start true while checking auth state
   
-  login: (credentials) => {
-    set({ isLoading: true });
-    // Simulate API call and role assignment
-    setTimeout(() => {
-      let role = 'student';
-      let name = 'Arun Kumar';
-      if (credentials.email.includes('teacher')) {
-        role = 'teacher';
-        name = 'Sangeetha Pandian';
-      } else if (credentials.email.includes('admin')) {
-        role = 'admin';
-        name = 'Rajeshwaran S.';
-      } else if (credentials.email.includes('parent')) {
-        role = 'parent';
-        name = 'Muthu Selvan (Parent)';
-      }
-      
-      set({ 
-        isAuthenticated: true, 
-        isLoading: false,
-        user: {
-          ...useAuthStore.getState().user,
-          name,
-          role,
-          email: credentials.email
+  initializeAuth: () => {
+    onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        // Fetch user profile from Firestore
+        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+        if (userDoc.exists()) {
+          set({ 
+            user: { id: firebaseUser.uid, ...userDoc.data(), email: firebaseUser.email }, 
+            isAuthenticated: true,
+            isLoading: false
+          });
+        } else {
+          // Default fallback for new accounts
+          const defaultUser = {
+            name: firebaseUser.email.split('@')[0],
+            role: 'student',
+            institution: 'Government Higher Secondary School',
+            avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${firebaseUser.uid}`,
+            xp: 0,
+            level: 1,
+            badges: []
+          };
+          await setDoc(doc(db, 'users', firebaseUser.uid), defaultUser);
+          set({
+            user: { id: firebaseUser.uid, ...defaultUser, email: firebaseUser.email },
+            isAuthenticated: true,
+            isLoading: false
+          });
         }
-      });
-    }, 1500);
+      } else {
+        set({ user: null, isAuthenticated: false, isLoading: false });
+      }
+    });
+  },
+
+  login: async (credentials) => {
+    set({ isLoading: true });
+    try {
+      // In a real app we need passwords. For this mock UI we might just use a standard password.
+      const password = credentials.password || 'password123';
+      await signInWithEmailAndPassword(auth, credentials.email, password);
+      // The onAuthStateChanged listener will handle setting the user state
+    } catch (error) {
+      console.error("Login failed", error);
+      set({ isLoading: false });
+      throw error;
+    }
   },
   
-  logout: () => set({ user: null, isAuthenticated: false }),
+  logout: async () => {
+    set({ isLoading: true });
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Logout failed", error);
+      set({ isLoading: false });
+    }
+  },
   
   updateUser: (newData) => set((state) => ({
     user: { ...state.user, ...newData }

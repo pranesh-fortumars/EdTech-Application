@@ -1,8 +1,10 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import useAuthStore from './store/useAuthStore';
+import useDataStore from './store/useDataStore';
 import Login from './modules/auth/Login';
+import { seedDatabase } from './seedData';
 
 // Lazy load modules for performance
 const StudentDashboard = lazy(() => import('./modules/dashboard/StudentDashboard'));
@@ -47,7 +49,20 @@ const Placeholder = ({ title }) => (
 );
 
 const App = () => {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user, initializeAuth, isLoading } = useAuthStore();
+  const { fetchInitialData } = useDataStore();
+
+  useEffect(() => {
+    initializeAuth();
+    fetchInitialData();
+    
+    // To seed the database with mock data, uncomment the line below, refresh the page once, then comment it again.
+    // seedDatabase();
+  }, []);
+
+  if (isLoading) {
+    return <div className="flex-center" style={{ height: '100vh', background: 'white' }}>Loading AuraEd Secure Environment...</div>;
+  }
 
   return (
     <Router>
