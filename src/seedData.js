@@ -1,5 +1,5 @@
 import { collection, doc, setDoc } from 'firebase/firestore';
-import { db } from './firebase';
+import { db } from './firebase.js';
 
 const mockData = {
   faculty: [
